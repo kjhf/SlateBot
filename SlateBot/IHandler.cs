@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SlateBot
 {
-  class Program
+  /// <summary>
+  /// A handler.
+  /// </summary>
+  interface IHandler
   {
-    static void Main(string[] args)
-    {
-    }
+    void Initialise();
   }
 }

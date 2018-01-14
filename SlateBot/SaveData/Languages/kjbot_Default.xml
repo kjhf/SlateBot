@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- A channel -->
+<!-- A Discord channel -->
+<string name="AChannel">"a channel"</string>
+
+<!-- Pokémon type matchup -->
+<!-- Pokemon type matchup -->
+<string name="Against">"against"</string>
+
+<!-- And -->
+<!-- General use -->
+<string name="And">"and"</string>
+
+<!-- Pokémon type matchup -->
+<!-- Pokémon type matchup -->
+<string name="Attacking">"Attacking"</string>
+
+<!-- Average statistic -->
+<!-- Rolling dice statistics -->
+<string name="Average">"Average"</string>
+
+<!-- Head of a coin -->
+<!-- Flipping a coin landing on head -->
+<string name="CoinHead">"Head"</string>
+
+<!-- Tail of a coin -->
+<!-- Flipping a coin landing on tail -->
+<string name="CoinTail">"Tail"</string>
+
+<!-- General use; Mastermind -->
+<string name="Congratulations">"Congratulations!"</string>
+
+<!-- Mastermind contains -->
+<!-- General use; Mastermind -->
+<string name="Contains">"contains"</string>
+
+<!-- 1 correct colour -->
+<!-- A single correct colour in Mastermind -->
+<string name="CorrectColour">"correct colour"</string>
+
+<!-- Multiple correct colours -->
+<!-- Multiple correct colours in Mastermind -->
+<string name="CorrectColours">"correct colours"</string>
+
+<!-- Pokemon type matchup -->
+<string name="DamageTakenFrom">"damage taken from"</string>
+
+<!-- Pokemon type matchup -->
+<string name="Defending">"Defending"</string>
+
+<!-- Command is restricted to the bot owner only -->
+<!-- Denial of a command as it is restricted to the bot owner only -->
+<string name="Error_BotOwnerOnly">"Bot owner only"</string>
+
+<!-- Bot attempted to do something, but it threw an exception. -->
+<!-- A command was processed, but caused an exception while handling the outbound message. This could indicate a programming flaw with the "Oops" handling, or unstable connection, or the message that kjbot would otherwise post is too large. -->
+<string name="Error_CantDoThat">"Oak's words echoed... %username%, there's a time and place for everything, but not now."</string>
+
+<!-- Incorrect command parameter -->
+<!-- The command input from the user is malformed -->
+<string name="Error_IncorrectParameter">"Incorrect parameter"</string>
+
+<!-- For Mastermind -->
+<!-- The guess for Mastermind contains an invalid colour -->
+<string name="Error_InvalidColourGuessed">"Invalid colour guessed"</string>
+
+<!-- No results error -->
+<!-- Results for a query contained no results, e.g. for YouTube -->
+<string name="Error_NoResults">"No results"</string>
+
+<!-- Error loading a file from URL -->
+<!-- The link or path given is not a file or cannot be processed -->
+<string name="Error_NotAFile">"The file is too big or the URL is not a file"</string>
+
+<!-- Unexpected error -->
+<!-- A command caused an exception while being processed. This usually indicates a flaw in IncorrectParameter handling. -->
+<string name="Error_Oops">"kjbot is confused! It hurt itself in its confusion!"</string>
+<string name="Error_PokemonNotFound">"The Pokédex has no entry for"</string>
+
+<!-- Server not found error -->
+<!-- The bot could not find the server for the command. May indicate PM or unstable connection. -->
+<string name="Error_ServerNotFound">"The server was not found"</string>
+
+<!-- Command is restricted to the server owner only -->
+<!-- The command is restricted to the server owner only. -->
+<string name="Error_ServerOwnerOnly">"Server owner only"</string>
+
+<!-- Unknown Minecraft recipe -->
+<!-- The recipe specified was not found. e.g. for Minecraft and TF2. -->
+<string name="Error_UnknownRecipe">"Could not find a recipe for"</string>
+
+<!-- Splatfest location -->
+<!-- Splatfest location
+ -->
+<string name="EuropeAndOceania">"Europe and Oceania"</string>
+
+<!-- Flipped a coin -->
+<!-- Flipped a coin -->
+<string name="Flipped">"Flipped"</string>
+
+<!-- Choose command -->
+<string name="IgnoredOr">"I have ignored 'or'"</string>
+
+<!-- 1 incorrect colour -->
+<!-- A single incorrect colour in Mastermind -->
+<string name="IncorrectColour">"incorrect colour"</string>
+
+<!-- Multiple incorrect colours -->
+<!-- Multiple incorrect colours in Mastermind -->
+<string name="IncorrectColours">"incorrect colours"</string>
+
+<!-- Splatfest location -->
+<!-- Splatfest location -->
+<string name="Japan">"Japan"</string>
+
+<!-- Language -->
+<!-- General use -->
+<string name="Language">"Language"</string>
+
+<!-- Time -->
+<!-- Splatoon rotation time heading -->
+<string name="Later">"Later"</string>
+
+<!-- For Mastermind -->
+<string name="MastermindLostTrivial">"I guess you don't like this game. Or perhaps you just aren't very bright."</string>
+
+<!-- For Mastermind -->
+<string name="MastermindSorryYouLost">"Sorry, you lost."</string>
+
+<!-- For Mastermind -->
+<string name="Mastermind_ImpossibleWin">"You truly are a Mastermind!"</string>
+
+<!-- For Mastermind -->
+<string name="Mastermind_Welcome_1">"%difficulty% mode: I am thinking of a **%codelength%-colour** code made from: %codecolours%. Each colour may appear more than once or not at all. You, %username%, have %turns% turns to crack the code!"</string>
+
+<!-- For Mastermind -->
+<string name="Mastermind_Welcome_2">"To play, prefix your response with %commandsymbol% and use the first letter of each colour (%codeletters%) you wish to guess. For example, if you want to guess %examplecodecolours%, send %commandsymbol%%examplecodeletters%."</string>
+
+<!-- For Mastermind -->
+<string name="Mastermind_Win">"Congratulations! You beat %difficulty% mode in %turns% turns!"</string>
+
+<!-- 1 misplaced colour -->
+<string name="MisplacedColour">"misplaced colour"</string>
+
+<!-- Multiple misplaced colours -->
+<string name="MisplacedColours">"misplaced colours"</string>
+
+<!-- Time -->
+<!-- Splatoon rotation time header -->
+<string name="Next">"Next"</string>
+
+<!-- No response -->
+<!-- General use -->
+<string name="No">"No"</string>
+<string name="NopeTryAgain">"Nope, try again"</string>
+
+<!-- Splatfest location -->
+<!-- Splatfest location -->
+<string name="NorthAmerica">"North America"</string>
+
+<!-- Time -->
+<!-- Splatoon rotation time header -->
+<string name="Now">"Now"</string>
+
+<!-- Time -->
+<!-- Splatoon rotation time header -->
+<string name="Past">"Past"</string>
+
+<!-- Wait pls -->
+<!-- The bot is working to complete the task, please wait for this to be done -->
+<!-- Fuzzy -->
+<string name="PleaseWait_0">"Please wait ..."</string>
+
+<!-- Rolled a die -->
+<!-- Rolled a dice -->
+<string name="Rolled">"Rolled"</string>
+
+<!-- Splatfest name -->
+<!-- Splatoon's Splatfest event -->
+<string name="Splatfest">"Splatfest"</string>
+<string name="Splatoon_Mode_PrivateBattle">":lock: Private Battle"</string>
+<string name="Splatoon_Mode_Rainmaker">":umbrella: Rainmaker"</string>
+<string name="Splatoon_Mode_SplatZones">":white_square_button: Splat Zones"</string>
+<string name="Splatoon_Mode_SquadBattle">":trophy: Ranked Battle"</string>
+<string name="Splatoon_Mode_TowerControl">":japanese_castle: Tower Control"</string>
+<string name="Splatoon_Mode_TurfWars">":stadium: Turf Wars"</string>
+<string name="Splatoon_Stage_AnchoVGames">"Ancho-V Games"</string>
+<string name="Splatoon_Stage_ArowanaMall">"Arowana Mall"</string>
+<string name="Splatoon_Stage_BlackbellySkatepark">"Blackbelly Skatepark"</string>
+<string name="Splatoon_Stage_BluefinDepot">"Bluefin Depot"</string>
+<string name="Splatoon_Stage_CampTriggerfish">"Camp Triggerfish"</string>
+<string name="Splatoon_Stage_FlounderHeights">"Flounder Heights"</string>
+<string name="Splatoon_Stage_HammerheadBridge">"Hammerhead Bridge"</string>
+<string name="Splatoon_Stage_KelpDome">"Kelp Dome"</string>
+<string name="Splatoon_Stage_MahiMahiResort">"Mahi-Mahi Resort"</string>
+<string name="Splatoon_Stage_MorayTowers">"Moray Towers"</string>
+<string name="Splatoon_Stage_MuseumdAlfonsino">"Museum d'Alfonsino"</string>
+<string name="Splatoon_Stage_PiranhaPit">"Piranha Pit"</string>
+<string name="Splatoon_Stage_PortMackerel">"Port Mackerel"</string>
+<string name="Splatoon_Stage_SaltsprayRig">"Saltspray Rig"</string>
+<string name="Splatoon_Stage_UrchinUnderpass">"Urchin Underpass"</string>
+<string name="Splatoon_Stage_WalleyeWarehouse">"Walleye Warehouse"</string>
+
+<!-- For Mastermind -->
+<string name="StoppedPlayingMastermind">"Stopped playing Mastermind."</string>
+
+<!-- Text for a command -->
+<!-- Text parameter for a command -->
+<string name="Text">"Text"</string>
+
+<!-- For Mastermind -->
+<!-- Mastermind game finished when the user did not get the answer -->
+<string name="TheAnswerWas">"The answer was"</string>
+
+<!-- Total statistic -->
+<!-- Total statistic for dice rolling -->
+<string name="Total">"Total"</string>
+
+<!-- Message to send to a server owner when a registered channel is deleted -->
+<string name="UnregisteredChannelByDeletion">"Hi! I've unregistered a channel in your server because it was deleted. Thanks!"</string>
+
+<!-- Warning for the type command -->
+<!-- Pokemon type matchup -->
+<string name="Warning_SameType">"WARNING: Dual type is the same type! Assuming single type."</string>
+
+<!-- Well? -->
+<!-- Asking to roll 1-sided dice -->
+<string name="WhatDidYouExpect">"What did you expect?"</string>
+
+<!-- Pokemon type matchup -->
+<string name="WhenAttackingWith">"when attacking with"</string>
+
+<!-- For Mastermind -->
+<!-- Mastermind lower than Easy difficulty -->
+<!-- Fuzzy -->
+<string name="WhyNotTryPlayingProperly">"Why not try actually playing properly?"</string>
+
+<!-- For Mastermind -->
+<!-- Mastermind endgame -->
+<string name="WhyNotTryTheNextDifficulty">"Why not try the next difficulty?"</string>
+
+<!-- write -->
+<string name="Write">"Write"</string>
+
+<!-- Yes response -->
+<string name="Yes">"Yes"</string>
+
+<!-- For Mastermind -->
+<string name="YouHaveOneGuessLeft">"You have one guess left!"</string>
+
+<!-- Mastermind begin -->
+<string name="YourGuessOf">"Your guess of"</string>
+
+<!-- For request/demander -->
+<string name="YourRequestHasBeenSent">"Your request has been sent."</string>
+
+<!-- The first colour -->
+<string name="Colour_0">"Red"</string>
+
+<!-- The second colour -->
+<string name="Colour_1">"Orange"</string>
+
+<!-- The third colour -->
+<string name="Colour_2">"Yellow"</string>
+
+<!-- The fourth colour -->
+<string name="Colour_3">"Green"</string>
+
+<!-- The fifth colour -->
+<string name="Colour_4">"Blue"</string>
+
+<!-- The sixth colour -->
+<string name="Colour_5">"Indigo"</string>
+
+<!-- The seventh colour -->
+<string name="Colour_6">"Violet"</string>
+
+<!-- The eighth colour -->
+<string name="Colour_7">"White"</string>
+
+<!-- An unknown colour -->
+<string name="Unknown">"Unknown"</string>
+<string name="Difficulty_0">"'I'm better than the bot'"</string>
+<string name="Difficulty_1">"Easy"</string>
+<string name="Difficulty_2">"Standard"</string>
+<string name="Difficulty_3">"Hard"</string>
+<string name="Difficulty_4">"Impossible"</string>
+<string name="Difficulty_Unknown">"Unknown"</string>
+
+<!-- -1 -->
+<string name="Difficulty__1">"Smart-arse"</string>
+
+<!-- Kjbot searched previous messages for an attachment or URL, but could not find any. -->
+<string name="Error_NoImageMessages">"No messages with images were found"</string>
+
+<!-- kjbot attempted to create a dynamic function (to manipulate images), however could not do so, probably because the user input is malformed. -->
+<string name="Error_UnableToCreateFunction">"Unable to create function"</string>
+
+<!-- For Clarifai (this image is ...) -->
+<string name="ThisIs">"This is "</string>
+
+<!-- For square command or otherwise where kjbot would output a result that is too long -->
+<string name="Error_MessageTooLong">"The message you entered is too long!"</string>
+
+<!-- The bot is working to complete the task, please wait for this to be done -->
+<string name="PleaseWait_1">"Hold on!"</string>
+
+<!-- The bot is working to complete the task, please wait for this to be done -->
+<string name="PleaseWait_2">"Working on it!"</string>
+
+<!-- When the bot joins a server, it messages the server's owner this message (in all different languages) -->
+<string name="BotJoinedServer">"Hi there! I'm %botname%! Thanks for adding me to your server, %servername%. You can register a room for Splatoon rotations using `!register` in that room. A full list of commands and things I can do  is at %helppageen% \r\n You can leave my owner, %ownerusername%, a message on Inkipedia, or send a private message, or use the `!request message` command if you get stuck. Thanks again!"</string>
+
+<!-- For image upload/manipulation etc -->
+<string name="Error_FileIsTooLarge">"The file is too large. Please use a smaller one"</string>
+
+<!-- n "commands" word for achievement -->
+<string name="Commands">"Commands"</string>
+
+<!-- First command achievement -->
+<string name="Achievements_FirstCommand">"First command!"</string>
+
+<!-- Phrase when a user earns an achievement -->
+<string name="Achievements_YouEarnedAnAchievement">"You earned an achievement!"</string>
+
+<!-- Achievement for winning a standard difficulty game of Mastermind -->
+<string name="Achievements_StandardMastermindWin">"You won a game of standard Mastermind!"</string>
+
+<!-- Achievement for winning a hard game of Mastermind -->
+<string name="Achievements_HardMastermindWin">"You won a game of hard Mastermind!"</string>
+
+<!-- Achievement for winning an impossible game of Mastermind -->
+<string name="Achievements_ImpossibleMastermindWin">"You won a game of impossible Mastermind!"</string>
+
+<!-- Achievement for the assistance of the development of kjbot -->
+<string name="Achievements_Developer">"You helped kjbot &lt;3"</string>
+
+<!-- Achievement for drawing a game of Tic Tac Toe -->
+<string name="Achievements_TicTacToeTie">"You tied a game of Tic Tac Toe!"</string>
+
+<!-- Achievement for winning a game of Tic Tac Toe -->
+<string name="Achievements_TicTacToeWin">"You won a game of Tic Tac Toe!"</string>
+
+<!-- Rock Paper Scissors: Rock -->
+<string name="RPS_Rock">"Rock"</string>
+
+<!-- Rock Paper Scissors: Paper -->
+<string name="RPS_Paper">"Paper"</string>
+
+<!-- Rock Paper Scissors: Scissors -->
+<string name="RPS_Scissors">"Scissors"</string>
+
+<!-- Rock Paper Scissors, username "chose" (their choice) -->
+<string name="Chose">"Chose"</string>
+
+<!-- Won a game of Rock Paper Scissors -->
+<string name="Achievements_RPSWin">"You won a game of Rock Paper Scissors!"</string>
+
+<!-- The bot will not do the specified command because the server has blocked the module. -->
+<string name="Error_BlockedCommand">"The command %command% is disallowed on the server."</string>
+
+<!-- Achievement title for 3 wins of Rock Paper Scissors in a row -->
+<string name="Achievements_RPS3WinsInARow">"You won 3 games of Rock Paper Scissors in a row!"</string>
+
+<!-- Achievement title for 5 wins of Rock Paper Scissors in a row -->
+<string name="Achievements_RPS5WinsInARow">"You won 5 games of Rock Paper Scissors in a row!"</string>
+
+<!-- Achievements Unlocked header for list of achievements -->
+<string name="Achievements_AchievementsUnlocked">"Achievements Unlocked"</string>
+
+<!-- The word "time" for remind me and repeat commands -->
+<string name="Time">"Time"</string>
+
+<!-- Hours of time -->
+<string name="Hours">"Hours"</string>
+
+<!-- Minutes of time -->
+<string name="Minutes">"Minutes"</string>
+
+<!-- Seconds of time -->
+<string name="Seconds">"Seconds"</string>
+
+<!-- Days of time -->
+<string name="Days">"Days"</string>
+
+<!-- Abilities for Pokemon -->
+<string name="Pokemon_Abilities">"Abilities"</string>
+
+<!-- Base Attack label for Pokemon command -->
+<string name="Pokemon_BaseAttack">"Base Atk."</string>
+
+<!-- Base Defence label for Pokemon command -->
+<string name="Pokemon_BaseDefence">"Base Def."</string>
+
+<!-- Base HP label for Pokemon command -->
+<string name="Pokemon_BaseHP">"Base HP"</string>
+
+<!-- Base Special Attack label for Pokemon command -->
+<string name="Pokemon_BaseSpecialAttack">"Base Sp.Atk."</string>
+
+<!-- Base Special Defence label for Pokemon command -->
+<string name="Pokemon_BaseSpecialDefence">"Base Sp.Def."</string>
+
+<!-- Base Speed label for Pokemon command -->
+<string name="Pokemon_BaseSpeed">"Base Speed"</string>
+
+<!-- Egg Groups for Pokemon -->
+<string name="Pokemon_EggGroups">"Egg Groups"</string>
+
+<!-- Female for Pokemon -->
+<string name="Pokemon_Female">"Female ♀"</string>
+
+<!-- Genderless or Unknown for Pokemon -->
+<string name="Pokemon_GenderlessOrUnknown">"Genderless or unknown"</string>
+
+<!-- Gender Ratio for Pokemon -->
+<string name="Pokemon_GenderRatio">"Gender Ratio"</string>
+
+<!-- Hatch Steps for Pokemon -->
+<string name="Pokemon_HatchSteps">"Hatch Steps"</string>
+
+<!-- Height for Pokemon -->
+<string name="Pokemon_Height">"Height"</string>
+
+<!-- Male for Pokemon -->
+<string name="Pokemon_Male">"Male ♂"</string>
+
+<!-- Type for Pokemon -->
+<string name="Pokemon_Type">"Type"</string>
+
+<!-- Weight for Pokemon -->
+<string name="Pokemon_Weight">"Weight"</string>
+
+<!-- Pokemon Height/Weight comparison to an average person -->
+<string name="Pokemon_OfAnAveragePerson">"an average person"</string>
+
+<!-- Kjbot cannot post to a channel because it doesn't have permission to do so. -->
+<string name="Error_DisallowedPermissionToPost">"I can't post to a channel. Please configure your Discord permissions"</string>
+
+<!-- Kjbot cannot delete messages from a channel because it doesn't have permission to do so. -->
+<string name="Error_DisallowedPermissionToDelete">"I can't delete messages from a channel. Please configure your Discord permissions"</string>
+</resources>
