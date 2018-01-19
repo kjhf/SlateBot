@@ -18,6 +18,7 @@ namespace SlateBot
     public const ulong LogChannelId = 255317511212367873;
     public const ulong BotStatusChannelId = 255312337601429507;
     public const ulong OwnerId = 97288493029416960;
+    public const ulong ErrorId = ulong.MaxValue;
 
     public const int MessageLimit = 1990;
     public const string BotMention = "<@187645597950410753>"; // bot id

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SlateBot.DAL;
 using SlateBot.Errors;
 using SlateBot.Language;
+using SlateBot.Lifecycle;
 
 namespace SlateBot
 {
@@ -15,13 +16,15 @@ namespace SlateBot
   class SlateBotController
   {
     internal readonly SlateBotDAL dal;
-    internal readonly LanguageHandler languageHandler;
     internal ErrorLogger ErrorLogger => dal.errorLogger;
+    private readonly LanguageHandler languageHandler;
+    private readonly SlateBotControllerLifecycle lifecycle;
 
     public SlateBotController()
     {
       this.dal = new SlateBotDAL();
       this.languageHandler = new LanguageHandler(dal);
+      this.lifecycle = new SlateBotControllerLifecycle(this);
     }
 
     internal void Initialise()
@@ -29,11 +32,12 @@ namespace SlateBot
       this.dal.Initialise();
       this.languageHandler.Initialise();
 
-      ErrorLogger.LogError(new Error(ErrorCode.ProgramInitialised, ErrorSeverity.Debug));
+      ErrorLogger.LogError(new Error(ErrorCode.Success, ErrorSeverity.Debug, "Program initialised successfully."));
     }
 
     internal void HandleConsoleCommand(string line)
     {
+      lifecycle.OnMessageReceived(this, new ConsoleMessageDetail(line));
     }
   }
 }

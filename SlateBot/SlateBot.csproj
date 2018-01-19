@@ -151,6 +151,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleMessageDetail.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DAL\ISaveData.cs" />
     <Compile Include="DAL\LanguagesFile\LanguagesFile.cs" />
@@ -165,13 +166,23 @@
     <Compile Include="Errors\ErrorCode.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="IHandler.cs" />
+    <Compile Include="IMessageDetail.cs" />
     <Compile Include="Language\LanguageDefinitions.cs" />
     <Compile Include="Language\Languages.cs" />
     <Compile Include="Language\LanguageHandler.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerConnectedReceivingOnlyState.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerConnectedTransceivingState.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerConnectingState.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerDisconnectedState.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerLifecycle.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerLifecycleState.cs" />
+    <Compile Include="Lifecycle\SlateBotControllerLifecycleStates.cs" />
     <Compile Include="SlateBotController.cs" />
+    <Compile Include="SocketMessageWrapper.cs" />
     <Compile Include="SlateBotProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tokens.cs" />
+    <Compile Include="Utility\SynchronizationContextExtensions.cs" />
     <Compile Include="VariableStrings.cs" />
   </ItemGroup>
   <ItemGroup>
