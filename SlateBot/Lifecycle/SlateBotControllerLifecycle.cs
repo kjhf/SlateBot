@@ -19,9 +19,9 @@ namespace SlateBot.Lifecycle
     /// The states should be in order of the <see cref="SlateBotControllerLifecycleStates"/> enumeration. </remarks>
     private readonly ISlateBotControllerLifecycleState[] states;
 
+    private readonly object lifecycleLock;
     private ISlateBotControllerLifecycleState CurrentState => states[(int)CurrentStateId];
     private readonly SlateBotController controller;
-    private readonly SynchronizationContext syncContext;
     private SlateBotControllerLifecycleStates currentStateId;
     private SlateBotControllerLifecycleStates CurrentStateId
     {
@@ -44,7 +44,7 @@ namespace SlateBot.Lifecycle
     /// <param name="controller"></param>
     public SlateBotControllerLifecycle(SlateBotController controller)
     {
-      this.syncContext = SynchronizationContext.Current;
+      this.lifecycleLock = new object();
       this.controller = controller;
       this.states = new ISlateBotControllerLifecycleState[(int)SlateBotControllerLifecycleStates.NumberOfStates]
       {
@@ -64,7 +64,10 @@ namespace SlateBot.Lifecycle
     /// <returns>The desired new state</returns>
     internal void AttemptConnection()
     {
-      syncContext.BeginInvoke(() => CurrentStateId = CurrentState.AttemptConnection());
+      lock (lifecycleLock)
+      {
+        CurrentStateId = CurrentState.AttemptConnection();
+      }
     }
 
     /// <summary>
@@ -74,7 +77,10 @@ namespace SlateBot.Lifecycle
     /// <returns>The desired new state</returns>
     internal void OnConnection()
     {
-      syncContext.BeginInvoke(() => CurrentStateId = CurrentState.OnConnection());
+      lock (lifecycleLock)
+      {
+        CurrentStateId = CurrentState.OnConnection();
+      }
     }
 
     /// <summary>
@@ -84,19 +90,10 @@ namespace SlateBot.Lifecycle
     /// <returns>The desired new state</returns>
     internal void OnDisconnection()
     {
-      syncContext.BeginInvoke(() => CurrentStateId = CurrentState.OnDisconnection());
-    }
-
-    /// <summary>
-    /// Event raised when the controller receives a message.
-    /// </summary>
-    /// <remarks>(Lifecycle)</remarks>
-    /// <param name="sender">The sender object</param>
-    /// <param name="message">The message received detail</param>
-    /// <returns>The desired new state</returns>
-    internal void OnMessageReceived(object sender, IMessageDetail message)
-    {
-      syncContext.BeginInvoke(() => CurrentStateId = CurrentState.OnMessageReceived(sender, message));
+      lock (lifecycleLock)
+      {
+        CurrentStateId = CurrentState.OnDisconnection();
+      }
     }
 
     /// <summary>
@@ -108,13 +105,15 @@ namespace SlateBot.Lifecycle
     /// <returns>The desired new state</returns>
     internal void OnMessageReadyToSend(object sender, IMessageDetail message)
     {
-      syncContext.BeginInvoke(() => CurrentStateId = CurrentState.OnMessageReadyToSend(sender, message));
+      lock (lifecycleLock)
+      {
+        CurrentStateId = CurrentState.OnMessageReadyToSend(sender, message);
+      }
     }
 
-    internal void HandleMessageReceivedCommon(IMessageDetail message)
+    internal void HandleMessageReceived(SocketMessageWrapper socketMessage)
     {
-      // TODO
+      controller.HandleMessageReceived(socketMessage);
     }
-
   }
 }

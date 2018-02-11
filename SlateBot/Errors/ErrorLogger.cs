@@ -13,7 +13,7 @@ namespace SlateBot.Errors
   /// <summary>
   /// The Error Logger handles errors and exceptions.
   /// </summary>
-  class ErrorLogger : IErrorLogger
+  class ErrorLogger : IErrorLogger, IController
   {
     private static readonly ConsoleColor defaultConsoleColor = Console.ForegroundColor;
     private readonly BackgroundWorker backgroundWorker;
@@ -121,7 +121,14 @@ namespace SlateBot.Errors
     public void LogError(Error error)
     {
       errorsToLog.Enqueue(error);
-      OutputToConsole(error.ToString(), error.severity);
+      if (error.errorCode == ErrorCode.ConsoleMessage)
+      {
+        OutputToConsole(error.extraData, error.severity);
+      }
+      else
+      {
+        OutputToConsole(error.ToString(), error.severity);
+      }
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
 ﻿namespace SlateBot
 {
-  internal interface IMessageDetail
+  public interface IMessageDetail
   {
     ulong ChannelId { get; }
     string ChannelName { get; }

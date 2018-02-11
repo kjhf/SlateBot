@@ -26,6 +26,8 @@ namespace SlateBot
       {
         instance.controller.ErrorLogger.LogException(ex, Errors.ErrorSeverity.Fatal);
       }
+
+      Console.ReadLine();
     }
     #endregion
 

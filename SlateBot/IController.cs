@@ -9,7 +9,7 @@ namespace SlateBot
   /// <summary>
   /// A handler.
   /// </summary>
-  interface IHandler
+  interface IController
   {
     void Initialise();
   }

@@ -40,16 +40,11 @@ namespace SlateBot.DAL.LanguagesFile
         Data = new Dictionary<string, string>();
         var nodes = doc["resources"];
 
-        foreach (XmlElement node in nodes.OfType<XmlElement>())
+        foreach (XmlElement node in nodes?.OfType<XmlElement>())
         {
-          if (node.HasAttribute("name"))
-          {
-            Data.Add(node.GetAttribute("name"), node.InnerText);
-          }
-          else
-          {
-            Data.Add(node.Name, node.InnerText);
-          }
+          string key = (node.HasAttribute("name")) ? node.GetAttribute("name") : node.Name;
+          string value = node.InnerText.TrimStart('\"').TrimEnd('\"');
+          Data.Add(key, value);
         }
       }
       catch (Exception ex)

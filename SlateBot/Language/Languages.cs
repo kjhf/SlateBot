@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SlateBot.Language
 {
-  enum Languages
+  public enum Languages
   {
     Default,
     English,

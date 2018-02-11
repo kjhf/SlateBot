@@ -10,7 +10,7 @@ namespace SlateBot.Language
   /// <summary>
   /// Handles the language and localisation of phrases in the bot.
   /// </summary>
-  class LanguageHandler : IHandler
+  class LanguageHandler : IController
   {
     private static readonly IReadOnlyDictionary<Languages, CultureInfo> cultureInfo = new Dictionary<Languages, CultureInfo>()
     {
@@ -72,9 +72,36 @@ namespace SlateBot.Language
             retVal = GetPhrase(Languages.Default, key);
           } 
         }
+        else
+        {
+          // Found, set.
+          retVal = result;
+        }
       }
 
       return retVal;
+    }
+
+    /// <summary>
+    /// Get a localised phrase of a given <see cref="Commands.ModuleType"/>.
+    /// </summary>
+    /// <param name="language"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public string GetPhrase(Languages language, Commands.ModuleType key)
+    {
+      return GetPhrase(language, $"ModuleType_{key}");
+    }
+
+    /// <summary>
+    /// Get a localised phrase of a given <see cref="Errors.ErrorCode"/>.
+    /// </summary>
+    /// <param name="language"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public string GetPhrase(Languages language, Errors.ErrorCode key)
+    {
+      return GetPhrase(language, $"Error_{key}");
     }
   }
 }

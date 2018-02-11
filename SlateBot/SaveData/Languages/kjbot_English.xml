@@ -23,11 +23,11 @@
 
 <!-- Head of a coin -->
 <!-- Flipping a coin landing on head -->
-<string name="CoinHead">"Head"</string>
+<string name="CoinHead">"Heads"</string>
 
 <!-- Tail of a coin -->
 <!-- Flipping a coin landing on tail -->
-<string name="CoinTail">"Tail"</string>
+<string name="CoinTail">"Tails"</string>
 
 <!-- General use; Mastermind -->
 <string name="Congratulations">"Congratulations!"</string>

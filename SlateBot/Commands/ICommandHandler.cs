@@ -1,0 +1,16 @@
+﻿using SlateBot.DAL.CommandFile;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SlateBot.Commands
+{
+  interface ICommandHandler
+  {
+    CommandHandlerType CommandHandlerType { get; }
+
+    Command CreateCommand(Language.LanguageHandler language, CommandFile file);
+  }
+}

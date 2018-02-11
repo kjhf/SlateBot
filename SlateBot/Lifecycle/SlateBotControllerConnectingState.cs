@@ -47,11 +47,5 @@ namespace SlateBot.Lifecycle
       lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Information, $"{nameof(SlateBotControllerConnectingState)} {nameof(OnMessageReadyToSend)}: Storing message."));
       return StateId;
     }
-
-    public SlateBotControllerLifecycleStates OnMessageReceived(object sender, IMessageDetail message)
-    {
-      lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Warning, $"{nameof(SlateBotControllerConnectingState)} {nameof(OnMessageReceived)}"));
-      return StateId;
-    }
   }
 }

@@ -151,8 +151,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlerController.cs" />
+    <Compile Include="Commands\Coin\CoinCommand.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandHandlerType.cs" />
+    <Compile Include="Commands\Coin\CoinCommandHandler.cs" />
+    <Compile Include="Commands\CommandMessageHelper.cs" />
+    <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Commands\ModuleType.cs" />
+    <Compile Include="Commands\ResponseType.cs" />
+    <Compile Include="Commands\SenderDetail.cs" />
     <Compile Include="ConsoleMessageDetail.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DAL\ServerSettingsFile\ServerSettingsFile.cs" />
+    <Compile Include="DAL\ServerSettingsFile\ServerSettingsFileDAL.cs" />
+    <Compile Include="DAL\CommandFile\CommandFile.cs" />
+    <Compile Include="DAL\CommandFile\CommandFileDAL.cs" />
     <Compile Include="DAL\ISaveData.cs" />
     <Compile Include="DAL\LanguagesFile\LanguagesFile.cs" />
     <Compile Include="DAL\LanguagesFile\LanguagesFileDAL.cs" />
@@ -165,7 +179,7 @@
     <Compile Include="Errors\IErrorLogger.cs" />
     <Compile Include="Errors\ErrorCode.cs" />
     <Compile Include="ExitCodes.cs" />
-    <Compile Include="IHandler.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="IMessageDetail.cs" />
     <Compile Include="Language\LanguageDefinitions.cs" />
     <Compile Include="Language\Languages.cs" />
@@ -177,6 +191,8 @@
     <Compile Include="Lifecycle\SlateBotControllerLifecycle.cs" />
     <Compile Include="Lifecycle\SlateBotControllerLifecycleState.cs" />
     <Compile Include="Lifecycle\SlateBotControllerLifecycleStates.cs" />
+    <Compile Include="SavedSettings\SeverSettingsHandler.cs" />
+    <Compile Include="ServerSettings.cs" />
     <Compile Include="SlateBotController.cs" />
     <Compile Include="SocketMessageWrapper.cs" />
     <Compile Include="SlateBotProgram.cs" />

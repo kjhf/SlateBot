@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SlateBot.Errors
 {
-  interface IErrorLogger
+  public interface IErrorLogger
   {
     void LogError(Error error);
     void LogException(Exception ex, ErrorSeverity severity);

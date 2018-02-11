@@ -30,6 +30,16 @@
     /// <summary>
     /// The lifecycle received an unexpected event.
     /// </summary>
-    UnexpectedEvent
+    UnexpectedEvent,
+
+    /// <summary>
+    /// A Command Handler Type has been defined but a handler for it has not been implemented.
+    /// </summary>
+    CommandHandlerNotImplemented,
+
+    /// <summary>
+    /// A parameter specified to a command was incorrect.
+    /// </summary>
+    IncorrectParameter,
   }
 }
