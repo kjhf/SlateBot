@@ -5,6 +5,7 @@ using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,21 +26,33 @@ namespace SlateBot
       this.languageHandler = languageHandler ?? throw new ArgumentNullException(nameof(languageHandler));
       this.commandHandlers = new Dictionary<CommandHandlerType, ICommandHandler>();
       this.commands = new List<Command>();
+
+      // Get all ICommandHandler in the assembly
+      var allCommandHandlerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ICommandHandler)));
+
+      // Instantiate them
+      foreach (var commandHandlerType in allCommandHandlerTypes)
+      {
+        var handler = (ICommandHandler)Activator.CreateInstance(commandHandlerType);
+
+        if (commandHandlers.TryGetValue(handler.CommandHandlerType, out ICommandHandler dummy))
+        {
+          errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, "Duplicate command handler found: " + handler.CommandHandlerType + " in type " + handler.GetType()));
+        }
+
+        // Add it to the dictionary.
+        commandHandlers[handler.CommandHandlerType] = handler;
+      }
+
+      // Check if any are missing.
       foreach (CommandHandlerType cht in Enum.GetValues(typeof(CommandHandlerType)))
       {
-        switch (cht)
+        if (!commandHandlers.TryGetValue(cht, out ICommandHandler dummy))
         {
-          // TODO add all other handlers.
-          case CommandHandlerType.Unknown:
-            break;
-
-          case CommandHandlerType.Coin:
-            commandHandlers[cht] = new Commands.Coin.CoinCommandHandler();
-            break;
-
-          default:
+          if (cht != CommandHandlerType.Unknown)
+          {
             errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Warning, cht.ToString()));
-            break;
+          }
         }
       }
     }
@@ -80,7 +93,14 @@ namespace SlateBot
       bool success = Enum.TryParse(search, out CommandHandlerType commandHandlerType);
       if (success)
       {
-        return commandHandlers[commandHandlerType];
+        bool found = commandHandlers.TryGetValue(commandHandlerType, out ICommandHandler handler);
+
+        if (!found)
+        {
+          errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{search} exists but does not have an associated command handler."));
+        }
+
+        return handler;
       }
 
       // Else 

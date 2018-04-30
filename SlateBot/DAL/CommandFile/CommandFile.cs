@@ -1,6 +1,8 @@
 ﻿using SlateBot.Errors;
+using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Xml;
 
@@ -35,7 +37,7 @@ namespace SlateBot.DAL.CommandFile
     public string ResponseType { get; private set; }
 
     /// <summary> Additional data to load or save, keys are node names, values are node values. </summary>
-    public Dictionary<string, string> ExtraData { get; private set; }
+    public List<KeyValuePair<string, string>> ExtraData { get; private set; }
 
     public CommandFile(IErrorLogger errorLogger)
     {
@@ -64,11 +66,11 @@ namespace SlateBot.DAL.CommandFile
         Module = (root["Module"]?.InnerText) ?? Commands.ModuleType.General.ToString();
         ResponseType = (root["ResponseType"]?.InnerText) ?? Commands.ResponseType.Default.ToString();
 
-        ExtraData = new Dictionary<string, string>();
+        ExtraData = new List<KeyValuePair<string, string>>();
         var extraDataNodes = root["ExtraData"];
         foreach (XmlElement node in extraDataNodes?.OfType<XmlElement>() ?? new XmlElement[0])
         {
-          ExtraData[node.Name] = node.InnerText;
+          ExtraData.Add(node.Name, node.InnerText);
         }
       }
       catch (Exception ex)
@@ -126,14 +128,18 @@ namespace SlateBot.DAL.CommandFile
         node = doc.CreateElement("ResponseType");
         node.InnerText = ResponseType;
         root.AppendChild(node);
-        var extraDataNode = doc.CreateElement("ExtraData");
-        doc.AppendChild(extraDataNode);
 
-        foreach (var pair in ExtraData)
+        if (ExtraData != null)
         {
-          node = doc.CreateElement(pair.Key);
-          node.InnerText = pair.Value;
-          extraDataNode.AppendChild(node);
+          var extraDataNode = doc.CreateElement("ExtraData");
+          doc.AppendChild(extraDataNode);
+
+          foreach (var pair in ExtraData)
+          {
+            node = doc.CreateElement(pair.Key);
+            node.InnerText = pair.Value;
+            extraDataNode.AppendChild(node);
+          }
         }
 
         return doc.OuterXml;

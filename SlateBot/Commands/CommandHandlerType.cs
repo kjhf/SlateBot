@@ -51,8 +51,7 @@ namespace SlateBot.Commands
     Zalgo,
     SetName,
     Servers,
-    Cat,
-    Dog,
     Avatar,
+    PullImage,
   }
 }

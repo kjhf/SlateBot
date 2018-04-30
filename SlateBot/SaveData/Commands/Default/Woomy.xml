@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>Woomy,Ngyes,🦑</Aliases>
+  <Help>It's a squid.</Help>
+  <Module>Memes</Module>
+  <Examples>!woomy</Examples>
+  <ExtraData>
+    <C1>Woomy! くコ:彡</C1>
+    <C2>くコ:彡 ~~</C2>
+    <C3>WOOMY! &gt; :squid: :octopus: &lt; NGYES!</C3>
+    <C4>MAMENMI! &gt; :squid: :octopus: &lt; SQWAYY!</C4>
+    <C5>Ngyes! くコ:彡</C5>
+    <C6>~~ 彡:C> Woomy!</C6>
+    <C7>~~ 彡:C> Ngyes!</C7>
+  </ExtraData>
+</Root>

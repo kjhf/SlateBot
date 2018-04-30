@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SlateBot.Commands
 {
-  interface ICommandHandler
+  internal interface ICommandHandler
   {
     CommandHandlerType CommandHandlerType { get; }
 

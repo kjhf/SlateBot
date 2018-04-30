@@ -33,7 +33,7 @@ namespace SlateBot.Commands.Coin
     public override string[] Aliases => aliases;
     public override CommandHandlerType CommandHandlerType => CommandHandlerType.Coin;
     public override string Examples => examples;
-    public override Dictionary<string, string> ExtraData => ConstructExtraData();
+    public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
     public override string Help => help;
     public override ModuleType Module => module;
     public override ResponseType ResponseType => responseType;
@@ -108,11 +108,10 @@ namespace SlateBot.Commands.Coin
       return retVal;
     }
 
-    private Dictionary<string, string> ConstructExtraData()
+    private List<KeyValuePair<string, string>> ConstructExtraData()
     {
-      Dictionary<string, string> retVal = new Dictionary<string, string>();
-      // No extra data for the coin command.
-      return retVal;
+      // No extra data for the command.
+      return null;
     }
   }
 }

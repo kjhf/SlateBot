@@ -10,7 +10,7 @@ namespace SlateBot.Language
   /// <summary>
   /// Handles the language and localisation of phrases in the bot.
   /// </summary>
-  class LanguageHandler : IController
+  public class LanguageHandler : IController
   {
     private static readonly IReadOnlyDictionary<Languages, CultureInfo> cultureInfo = new Dictionary<Languages, CultureInfo>()
     {
@@ -25,7 +25,7 @@ namespace SlateBot.Language
     /// <summary>
     /// Constructor of the <see cref="LanguageHandler"/>.
     /// </summary>
-    public LanguageHandler(DAL.SlateBotDAL dal)
+    internal LanguageHandler(DAL.SlateBotDAL dal)
     {
       this.dal = dal;
     }

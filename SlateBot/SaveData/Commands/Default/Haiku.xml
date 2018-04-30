@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseList</CommandType>
+  <Aliases>Haiku</Aliases>
+  <Help>Make a Half Life Opposing Force haiku</Help>
+  <Module>Memes</Module>
+  <Examples>!haiku</Examples>
+  <ExtraData>
+    <ChoiceFormat>{0}\r\n{1}\r\n{2}</ChoiceFormat>
+    <A>i have to call chuck</A>
+    <A>rebel boat rocker</A>
+    <A>colostomy bag</A>
+    <A>walking in memphis</A>
+    <A>exploding midget</A>
+    <A>white cotton panties</A>
+    <A>nub technology</A>
+    <A>anonymous nub</A>
+    <A>more bunny justice</A>
+    <A>evil evil boy</A>
+    <A>you have been a fool</A>
+    <A>i must escape it</A>
+    <A>those creamy white thighs</A>
+    <A>keeping us all cool </A>
+    <A>air conditioning</A>
+    <A>so what if I sweat</A>
+    <A>fresh air is so sweet</A>
+    <A>live mice sit on us </A>
+    <A>digital squirrel</A>
+    <A>liquid banana</A>
+    <A>peas and hominy </A>
+    <A>miscellaneous</A>
+    <A>gravity assist</A>
+    <A>random tuna head</A>
+    <A>some quick goat thinking</A>
+    <A>a velvet codpiece</A>
+    <A>let's tease the weasels</A>
+    <A>nice vomiting spell</A>
+    <A>the growing yodas</A>
+    <B>the half-life of lime </B>
+    <B>jello nuclear bedtime story</B>
+    <B>crazy customizable</B>
+    <B>programmer's head on a stick</B>
+    <B>frictionless, massless mormon</B>
+    <B>put it in your report, bill </B>
+    <B>i don't need the influence</B>
+    <B>i'm coming out of the booth </B>
+    <B>in the middle of a storm</B>
+    <B>it tantalizes me so </B>
+    <B>you are my favorite thing</B>
+    <B>i leave the windows open</B>
+    <B>and fed you to the chickens </B>
+    <B>candy corn chicken fetus</B>
+    <B>the silhouette of a dog </B>
+    <B>guns exploding all around</B>
+    <B>a rising column of smoke</B>
+    <B>you don't jump like a monkey</B>
+    <C>i have to call chuck</C>
+    <C>rebel boat rocker</C>
+    <C>colostomy bag</C>
+    <C>walking in memphis</C>
+    <C>exploding midget</C>
+    <C>white cotton panties</C>
+    <C>nub technology</C>
+    <C>anonymous nub</C>
+    <C>more bunny justice</C>
+    <C>evil evil boy</C>
+    <C>you have been a fool</C>
+    <C>i must escape it</C>
+    <C>those creamy white thighs</C>
+    <C>keeping us all cool </C>
+    <C>air conditioning</C>
+    <C>so what if I sweat</C>
+    <C>fresh air is so sweet</C>
+    <C>live mice sit on us </C>
+    <C>digital squirrel</C>
+    <C>liquid banana</C>
+    <C>peas and hominy </C>
+    <C>miscellaneous</C>
+    <C>gravity assist</C>
+    <C>random tuna head</C>
+    <C>some quick goat thinking</C>
+    <C>a velvet codpiece</C>
+    <C>let's tease the weasels</C>
+    <C>nice vomiting spell</C>
+    <C>the growing yodas</C>
+  </ExtraData>
+</Root>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseList</CommandType>
+  <Aliases>Card,Carte</Aliases>
+  <Help>Pick a random playing card</Help>
+  <Examples>!card</Examples>
+  <ExtraData>
+    <ChoiceFormat>{0} of {1}</ChoiceFormat>
+    <A>Ace</A>
+    <A>2</A>
+    <A>3</A>
+    <A>4</A>
+    <A>5</A>
+    <A>6</A>
+    <A>7</A>
+    <A>8</A>
+    <A>9</A>
+    <A>10</A>
+    <A>Jack</A>
+    <A>Queen</A>
+    <A>King</A>
+    <B>Hearts</B>
+    <B>Diamonds</B>
+    <B>Clubs</B>
+    <B>Spades</B>
+  </ExtraData>
+</Root>

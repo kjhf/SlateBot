@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.Commands
 {
@@ -11,23 +8,23 @@ namespace SlateBot.Commands
     /// <summary> Random generator </summary>
     protected static readonly Random rand = new Random();
 
-    /// <summary> The command's handler type. </summary>
-    public abstract CommandHandlerType CommandHandlerType { get; }
-
-    /// <summary> The command's module. </summary>
-    public abstract ModuleType Module { get; }
-
     /// <summary> Array of aliases this command accepts. </summary>
     public abstract string[] Aliases { get; }
 
-    /// <summary> What to display if the sender requests help for this command </summary>
-    public abstract string Help { get; }
+    /// <summary> The command's handling controller type. </summary>
+    public abstract CommandHandlerType CommandHandlerType { get; }
 
     /// <summary> Examples for this command </summary>
     public abstract string Examples { get; }
 
     /// <summary> Extra Data as a string dictionary for this command </summary>
-    public abstract Dictionary<string, string> ExtraData { get; }
+    public abstract List<KeyValuePair<string, string>> ExtraData { get; }
+
+    /// <summary> What to display if the sender requests help for this command </summary>
+    public abstract string Help { get; }
+
+    /// <summary> The command's module. </summary>
+    public abstract ModuleType Module { get; }
 
     /// <summary> How the handler should use this command's response. </summary>
     public abstract ResponseType ResponseType { get; }
