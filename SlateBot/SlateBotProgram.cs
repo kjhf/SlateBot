@@ -34,9 +34,17 @@ namespace SlateBot
 
     
     private SlateBotController controller;
+    private readonly ExitCodes lastExitCode;
+
     public SlateBotProgram(string[] args)
     {
       controller = new SlateBotController();
+
+      lastExitCode = ExitCodes.Success;
+      if (args.Length > 1)
+      {
+        Enum.TryParse<ExitCodes>(args[1], out lastExitCode);
+      }
     }
 
     /// <summary>
@@ -44,6 +52,8 @@ namespace SlateBot
     /// </summary>
     private void MainLoop()
     {
+      Console.WriteLine("C: Connect");
+      Console.WriteLine("D: Disconnect");
       Console.WriteLine("#: Connection options");
       Console.WriteLine("L: Load app settings");
       Console.WriteLine("r: Restart");
@@ -54,36 +64,62 @@ namespace SlateBot
       // Load commands
       controller.Initialise();
 
+      // Connet now?
+      switch (lastExitCode)
+      {
+        case ExitCodes.SuccessReconnect:
+        case ExitCodes.RestartErrorReconnect:
+        {
+          controller.Connect();
+          break;
+        }
+      }
+
       for (; ; )
       {
-        char keyPressed = '\0';
-        string line = Console.ReadLine();
-        if (line.Length == 1)
+        try
         {
-          keyPressed = line[0];
-          Console.WriteLine();
-
-          switch (keyPressed)
+          char keyPressed = '\0';
+          string line = Console.ReadLine();
+          if (line.Length == 1)
           {
-            case '#':
+            keyPressed = line[0];
+            Console.WriteLine();
+
+            switch (keyPressed)
+            {
+              case 'C':
               {
-                // TODO - connection options
+                controller.Connect();
                 break;
               }
 
-            case 'L':
+              case 'D':
+              {
+                controller.Disconnect();
+                break;
+              }
+
+              case '#':
+              {
+                // TODO - connection options
+                Console.WriteLine("Not implemented.");
+                break;
+              }
+
+              case 'L':
               {
                 controller.Initialise();
                 break;
               }
 
-            case 'r':
+              case 'r':
               {
                 Restart(ExitCodes.RestartRequested);
                 break;
               }
-              
-            case 't':
+
+              case 't':
               {
                 Console.WriteLine("Enter a new title.");
                 Console.Title = (Console.ReadLine());
@@ -91,20 +127,26 @@ namespace SlateBot
                 break;
               }
 
-            case 'x':
+              case 'x':
               {
-                // TODO - disconnect before close.
+                controller.Disconnect();
 
                 // Closes the current process
                 Environment.Exit((int)ExitCodes.Success);
                 break;
               }
+            }
+          }
+          else
+          {
+            // It's a command instead.
+            controller.HandleConsoleCommand(line);
           }
         }
-        else
+        catch (Exception ex)
         {
-          // It's a command instead.
-          controller.HandleConsoleCommand(line);
+          controller.ErrorLogger.LogDebug($"Unhandled exception risen to {nameof(MainLoop)}.", true);
+          controller.ErrorLogger.LogException(ex, Errors.ErrorSeverity.Fatal);
         }
       }
     }

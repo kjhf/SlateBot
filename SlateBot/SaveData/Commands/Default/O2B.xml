@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>o2b,oct2bin</Aliases>
+  <Help>Changes an octal number into a binary number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!o2b 77\r\n!o2b 00 77 60 75</Examples>
+  <ExtraData>
+    <FromBase>8</FromBase>
+    <ToBase>2</ToBase>
+  </ExtraData>
+</Root>

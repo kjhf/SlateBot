@@ -1,4 +1,7 @@
-﻿namespace SlateBot.Lifecycle
+﻿
+using Discord.WebSocket;
+
+namespace SlateBot.Lifecycle
 {
   /// <summary>
   /// A lifecycle state is a sub-class of the lifecycle that handles events.
@@ -27,6 +30,12 @@
     SlateBotControllerLifecycleStates AttemptConnection();
 
     /// <summary>
+    /// Event raised when the controller requests disconnection.
+    /// </summary>
+    /// <returns>The desired new state</returns>
+    SlateBotControllerLifecycleStates Disconnect();
+
+    /// <summary>
     /// Event raised when the controller has connected.
     /// </summary>
     /// <returns>The desired new state</returns>
@@ -37,13 +46,13 @@
     /// </summary>
     /// <returns>The desired new state</returns>
     SlateBotControllerLifecycleStates OnDisconnection();
-    
+
     /// <summary>
     /// Event raised when the controller is ready to send a message.
     /// </summary>
-    /// <param name="sender">The sender object</param>
-    /// <param name="message">The message received detail</param>
+    /// <param name="message">The message to send</param>
+    /// <param name="destination">The destination</param>
     /// <returns>The desired new state</returns>
-    SlateBotControllerLifecycleStates OnMessageReadyToSend(object sender, IMessageDetail message);
+    SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination);
   }
 }

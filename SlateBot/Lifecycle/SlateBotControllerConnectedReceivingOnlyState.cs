@@ -1,13 +1,9 @@
-﻿using SlateBot.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Discord.WebSocket;
+using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
 {
-  class SlateBotControllerConnectedReceivingOnlyState : ISlateBotControllerLifecycleState
+  internal class SlateBotControllerConnectedReceivingOnlyState : ISlateBotControllerLifecycleState
   {
     private readonly SlateBotControllerLifecycle lifecycle;
 
@@ -28,7 +24,13 @@ namespace SlateBot.Lifecycle
 
     public SlateBotControllerLifecycleStates AttemptConnection()
     {
-      lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Error, $"{nameof(SlateBotControllerConnectedReceivingOnlyState)} {nameof(AttemptConnection)}"));
+      lifecycle.ErrorLogger.LogError(new Error(ErrorCode.AlreadyConnected, ErrorSeverity.Error, $"{nameof(SlateBotControllerConnectedReceivingOnlyState)} {nameof(AttemptConnection)}"));
+      return StateId;
+    }
+
+    public SlateBotControllerLifecycleStates Disconnect()
+    {
+      lifecycle.Client.LogoutAsync();
       return StateId;
     }
 
@@ -43,9 +45,9 @@ namespace SlateBot.Lifecycle
       return SlateBotControllerLifecycleStates.Disconnected;
     }
 
-    public SlateBotControllerLifecycleStates OnMessageReadyToSend(object sender, IMessageDetail message)
+    public SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination)
     {
-      lifecycle.ErrorLogger.LogError(new Error(ErrorCode.NotSendingMessage, ErrorSeverity.Debug, $"{nameof(SlateBotControllerConnectedReceivingOnlyState)} {nameof(OnMessageReadyToSend)}"));
+      lifecycle.ErrorLogger.LogError(new Error(ErrorCode.NotSendingMessage, ErrorSeverity.Debug, $"{nameof(SlateBotControllerConnectedReceivingOnlyState)} {nameof(OnMessageReadyToSend)} dest {destination.Id} message {message}"));
       return StateId;
     }
   }

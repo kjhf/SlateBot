@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseList</CommandType>
+  <Aliases>Carte</Aliases>
+  <Help>Choisissez une carte à jouer aléatoire</Help>
+  <Examples>!carte</Examples>
+  <ExtraData>
+    <ChoiceFormat>{0} de {1}</ChoiceFormat>
+    <A>As</A>
+    <A>2</A>
+    <A>3</A>
+    <A>4</A>
+    <A>5</A>
+    <A>6</A>
+    <A>7</A>
+    <A>8</A>
+    <A>9</A>
+    <A>10</A>
+    <A>Valet</A>
+    <A>Dame</A>
+    <A>Roi</A>
+    <B>Coeur</B>
+    <B>Carreau</B>
+    <B>Trèfle</B>
+    <B>Pique</B>
+  </ExtraData>
+</Root>

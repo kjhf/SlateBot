@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>d2b,bin,binary,dec2bin</Aliases>
+  <Help>Changes a decimal number into a binary number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!bin 100\r\n!d2b 0 255 160 119</Examples>
+  <ExtraData>
+    <FromBase>10</FromBase>
+    <ToBase>2</ToBase>
+  </ExtraData>
+</Root>

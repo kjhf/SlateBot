@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>b2o,bin2oct</Aliases>
+  <Help>Changes a binary number into an octal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!b2o 1001\r\n!b2o 0 100 101 110101</Examples>
+  <ExtraData>
+    <FromBase>2</FromBase>
+    <ToBase>8</ToBase>
+  </ExtraData>
+</Root>

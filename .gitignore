@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /SlateBot/Tokens.cs
 /SlateBot/SaveData/Logs
+/SlateBot/SaveData/ServerSettings

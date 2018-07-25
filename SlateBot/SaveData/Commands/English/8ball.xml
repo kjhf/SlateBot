@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>8ball,8b</Aliases>
+  <Help>8-ball response</Help>
+  <Module>Magic 8 Balls</Module>
+  <Examples>!8ball Will I have good luck today?</Examples>
+  <ExtraData>
+    <Choice1>🎱 As I see it, yes.</Choice1>
+    <Choice2>🎱 It is certain.</Choice2>
+    <Choice3>🎱 It is decidedly so.</Choice3>
+    <Choice4>🎱 Most likely.</Choice4>
+    <Choice5>🎱 Outlook good.</Choice5>
+    <Choice6>🎱 Signs point to yes.</Choice6>
+    <Choice7>🎱 Without a doubt.</Choice7>
+    <Choice8>🎱 Yes.</Choice8>
+    <Choice9>🎱 Yes – definitely.</Choice9>
+    <Choice10>🎱 You may rely on it.</Choice10>
+    <Choice11>🎱 Reply hazy, try again.</Choice11>
+    <Choice12>🎱 Ask again later.</Choice12>
+    <Choice13>🎱 Better not tell you now.</Choice13>
+    <Choice14>🎱 Cannot predict now.</Choice14>
+    <Choice15>🎱 Concentrate and ask again.</Choice15>
+    <Choice16>🎱 Don't count on it.</Choice16>
+    <Choice17>🎱 My reply is no.</Choice17>
+    <Choice18>🎱 My sources say no.</Choice18>
+    <Choice19>🎱 Outlook not so good.</Choice19>
+    <Choice20>🎱 Very doubtful.</Choice20>
+  </ExtraData>
+</Root>

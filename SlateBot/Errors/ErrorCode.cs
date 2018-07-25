@@ -41,5 +41,21 @@
     /// A parameter specified to a command was incorrect.
     /// </summary>
     IncorrectParameter,
+
+    /// <summary>
+    /// The lifecycle requested connection, but the bot is already connected.
+    /// </summary>
+    AlreadyConnected,
+
+    /// <summary>
+    /// The functionality is not implemented.
+    /// </summary>
+    NotImplemented,
+
+    /// <summary>
+    /// A Command Handler could not load its command.
+    /// </summary>
+    CommandNotValid,
+
   }
 }

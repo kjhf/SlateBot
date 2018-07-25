@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>h2o,hex2oct</Aliases>
+  <Help>Changes a hexadecimal number into an octal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!h2o F\r\n!h2o 00 ff a0 77</Examples>
+  <ExtraData>
+    <FromBase>16</FromBase>
+    <ToBase>8</ToBase>
+  </ExtraData>
+</Root>

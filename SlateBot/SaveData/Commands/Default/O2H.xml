@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>o2h,oct2hex</Aliases>
+  <Help>Changes an octal number into a hexadecimal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!o2h 77\r\n!o2h 00 77 60 75</Examples>
+  <ExtraData>
+    <FromBase>8</FromBase>
+    <ToBase>16</ToBase>
+  </ExtraData>
+</Root>

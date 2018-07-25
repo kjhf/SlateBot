@@ -1,4 +1,5 @@
-﻿using SlateBot.Errors;
+﻿using Discord.WebSocket;
+using SlateBot.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace SlateBot.Lifecycle
       return StateId;
     }
 
+    public SlateBotControllerLifecycleStates Disconnect()
+    {
+      lifecycle.Client.LogoutAsync();
+      return StateId;
+    }
+
     public SlateBotControllerLifecycleStates OnConnection()
     {
       return SlateBotControllerLifecycleStates.ConnectedTransceiving;
@@ -42,9 +49,10 @@ namespace SlateBot.Lifecycle
       return SlateBotControllerLifecycleStates.Disconnected;
     }
 
-    public SlateBotControllerLifecycleStates OnMessageReadyToSend(object sender, IMessageDetail message)
+    public SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination)
     {
       lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Information, $"{nameof(SlateBotControllerConnectingState)} {nameof(OnMessageReadyToSend)}: Storing message."));
+      // TODO -- actually store the message
       return StateId;
     }
   }

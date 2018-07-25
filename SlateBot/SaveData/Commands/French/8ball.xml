@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>8ball,8b</Aliases>
+  <Help>Réponse de la boule magique</Help>
+  <Module>Magic 8 Balls</Module>
+  <Examples>!8ball Aurai-je de la chance aujourd'hui?</Examples>
+  <ExtraData>
+    <Choice1>🎱 À ce que je vois, oui.</Choice1>
+    <Choice2>🎱 C'est certain.</Choice2>
+    <Choice3>🎱 Il en est ainsi.</Choice3>
+    <Choice4>🎱 Très probablement.</Choice4>
+    <Choice5>🎱 Ça en a tout l'air.</Choice5>
+    <Choice6>🎱 Des indices montrent que oui.</Choice6>
+    <Choice7>🎱 Sans le moindre doute.</Choice7>
+    <Choice8>🎱 Oui.</Choice8>
+    <Choice9>🎱 Oui, assurément.</Choice9>
+    <Choice10>🎱 Vous pouvez vous y fier.</Choice10>
+    <Choice11>🎱 La réponse est floue, réessayez plus tard.</Choice11>
+    <Choice12>🎱 Reposez la question à un autre moment.</Choice12>
+    <Choice13>🎱 Ça vaut mieux que je ne vous le dise pas maintenant.</Choice13>
+    <Choice14>🎱 Je ne peux pas le prédire maintenant.</Choice14>
+    <Choice15>🎱 Concentrez-vous et reposez votre question.</Choice15>
+    <Choice16>🎱 N'y comptez pas.</Choice16>
+    <Choice17>🎱 Ma réponse est non.</Choice17>
+    <Choice18>🎱 Selon mes sources, non.</Choice18>
+    <Choice19>🎱 Ça n'en a pas l'air.</Choice19>
+    <Choice20>🎱 J'en doute fort.</Choice20>
+  </ExtraData>
+</Root>

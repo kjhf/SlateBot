@@ -156,12 +156,14 @@ namespace SlateBot.DAL.ServerSettingsFile
       try
       {
         XmlDocument doc = new XmlDocument();
-        doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+        var decl = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");
+        doc.AppendChild(decl);
         XmlElement root = doc.CreateElement("Root");
-        XmlElement node;
+        doc.AppendChild(root);
 
-        var blockedModulesNode = doc.CreateElement("BlockedModule");
-        doc.AppendChild(blockedModulesNode);
+        XmlElement node;
+        var blockedModulesNode = doc.CreateElement("BlockedModules");
+        root.AppendChild(blockedModulesNode);
         foreach (var module in BlockedModules)
         {
           node = doc.CreateElement("M");
@@ -175,10 +177,10 @@ namespace SlateBot.DAL.ServerSettingsFile
         node.InnerText = JoinQuitChannelId;
         root.AppendChild(node);
         var joinServerMessagesNode = doc.CreateElement("JoinServerMessages");
-        doc.AppendChild(joinServerMessagesNode);
+        root.AppendChild(joinServerMessagesNode);
         foreach (var message in JoinServerMessages)
         {
-          node = doc.CreateElement("M");
+          node = doc.CreateElement("J");
           node.InnerText = message;
           joinServerMessagesNode.AppendChild(node);
         }
@@ -186,15 +188,15 @@ namespace SlateBot.DAL.ServerSettingsFile
         node.InnerText = Language;
         root.AppendChild(node);
         var quitServerMessagesNode = doc.CreateElement("QuitServerMessages");
-        doc.AppendChild(quitServerMessagesNode);
+        root.AppendChild(quitServerMessagesNode);
         foreach (var message in QuitServerMessages)
         {
-          node = doc.CreateElement("M");
+          node = doc.CreateElement("Q");
           node.InnerText = message;
           quitServerMessagesNode.AppendChild(node);
         }
         var rateChannelsNode = doc.CreateElement("RateChannels");
-        doc.AppendChild(rateChannelsNode);
+        root.AppendChild(rateChannelsNode);
         foreach (var channel in RateChannels)
         {
           node = doc.CreateElement("C");
@@ -205,7 +207,7 @@ namespace SlateBot.DAL.ServerSettingsFile
         node.InnerText = ServerId;
         root.AppendChild(node);
         var splatoon2RotationChannelsNode = doc.CreateElement("Splatoon2RotationChannels");
-        doc.AppendChild(splatoon2RotationChannelsNode);
+        root.AppendChild(splatoon2RotationChannelsNode);
         foreach (var channel in Splatoon2RotationChannels)
         {
           node = doc.CreateElement("C");

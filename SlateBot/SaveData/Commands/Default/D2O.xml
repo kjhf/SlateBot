@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>d2o,oct,octal,dec2oct</Aliases>
+  <Help>Changes a decimal number into an octal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!oct 100\r\n!d2o 0 255 160 119</Examples>
+  <ExtraData>
+    <FromBase>10</FromBase>
+    <ToBase>8</ToBase>
+  </ExtraData>
+</Root>

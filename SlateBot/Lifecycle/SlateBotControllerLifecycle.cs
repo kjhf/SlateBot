@@ -1,16 +1,12 @@
-﻿using SlateBot.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Discord.WebSocket;
+using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
 {
-  class SlateBotControllerLifecycle
+  internal class SlateBotControllerLifecycle
   {
     internal IErrorLogger ErrorLogger => controller.ErrorLogger;
+    internal DiscordSocketClient Client => controller.client;
 
     /// <summary>
     /// The states of the lifecycle.
@@ -23,6 +19,7 @@ namespace SlateBot.Lifecycle
     private ISlateBotControllerLifecycleState CurrentState => states[(int)CurrentStateId];
     private readonly SlateBotController controller;
     private SlateBotControllerLifecycleStates currentStateId;
+
     private SlateBotControllerLifecycleStates CurrentStateId
     {
       get => currentStateId;
@@ -61,7 +58,6 @@ namespace SlateBot.Lifecycle
     /// Event raised when the controller requests connection.
     /// </summary>
     /// <remarks>(Lifecycle)</remarks>
-    /// <returns>The desired new state</returns>
     internal void AttemptConnection()
     {
       lock (lifecycleLock)
@@ -71,10 +67,21 @@ namespace SlateBot.Lifecycle
     }
 
     /// <summary>
+    /// Event raised when the controller requests disconnection.
+    /// </summary>
+    /// <remarks>(Lifecycle)</remarks>
+    internal void Disconnect()
+    {
+      lock (lifecycleLock)
+      {
+        CurrentStateId = CurrentState.Disconnect();
+      }
+    }
+
+    /// <summary>
     /// Event raised when the controller has connected.
     /// </summary>
     /// <remarks>(Lifecycle)</remarks>
-    /// <returns>The desired new state</returns>
     internal void OnConnection()
     {
       lock (lifecycleLock)
@@ -87,7 +94,6 @@ namespace SlateBot.Lifecycle
     /// Event raised when the controller has disconnected.
     /// </summary>
     /// <remarks>(Lifecycle)</remarks>
-    /// <returns>The desired new state</returns>
     internal void OnDisconnection()
     {
       lock (lifecycleLock)
@@ -100,14 +106,13 @@ namespace SlateBot.Lifecycle
     /// Event raised when the controller is ready to send a message.
     /// </summary>
     /// <remarks>(Lifecycle)</remarks>
-    /// <param name="sender">The sender object</param>
-    /// <param name="message">The message received detail</param>
-    /// <returns>The desired new state</returns>
-    internal void OnMessageReadyToSend(object sender, IMessageDetail message)
+    /// <param name="message">The message to send</param>
+    /// <param name="destination">The destination</param>
+    internal void OnMessageReadyToSend(string message, ISocketMessageChannel destination)
     {
       lock (lifecycleLock)
       {
-        CurrentStateId = CurrentState.OnMessageReadyToSend(sender, message);
+        CurrentStateId = CurrentState.OnMessageReadyToSend(message, destination);
       }
     }
 

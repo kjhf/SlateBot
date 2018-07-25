@@ -61,8 +61,8 @@ namespace SlateBot.DAL.CommandFile
         
         Aliases = root["Aliases"].InnerText.Split(',').Select(s => s.Trim()).ToArray();
         CommandType = root["CommandType"].InnerText;
-        Examples = root["Examples"].InnerText;
-        Help = root["Help"].InnerText;
+        Examples = root["Examples"]?.InnerText ?? (Aliases.Length > 0 ? (Constants.BotMention + " " + Aliases[0]) : "");
+        Help = root["Help"]?.InnerText ?? "No help available for this command.";
         Module = (root["Module"]?.InnerText) ?? Commands.ModuleType.General.ToString();
         ResponseType = (root["ResponseType"]?.InnerText) ?? Commands.ResponseType.Default.ToString();
 

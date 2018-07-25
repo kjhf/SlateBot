@@ -82,7 +82,15 @@ namespace SlateBot
           }
           else
           {
-            commands.Add(commandHandler.CreateCommand(languageHandler, file));
+            Command c = commandHandler.CreateCommand(languageHandler, file);
+            if (c == null)
+            {
+              errorLogger.LogError(new Error(ErrorCode.CommandNotValid, ErrorSeverity.Error, $"Found handler but did not create a {file.CommandType} specified in an xml file with aliases {file.AliasesStr}"));
+            }
+            else
+            {
+              commands.Add(c);
+            }
           }
         }
       }

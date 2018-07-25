@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Coin</CommandType>
+  <Aliases>Piece,Pièce</Aliases>
+  <Help>Retourner une pièce un certain nombre de fois.</Help>
+  <Examples>!pièce 2</Examples>
+</Root>

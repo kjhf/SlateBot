@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>arms</Aliases>
+  <Help>Search the ARMS wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!arms ribbon girl</Examples>
+  <ExtraData>
+    <C1>https://armswiki.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C1>
+  </ExtraData>
+</Root>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>d264,d2b64,b64,base64,dec264,dec2base64</Aliases>
+  <Help>Changes a decimal number into a base 64 number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!base64 100\r\n!d264 0 255 160 119</Examples>
+  <ExtraData>
+    <FromBase>10</FromBase>
+    <ToBase>64</ToBase>
+  </ExtraData>
+</Root>

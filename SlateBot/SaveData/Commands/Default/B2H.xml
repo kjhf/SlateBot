@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>b2h,bin2hex</Aliases>
+  <Help>Changes a binary number into a hexadecimal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!b2h 1001\r\n!b2h 0 100 101 110101</Examples>
+  <ExtraData>
+    <FromBase>2</FromBase>
+    <ToBase>16</ToBase>
+  </ExtraData>
+</Root>

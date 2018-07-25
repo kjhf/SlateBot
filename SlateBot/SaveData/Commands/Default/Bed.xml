@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>Bed</Aliases>
+  <Help>Bed response</Help>
+  <Module>Meme Commands</Module>
+  <ExtraData>
+    <C>→ 🛏</C>
+  </ExtraData>
+</Root>

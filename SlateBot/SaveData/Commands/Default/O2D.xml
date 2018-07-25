@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>o2d,oct2dec</Aliases>
+  <Help>Changes an octal number into a decimal number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!o2d 77\r\n!o2d 00 77 60 75</Examples>
+  <ExtraData>
+    <FromBase>8</FromBase>
+    <ToBase>10</ToBase>
+  </ExtraData>
+</Root>

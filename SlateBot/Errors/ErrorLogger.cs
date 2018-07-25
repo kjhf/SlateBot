@@ -115,6 +115,21 @@ namespace SlateBot.Errors
     }
 
     /// <summary>
+    /// Log a debug error to log.
+    /// </summary>
+    /// <param name="error"></param>
+    public void LogDebug(string message, bool outputToConsole = false)
+    {
+      Error error = new Error(ErrorCode.Success, ErrorSeverity.Debug, message);
+      errorsToLog.Enqueue(error);
+
+      if (outputToConsole)
+      {
+        OutputToConsole(message, ErrorSeverity.Information);
+      }
+    }
+
+    /// <summary>
     /// Log an error to console and log.
     /// </summary>
     /// <param name="error"></param>

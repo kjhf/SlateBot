@@ -9,8 +9,9 @@ namespace SlateBot
   enum ExitCodes
   {
     Success,
+    SuccessReconnect,
     RestartRequested,
-    RestartError,
-    
+    RestartErrorNoReconnect,
+    RestartErrorReconnect,
   }
 }

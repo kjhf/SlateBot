@@ -17,6 +17,7 @@ namespace SlateBot
     public const ulong GeneralHelpChannelId = 255312220567764993;
     public const ulong LogChannelId = 255317511212367873;
     public const ulong BotStatusChannelId = 255312337601429507;
+    public const ulong BotId = 187645597950410753;
     public const ulong OwnerId = 97288493029416960;
     public const ulong ErrorId = ulong.MaxValue;
 

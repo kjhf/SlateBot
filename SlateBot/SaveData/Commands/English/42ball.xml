@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Response</CommandType>
+  <Aliases>42ball,42b,knowitall,know-it-all,</Aliases>
+  <Help>42.</Help>
+  <Module>Magic 8 Balls</Module>
+  <Examples>What is the answer to life the universe and everything?</Examples>
+  <ExtraData>
+    <Choice>:four::two:</Choice>
+    <Choice>42.</Choice>
+    <Choice>_**42**_</Choice>
+    <Choice>(4*10)+2</Choice>
+    <Choice>④②</Choice>
+    <Choice>４２</Choice>
+    <Choice>⁴²</Choice>
+    <Choice>⁴²</Choice>
+    <Choice>42\r\n2</Choice>
+  </ExtraData>
+</Root>

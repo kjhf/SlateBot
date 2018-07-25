@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>BaseChange</CommandType>
+  <Aliases>h2b,hex2bin</Aliases>
+  <Help>Changes a hexadecimal number into a binary number.</Help>
+  <Module>Number Base Commands</Module>
+  <Examples>!h2b F\r\n!h2b 00 ff a0 77</Examples>
+  <ExtraData>
+    <FromBase>16</FromBase>
+    <ToBase>2</ToBase>
+  </ExtraData>
+</Root>
