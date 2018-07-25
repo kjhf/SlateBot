@@ -10,7 +10,7 @@ using SlateBot.Language;
 
 namespace SlateBot.SavedSettings
 {
-  class SeverSettingsHandler : IController
+  class ServerSettingsHandler : IController
   {
     public readonly ServerSettings consoleServerSettings;
     private readonly IErrorLogger errorLogger;
@@ -18,9 +18,9 @@ namespace SlateBot.SavedSettings
     private Dictionary<ulong, ServerSettings> serverSettings;
 
     /// <summary>
-    /// Constructor of the <see cref="SeverSettingsHandler"/>.
+    /// Constructor of the <see cref="ServerSettingsHandler"/>.
     /// </summary>
-    public SeverSettingsHandler(IErrorLogger errorLogger, DAL.SlateBotDAL dal)
+    public ServerSettingsHandler(IErrorLogger errorLogger, DAL.SlateBotDAL dal)
     {
       this.errorLogger = errorLogger;
       this.dal = dal;

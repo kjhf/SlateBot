@@ -8,18 +8,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlateBot.DAL.ServerSettingsFile
+namespace SlateBot.DAL.UserSettingsFile
 {
   /// <summary>
   /// Command File Abstraction Layer handles the loading of the command XML files.
   /// </summary>
-  class ServerSettingsFileDAL
+  class UserSettingsFileDAL
   {
     private readonly IErrorLogger errorLogger;
     private readonly string saveDirectory;
     private SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
-    public ServerSettingsFileDAL(IErrorLogger errorLogger, string saveDirectory)
+    public UserSettingsFileDAL(IErrorLogger errorLogger, string saveDirectory)
     {
       this.errorLogger = errorLogger ?? throw new ArgumentNullException(nameof(errorLogger));
       this.saveDirectory = saveDirectory ?? throw new ArgumentNullException(nameof(saveDirectory));
@@ -30,14 +30,14 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// Loads command XML files present in the saveDirectory into <see cref="CommandFile"/>s
     /// </summary>
     /// <returns></returns>
-    public List<ServerSettingsFile> LoadFiles()
+    public List<UserSettingsFile> LoadFiles()
     {
-      List<ServerSettingsFile> result = new List<ServerSettingsFile>();
+      List<UserSettingsFile> result = new List<UserSettingsFile>();
 
       foreach (var path in Directory.EnumerateFiles(saveDirectory))
       {
         string contents = File.ReadAllText(path);
-        ServerSettingsFile file = new ServerSettingsFile(errorLogger);
+        UserSettingsFile file = new UserSettingsFile(errorLogger);
         bool loaded = file.FromXML(contents);
         if (loaded)
         {
@@ -48,13 +48,13 @@ namespace SlateBot.DAL.ServerSettingsFile
       return result;
     }
 
-    public async void SaveFileAsync(ServerSettings settingsToSave, string filename)
+    public async void SaveFileAsync(UserSettings settingsToSave, string filename)
     {
       await semaphore.WaitAsync();
 
       try
       {
-        ServerSettingsFile file = new ServerSettingsFile(errorLogger);
+        UserSettingsFile file = new UserSettingsFile(errorLogger);
         file.Initialise(settingsToSave);
         string contents = file.ToXML();
         if (contents != null)

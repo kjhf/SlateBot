@@ -3,12 +3,12 @@
   public class SenderDetail
   {
     public ServerSettings ServerSettings { get; }
-    //public UserSettings UserSettings { get; }
+    public UserSettings UserSettings { get; }
 
-    public SenderDetail(ServerSettings serverSettings /*, UserSettings userSettings*/)
+    public SenderDetail(ServerSettings serverSettings, UserSettings userSettings)
     {
       this.ServerSettings = serverSettings;
-      //this.UserSettings = userSettings;
+      this.UserSettings = userSettings;
     }
   }
 }

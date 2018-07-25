@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using SlateBot.Commands;
 using SlateBot.DAL;
 using SlateBot.Errors;
+using SlateBot.Events;
 using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
@@ -23,8 +24,11 @@ namespace SlateBot
     internal ErrorLogger ErrorLogger => dal.errorLogger;
     private readonly LanguageHandler languageHandler;
     private readonly SlateBotControllerLifecycle lifecycle;
-    private readonly SeverSettingsHandler severSettingsHandler;
+    private readonly ServerSettingsHandler serverSettingsHandler;
+    private readonly UserSettingsHandler userSettingsHandler;
     internal DiscordSocketClient client;
+
+    internal event CommandReceived OnCommandReceived;
 
     public SlateBotController()
     {
@@ -32,13 +36,16 @@ namespace SlateBot
       this.languageHandler = new LanguageHandler(dal);
       this.lifecycle = new SlateBotControllerLifecycle(this);
       this.commandHandlerController = new CommandController(ErrorLogger, dal, languageHandler);
-      this.severSettingsHandler = new SeverSettingsHandler(ErrorLogger, dal);
+      this.serverSettingsHandler = new ServerSettingsHandler(ErrorLogger, dal);
+      this.userSettingsHandler = new UserSettingsHandler(this);
 
       this.client = new DiscordSocketClient();
       client.LoggedIn += Client_LoggedIn;
       client.LoggedOut += Client_LoggedOut;
       client.MessageReceived += Client_MessageReceived;
       client.MessageUpdated += Client_MessageUpdated;
+
+      OnCommandReceived += SlateBotController_OnCommandReceived;
     }
 
     private Task Client_MessageUpdated(Discord.Cacheable<Discord.IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
@@ -80,81 +87,66 @@ namespace SlateBot
       this.dal.Initialise();
       this.languageHandler.Initialise();
       this.commandHandlerController.Initialise();
-      this.severSettingsHandler.Initialise();
+      this.serverSettingsHandler.Initialise();
+      this.userSettingsHandler.Initialise();
 
       ErrorLogger.LogDebug("Program initialised successfully.");
     }
 
     internal void HandleConsoleCommand(string line)
     {
-      HandleCommandReceived(new SenderDetail(severSettingsHandler.consoleServerSettings), new ConsoleMessageDetail(line));
+      UserSettings consoleUserSettings = userSettingsHandler.GetOrCreateUserSettings(Constants.ErrorId);
+      HandleCommandReceived(new SenderDetail(serverSettingsHandler.consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
     }
 
     /// <summary>
     /// Handle a command received from chat.
     /// This is after filtering to make sure a message is a command.
     /// </summary>
-    internal async void HandleCommandReceived(SenderDetail senderDetail, IMessageDetail message)
+    internal void HandleCommandReceived(SenderDetail senderDetail, IMessageDetail message)
     {
       var result = commandHandlerController.ExecuteCommand(senderDetail, message);
-      bool isFromConsole = message is ConsoleMessageDetail;
-      bool isFromSocket = message is SocketMessageWrapper;
 
       if (result.Item2 != null)
       {
         Command command = result.Item1;
         string response = result.Item2;
-
-        ResponseType responseType = command.ResponseType;
-        if (isFromConsole)
-        {
-          // Send response to console.
-          responseType = ResponseType.LogOnly;
-        }
-
-        switch (responseType)
-        {
-          case ResponseType.LogOnly:
-          {
-            // Log the result.
-            ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response));
-            break;
-          }
-
-          case ResponseType.Default:
-          {
-            // Post to the channel.
-            if (isFromSocket)
-            {
-              SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)message;
-              lifecycle.OnMessageReadyToSend(response, (ISocketMessageChannel)socketMessageWrapper.Channel);
-            }
-            else
-            {
-              ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {message.ChannelName} ({message.ChannelId}) by user {message.Username} ({message.UserId}) as the message is not from the socket."));
-            }
-            break;
-          }
-
-          case ResponseType.Private:
-          {
-            // Send the result to the user privately.
-            if (isFromSocket)
-            {
-              SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)message;
-              lifecycle.OnMessageReadyToSend(response, (ISocketMessageChannel)(await socketMessageWrapper.User.GetOrCreateDMChannelAsync()));
-            }
-            else
-            {
-              ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot DM reply to user {message.Username} ({message.UserId}) as the message is not from the socket."));
-            }
-            break;
-          }
-        }
+        OnCommandReceived?.Invoke(this, new CommandReceivedEventArgs(senderDetail, message, command, response));
       }
-      else if (isFromConsole)
+      else if (message is ConsoleMessageDetail) // If from the console
       {
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, "I got nothin'."));
+        ErrorLogger.LogDebug("I got nothin'. (" + message.Message + ")", true);
+      }
+    }
+    
+    private async void SlateBotController_OnCommandReceived(object sender, CommandReceivedEventArgs args)
+    {
+      bool isFromConsole = args.message is ConsoleMessageDetail;
+      bool isFromSocket = args.message is SocketMessageWrapper;
+      ResponseType responseType = args.command.ResponseType;
+      if (isFromConsole || responseType == ResponseType.LogOnly)
+      {
+        // Log the result.
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, args.response));
+      }
+      else
+      {
+        if (isFromSocket)
+        {
+          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)args.message;
+
+          // If private response, get the DM channel to the user, otherwise use the current channel.
+          ISocketMessageChannel responseChannel =
+            responseType == ResponseType.Private ?
+            (ISocketMessageChannel)(await socketMessageWrapper.User.GetOrCreateDMChannelAsync())
+            : (ISocketMessageChannel)socketMessageWrapper.Channel;
+
+          lifecycle.OnMessageReadyToSend(args.response, responseChannel);
+        }
+        else
+        {
+          ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {args.message.ChannelName} ({args.message.ChannelId}) by user {args.message.Username} ({args.message.UserId}) as the message is not from the socket."));
+        }
       }
     }
 
@@ -167,10 +159,13 @@ namespace SlateBot
       }
 
       // First, get the server settings for the guild this message is from.
-      ServerSettings serverSettings = severSettingsHandler.GetOrCreateServerSettings(socketMessage.GuildId);
-      
+      ServerSettings serverSettings = serverSettingsHandler.GetOrCreateServerSettings(socketMessage.GuildId);
+
+      // And the user settings for the user this message is from.
+      UserSettings userSettings = userSettingsHandler.GetOrCreateUserSettings(socketMessage.UserId);
+
       // Handle the command
-      HandleCommandReceived(new SenderDetail(serverSettings), socketMessage);
+      HandleCommandReceived(new SenderDetail(serverSettings, userSettings), socketMessage);
     }
   }
 }

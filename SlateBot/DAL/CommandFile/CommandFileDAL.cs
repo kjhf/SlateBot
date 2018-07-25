@@ -12,7 +12,7 @@ namespace SlateBot.DAL.CommandFile
   /// <summary>
   /// Command File Abstraction Layer handles the loading of the command XML files.
   /// </summary>
-  class CommandFileDAL : IFileHandler
+  class CommandFileDAL
   {
     private readonly IErrorLogger errorLogger;
     private readonly string saveDirectory;

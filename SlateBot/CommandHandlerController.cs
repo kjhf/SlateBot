@@ -118,7 +118,7 @@ namespace SlateBot
     internal Tuple<Command, string> ExecuteCommand(SenderDetail senderDetail, IMessageDetail messageDetail)
     {
       string response = null;
-      Commands.CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
+      CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
       Command foundCommand = null;
       foreach (Command command in commands)
       {
