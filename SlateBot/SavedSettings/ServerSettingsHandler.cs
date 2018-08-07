@@ -24,7 +24,7 @@ namespace SlateBot.SavedSettings
     {
       this.errorLogger = errorLogger;
       this.dal = dal;
-      consoleServerSettings = new ServerSettings(Constants.ErrorId);
+      consoleServerSettings = new ServerSettings(Constants.ConsoleId);
     }
 
     /// <summary>

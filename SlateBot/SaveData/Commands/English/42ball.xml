@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <CommandType>Response</CommandType>
-  <Aliases>42ball,42b,knowitall,know-it-all,</Aliases>
+  <Aliases>42ball,42b,knowitall,know-it-all</Aliases>
   <Help>42.</Help>
   <Module>Magic 8 Balls</Module>
   <Examples>What is the answer to life the universe and everything?</Examples>

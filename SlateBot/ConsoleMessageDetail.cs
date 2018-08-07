@@ -10,25 +10,25 @@ namespace SlateBot
   {
     public const string ConsoleConstant = "CONSOLE";
 
-    public ulong ChannelId => Constants.ErrorId;
+    public ulong ChannelId => Constants.ConsoleId;
 
     public string ChannelName => ConsoleConstant;
 
     public string Message { get; private set; }
 
-    public ulong MessageId => Constants.ErrorId;
+    public ulong MessageId => Constants.ConsoleId;
 
     public bool HasGuild => false;
 
-    public ulong GuildId => Constants.ErrorId;
+    public ulong GuildId => Constants.ConsoleId;
 
     public string GuildName => "";
 
-    public ulong GuildOwnerId => Constants.ErrorId;
+    public ulong GuildOwnerId => Constants.ConsoleId;
 
     public string GuildOwnerName => "";
 
-    public ulong UserId => Constants.ErrorId;
+    public ulong UserId => Constants.ConsoleId;
 
     public string Username => ConsoleConstant;
 

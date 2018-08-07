@@ -1,5 +1,6 @@
 ﻿using SlateBot.Commands;
 using SlateBot.Language;
+using SlateBot.SaveData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace SlateBot
     /// </summary>
     /// <param name="userId"></param>
     public UserSettings(ulong userId)
-       : this(userId, new UserStats())
+       : this(userId, new UserStats(userId, 0))
     {
     }
 

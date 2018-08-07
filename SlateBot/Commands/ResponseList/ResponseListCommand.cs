@@ -44,7 +44,7 @@ namespace SlateBot.Commands.ResponseList
     public override ModuleType Module => module;
     public override ResponseType ResponseType => responseType;
 
-    public override string Execute(SenderDetail senderDetail, IMessageDetail args)
+    public override string Execute(SenderSettings senderDetail, IMessageDetail args)
     {
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);

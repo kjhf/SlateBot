@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -163,6 +164,8 @@
     <Compile Include="CommandHandlerController.cs" />
     <Compile Include="Commands\BaseChange\BaseChangeCommand.cs" />
     <Compile Include="Commands\BaseChange\BaseChangeCommandHandler.cs" />
+    <Compile Include="Commands\Achievement\AchievementCommand.cs" />
+    <Compile Include="Commands\Achievement\AchievementCommandHandler.cs" />
     <Compile Include="Commands\Coin\CoinCommand.cs" />
     <Compile Include="Commands\Coin\CoinCommandHandler.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -175,7 +178,7 @@
     <Compile Include="Commands\ResponseType.cs" />
     <Compile Include="Commands\Response\ResponseCommand.cs" />
     <Compile Include="Commands\Response\ResponseCommandHandler.cs" />
-    <Compile Include="Commands\SenderDetail.cs" />
+    <Compile Include="Commands\SenderSettings.cs" />
     <Compile Include="ConsoleMessageDetail.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DAL\ServerSettingsFile\ServerSettingsFile.cs" />
@@ -194,6 +197,7 @@
     <Compile Include="Errors\ErrorSeverity.cs" />
     <Compile Include="Errors\IErrorLogger.cs" />
     <Compile Include="Errors\ErrorCode.cs" />
+    <Compile Include="Events\AchievementUnlockedEvent.cs" />
     <Compile Include="Events\CommandReceivedEvent.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="IController.cs" />
@@ -208,6 +212,10 @@
     <Compile Include="Lifecycle\SlateBotControllerLifecycle.cs" />
     <Compile Include="Lifecycle\SlateBotControllerLifecycleState.cs" />
     <Compile Include="Lifecycle\SlateBotControllerLifecycleStates.cs" />
+    <Compile Include="SaveData\Achievements\OneHundredCommandsAchievement.cs" />
+    <Compile Include="SaveData\Achievements\TenCommandsAchievement.cs" />
+    <Compile Include="SaveData\Achievements\FirstCommandAchievement.cs" />
+    <Compile Include="SaveData\Achievements\Achievement.cs" />
     <Compile Include="SavedSettings\ServerSettingsHandler.cs" />
     <Compile Include="SavedSettings\UserSettingsHandler.cs" />
     <Compile Include="UserSettings.cs" />
@@ -217,7 +225,7 @@
     <Compile Include="SlateBotProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tokens.cs" />
-    <Compile Include="UserStats.cs" />
+    <Compile Include="SaveData\UserStats.cs" />
     <Compile Include="Utility\DuplicateKeyDictionaryExtensions.cs" />
     <Compile Include="Utility\SynchronizationContextExtensions.cs" />
     <Compile Include="VariableStrings.cs" />

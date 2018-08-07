@@ -98,24 +98,22 @@ namespace SlateBot
 
     private ICommandHandler GetCommandHandlerFromCommandHandlerType(string search)
     {
+      ICommandHandler handler = null;
       bool success = Enum.TryParse(search, out CommandHandlerType commandHandlerType);
       if (success)
       {
-        bool found = commandHandlers.TryGetValue(commandHandlerType, out ICommandHandler handler);
+        bool found = commandHandlers.TryGetValue(commandHandlerType, out handler);
 
         if (!found)
         {
           errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{search} exists but does not have an associated command handler."));
         }
-
-        return handler;
       }
 
-      // Else 
-      return null;
+      return handler;
     }
 
-    internal Tuple<Command, string> ExecuteCommand(SenderDetail senderDetail, IMessageDetail messageDetail)
+    internal Tuple<Command, string> ExecuteCommand(SenderSettings senderDetail, IMessageDetail messageDetail)
     {
       string response = null;
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);

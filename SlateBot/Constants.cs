@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SlateBot
 {
-  class Constants
+  public static class Constants
   {
     public const string Owner = "kjhf";
     public const string OwnerUsernameWithDiscriminator = Owner + "#3249";
@@ -20,6 +20,7 @@ namespace SlateBot
     public const ulong BotId = 187645597950410753;
     public const ulong OwnerId = 97288493029416960;
     public const ulong ErrorId = ulong.MaxValue;
+    public const ulong ConsoleId = ulong.MaxValue - 1;
 
     public const int MessageLimit = 1990;
     public const string BotMention = "<@187645597950410753>"; // bot id
@@ -29,5 +30,9 @@ namespace SlateBot
     public const string HelpPageENURL = @"https://splatoonwiki.org/wiki/" + HelpPageTitle;
     public const string DevelopmentServerLink = @"https://discord.gg/Px5Bhny";
 
+    public static bool IsBotOwner(ulong id)
+    {
+      return id == OwnerId;
+    }
   }
 }

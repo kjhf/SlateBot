@@ -44,14 +44,14 @@ namespace SlateBot.Commands.BaseChange
     public override ModuleType Module => module;
     public override ResponseType ResponseType => responseType;
 
-    public override string Execute(SenderDetail senderDetail, IMessageDetail args)
+    public override string Execute(SenderSettings senderDetail, IMessageDetail args)
     {
       StringBuilder output = new StringBuilder();
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
 
       string commandDetail = command.CommandDetail;
-      if (commandDetail == "")
+      if (string.IsNullOrEmpty(commandDetail))
       {
         output.AppendLine(command.CommandSymbol + command.CommandParams[0] + " " + "100");
       }

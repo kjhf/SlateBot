@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Discord.WebSocket;
+﻿using Discord.WebSocket;
 using SlateBot.Commands;
 using SlateBot.DAL;
 using SlateBot.Errors;
@@ -11,24 +6,22 @@ using SlateBot.Events;
 using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
+using System.Threading.Tasks;
 
 namespace SlateBot
 {
   /// <summary>
   /// The <see cref="SlateBotController"/> handles the main part of the program.
   /// </summary>
-  class SlateBotController : IController
+  internal class SlateBotController : IController
   {
     internal readonly CommandController commandHandlerController;
     internal readonly SlateBotDAL dal;
-    internal ErrorLogger ErrorLogger => dal.errorLogger;
-    private readonly LanguageHandler languageHandler;
+    internal readonly LanguageHandler languageHandler;
+    internal readonly ServerSettingsHandler serverSettingsHandler;
+    internal readonly DiscordSocketClient client;
     private readonly SlateBotControllerLifecycle lifecycle;
-    private readonly ServerSettingsHandler serverSettingsHandler;
     private readonly UserSettingsHandler userSettingsHandler;
-    internal DiscordSocketClient client;
-
-    internal event CommandReceived OnCommandReceived;
 
     public SlateBotController()
     {
@@ -48,29 +41,9 @@ namespace SlateBot
       OnCommandReceived += SlateBotController_OnCommandReceived;
     }
 
-    private Task Client_MessageUpdated(Discord.Cacheable<Discord.IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
-    {
-      HandleMessageReceived(new SocketMessageWrapper(arg2));
-      return Task.CompletedTask;
-    }
+    internal event CommandReceived OnCommandReceived;
 
-    private Task Client_MessageReceived(SocketMessage arg)
-    {
-      HandleMessageReceived(new SocketMessageWrapper(arg));
-      return Task.CompletedTask;
-    }
-
-    private Task Client_LoggedIn()
-    {
-      lifecycle.OnConnection();
-      return Task.CompletedTask;
-    }
-
-    private Task Client_LoggedOut()
-    {
-      lifecycle.OnDisconnection();
-      return Task.CompletedTask;
-    }
+    internal ErrorLogger ErrorLogger => dal.errorLogger;
 
     public void Connect()
     {
@@ -93,17 +66,11 @@ namespace SlateBot
       ErrorLogger.LogDebug("Program initialised successfully.");
     }
 
-    internal void HandleConsoleCommand(string line)
-    {
-      UserSettings consoleUserSettings = userSettingsHandler.GetOrCreateUserSettings(Constants.ErrorId);
-      HandleCommandReceived(new SenderDetail(serverSettingsHandler.consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
-    }
-
     /// <summary>
     /// Handle a command received from chat.
     /// This is after filtering to make sure a message is a command.
     /// </summary>
-    internal void HandleCommandReceived(SenderDetail senderDetail, IMessageDetail message)
+    internal void HandleCommandReceived(SenderSettings senderDetail, IMessageDetail message)
     {
       var result = commandHandlerController.ExecuteCommand(senderDetail, message);
 
@@ -118,7 +85,65 @@ namespace SlateBot
         ErrorLogger.LogDebug("I got nothin'. (" + message.Message + ")", true);
       }
     }
-    
+
+    internal void HandleConsoleCommand(string line)
+    {
+      UserSettings consoleUserSettings = userSettingsHandler.GetOrCreateUserSettings(Constants.ConsoleId);
+      HandleCommandReceived(new SenderSettings(serverSettingsHandler.consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
+    }
+
+    internal void HandleMessageReceived(SocketMessageWrapper socketMessage)
+    {
+      // Don't respond to bots (includes us!)
+      if (socketMessage.User.IsBot)
+      {
+        return;
+      }
+
+      // First, get the server settings for the guild this message is from.
+      ServerSettings serverSettings = serverSettingsHandler.GetOrCreateServerSettings(socketMessage.GuildId);
+
+      // And the user settings for the user this message is from.
+      UserSettings userSettings = userSettingsHandler.GetOrCreateUserSettings(socketMessage.UserId);
+
+      // Handle the command
+      HandleCommandReceived(new SenderSettings(serverSettings, userSettings), socketMessage);
+    }
+
+    internal void SendMessage(string message, ulong channelId)
+    {
+      lifecycle.OnMessageReadyToSend(message, (ISocketMessageChannel)client.GetChannel(channelId));
+    }
+
+    internal void SendMessage(string message, ISocketMessageChannel channel)
+    {
+      lifecycle.OnMessageReadyToSend(message, channel);
+    }
+
+    private Task Client_LoggedIn()
+    {
+      lifecycle.OnConnection();
+      return Task.CompletedTask;
+    }
+
+    private Task Client_LoggedOut()
+    {
+      lifecycle.OnDisconnection();
+      return Task.CompletedTask;
+    }
+
+    private Task Client_MessageReceived(SocketMessage arg)
+    {
+      HandleMessageReceived(new SocketMessageWrapper(arg));
+      return Task.CompletedTask;
+    }
+
+    private Task Client_MessageUpdated(Discord.Cacheable<Discord.IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
+    {
+      HandleMessageReceived(new SocketMessageWrapper(arg2));
+      return Task.CompletedTask;
+    }
+
     private async void SlateBotController_OnCommandReceived(object sender, CommandReceivedEventArgs args)
     {
       bool isFromConsole = args.message is ConsoleMessageDetail;
@@ -141,31 +166,16 @@ namespace SlateBot
             (ISocketMessageChannel)(await socketMessageWrapper.User.GetOrCreateDMChannelAsync())
             : (ISocketMessageChannel)socketMessageWrapper.Channel;
 
-          lifecycle.OnMessageReadyToSend(args.response, responseChannel);
+          SendMessage(args.response, responseChannel);
+
+          // TODO
+          // React to the message
         }
         else
         {
           ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {args.message.ChannelName} ({args.message.ChannelId}) by user {args.message.Username} ({args.message.UserId}) as the message is not from the socket."));
         }
       }
-    }
-
-    internal void HandleMessageReceived(SocketMessageWrapper socketMessage)
-    {
-      // Don't respond to bots (includes us!)
-      if (socketMessage.User.IsBot)
-      {
-        return;
-      }
-
-      // First, get the server settings for the guild this message is from.
-      ServerSettings serverSettings = serverSettingsHandler.GetOrCreateServerSettings(socketMessage.GuildId);
-
-      // And the user settings for the user this message is from.
-      UserSettings userSettings = userSettingsHandler.GetOrCreateUserSettings(socketMessage.UserId);
-
-      // Handle the command
-      HandleCommandReceived(new SenderDetail(serverSettings, userSettings), socketMessage);
     }
   }
 }

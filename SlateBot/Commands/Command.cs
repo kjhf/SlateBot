@@ -35,7 +35,7 @@ namespace SlateBot.Commands
     /// </summary>
     /// <param name="args">Context</param>
     /// <returns>The message to reply with.</returns>
-    public abstract string Execute(SenderDetail sender, IMessageDetail args);
+    public abstract string Execute(SenderSettings sender, IMessageDetail args);
 
     /// <summary>
     /// Overridden ToString. Returns the <see cref="Module"/> and its aliases.

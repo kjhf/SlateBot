@@ -47,6 +47,16 @@ namespace SlateBot
       }
     }
 
+    [Obsolete("Code smell.")]
+    /// <summary>
+    /// Sneaky way of getting the controller.
+    /// </summary>
+    /// <returns></returns>
+    internal static SlateBotController GetController()
+    {
+      return instance.controller;
+    }
+
     /// <summary>
     /// The Main Loop of the console. Waits for input to execute commands.
     /// </summary>

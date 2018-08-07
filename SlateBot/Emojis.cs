@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,10 +51,10 @@ namespace SlateBot
     public const string Splatoon_RegularBattle = "<:Splatoon_Mode_Regular_Battle:346078496008699915>";
     public const string Splatoon_LeagueBattle = "<:Splatoon_Mode_League_Battle:346079192351244298>";
 
-    public static readonly string[] RockSymbols = new[] { ":fist:", ":punch:", ":left_facing_fist:", ":new_moon:" };
-    public static readonly string[] PaperSymbols = new[] { ":hand_splayed:", ":raised_back_of_hand:", ":raised_hand:", ":page_facing_up:" };
-    public static readonly string[] ScissorsSymbols = new[] { ":v:", ":vulcan:", ":fingers_crossed:", ":scissors:" };
+    public static readonly ReadOnlyCollection<string> RockSymbols = new ReadOnlyCollection<string>(new[] { ":fist:", ":punch:", ":left_facing_fist:", ":new_moon:" });
+    public static readonly ReadOnlyCollection<string> PaperSymbols = new ReadOnlyCollection<string>(new[] { ":hand_splayed:", ":raised_back_of_hand:", ":raised_hand:", ":page_facing_up:" });
+    public static readonly ReadOnlyCollection<string> ScissorsSymbols = new ReadOnlyCollection<string>(new[] { ":v:", ":vulcan:", ":fingers_crossed:", ":scissors:" });
 
-    public static readonly string[] CheerleaderSymbols = new[] { ":ok_woman:", ":ok_woman::skin-tone-1:", ":ok_woman::skin-tone-2:", ":ok_woman::skin-tone-3:", ":ok_woman::skin-tone-4:", ":ok_woman::skin-tone-5:" };
+    public static readonly ReadOnlyCollection<string> CheerleaderSymbols = new ReadOnlyCollection<string>(new[] { ":ok_woman:", ":ok_woman::skin-tone-1:", ":ok_woman::skin-tone-2:", ":ok_woman::skin-tone-3:", ":ok_woman::skin-tone-4:", ":ok_woman::skin-tone-5:" });
   }
 }

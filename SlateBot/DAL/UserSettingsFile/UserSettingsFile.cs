@@ -60,7 +60,7 @@ namespace SlateBot.DAL.UserSettingsFile
     public void Initialise(UserSettings userSettings)
     {
       this.UserId = userSettings.UserId.ToString();
-      this.CommandsCount = userSettings.UserStats.commandsIssued.ToString();
+      this.CommandsCount = userSettings.UserStats.CommandsIssued.ToString();
     }
 
     /// <summary>
