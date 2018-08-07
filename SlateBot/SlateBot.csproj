@@ -173,11 +173,12 @@
     <Compile Include="Commands\CommandMessageHelper.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ModuleType.cs" />
-    <Compile Include="Commands\ResponseList\ResponseListCommand.cs" />
-    <Compile Include="Commands\ResponseList\ResponseListCommandHandler.cs" />
+    <Compile Include="Commands\Response.cs" />
+    <Compile Include="Commands\ResponseMessageList\ResponseMessageListCommand.cs" />
+    <Compile Include="Commands\ResponseMessageList\ResponseMessageListCommandHandler.cs" />
     <Compile Include="Commands\ResponseType.cs" />
-    <Compile Include="Commands\Response\ResponseCommand.cs" />
-    <Compile Include="Commands\Response\ResponseCommandHandler.cs" />
+    <Compile Include="Commands\ResponseMessage\ResponseMessageCommand.cs" />
+    <Compile Include="Commands\ResponseMessage\ResponseMessageCommandHandler.cs" />
     <Compile Include="Commands\SenderSettings.cs" />
     <Compile Include="ConsoleMessageDetail.cs" />
     <Compile Include="Constants.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Tokens.cs" />
     <Compile Include="SaveData\UserStats.cs" />
     <Compile Include="Utility\DuplicateKeyDictionaryExtensions.cs" />
+    <Compile Include="Utility\EmbedUtility.cs" />
     <Compile Include="Utility\SynchronizationContextExtensions.cs" />
     <Compile Include="VariableStrings.cs" />
   </ItemGroup>
@@ -236,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SaveData\Commands\Default\642D.xml" />
+    <Content Include="SaveData\Commands\Default\Achievement.xml" />
     <Content Include="SaveData\Commands\Default\ARMS.xml" />
     <Content Include="SaveData\Commands\Default\Ayy.xml" />
     <Content Include="SaveData\Commands\Default\B264.xml" />

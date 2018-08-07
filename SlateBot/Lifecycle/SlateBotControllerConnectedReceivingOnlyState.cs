@@ -1,5 +1,4 @@
-﻿using Discord.WebSocket;
-using SlateBot.Errors;
+﻿using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
 {
@@ -7,20 +6,12 @@ namespace SlateBot.Lifecycle
   {
     private readonly SlateBotControllerLifecycle lifecycle;
 
-    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.ConnectedReceivingOnly;
-
     public SlateBotControllerConnectedReceivingOnlyState(SlateBotControllerLifecycle lifecycle)
     {
       this.lifecycle = lifecycle;
     }
 
-    public void OnEntry()
-    {
-    }
-
-    public void OnExit()
-    {
-    }
+    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.ConnectedReceivingOnly;
 
     public SlateBotControllerLifecycleStates AttemptConnection()
     {
@@ -45,7 +36,15 @@ namespace SlateBot.Lifecycle
       return SlateBotControllerLifecycleStates.Disconnected;
     }
 
-    public SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination)
+    public void OnEntry()
+    {
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
       lifecycle.ErrorLogger.LogError(new Error(ErrorCode.NotSendingMessage, ErrorSeverity.Debug, $"{nameof(SlateBotControllerConnectedReceivingOnlyState)} {nameof(OnMessageReadyToSend)} dest {destination.Id} message {message}"));
       return StateId;

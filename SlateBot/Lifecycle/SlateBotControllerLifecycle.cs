@@ -108,7 +108,7 @@ namespace SlateBot.Lifecycle
     /// <remarks>(Lifecycle)</remarks>
     /// <param name="message">The message to send</param>
     /// <param name="destination">The destination</param>
-    internal void OnMessageReadyToSend(string message, ISocketMessageChannel destination)
+    internal void OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
       lock (lifecycleLock)
       {

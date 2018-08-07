@@ -19,13 +19,7 @@ namespace SlateBot.Commands.Coin
         module = ModuleType.General;
       }
 
-      bool responseTypeParsed = Enum.TryParse(file.ResponseType, out ResponseType responseType);
-      if (!responseTypeParsed)
-      {
-        responseType = ResponseType.Default;
-      }
-
-      return (new CoinCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, responseType));
+      return (new CoinCommand(languageHandler, file.Aliases, file.Examples, file.Help, module));
     }
   }
 }

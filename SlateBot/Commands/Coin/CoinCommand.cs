@@ -13,21 +13,19 @@ namespace SlateBot.Commands.Coin
     private string examples = Constants.BotMention + " coin";
     private string help = "Flips heads/tails on a coin.";
     private ModuleType module = ModuleType.General;
-    private ResponseType responseType = ResponseType.Default;
 
     internal CoinCommand(Language.LanguageHandler languageHandler)
     {
       this.languageHandler = languageHandler;
     }
 
-    internal CoinCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, ResponseType responseType)
+    internal CoinCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
     {
       this.languageHandler = languageHandler;
       this.aliases = aliases;
       this.examples = examples;
       this.help = help;
       this.module = module;
-      this.responseType = responseType;
     }
 
     public override string[] Aliases => aliases;
@@ -36,76 +34,100 @@ namespace SlateBot.Commands.Coin
     public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
     public override string Help => help;
     public override ModuleType Module => module;
-    public override ResponseType ResponseType => responseType;
 
-    public override string Execute(SenderSettings senderDetail, IMessageDetail args)
+    public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
+      string retVal = "";
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
       string[] commandParams = command.CommandParams;
       ushort flips;
+      Discord.Color responseColor = new Discord.Color(0);
+
       if (commandParams.Length == 1)
       {
         flips = 1;
       }
       else
       {
-        if (!ushort.TryParse(commandParams[1], out flips))
+        if (!ushort.TryParse(commandParams[1], out flips) || flips <= 0)
         {
-          return ($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, Errors.ErrorCode.IncorrectParameter)}: {commandParams[1]}. [0-{uint.MaxValue}].");
+          retVal = ($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, Errors.ErrorCode.IncorrectParameter)}: {commandParams[1]}. [1-{uint.MaxValue}].");
         }
       }
 
-      string localeHead = languageHandler.GetPhrase(serverSettings.Language, "CoinHead");
-      string localeTail = languageHandler.GetPhrase(serverSettings.Language, "CoinTail");
-      string retVal;
-
-      if (flips == 1)
+      if (flips > 0)
       {
-        switch (rand.Next(2))
-        {
-          default:
-          case 0: retVal = localeHead; break;
-          case 1: retVal = localeTail; break;
-        }
-      }
-      else
-      {
-        char headLetter = (localeHead)[0];
-        char tailLetter = (localeTail)[0];
+        int heads = 0, tails = 0;
+        string localeHead = languageHandler.GetPhrase(serverSettings.Language, "CoinHead");
+        string localeTail = languageHandler.GetPhrase(serverSettings.Language, "CoinTail");
 
-        string flipped = languageHandler.GetPhrase(serverSettings.Language, "Flipped");
-        if (flips > 100)
+        if (flips == 1)
         {
-          int heads = 0, tails = 0;
-          for (int i = 0; i < flips; i++)
+          switch (rand.Next(2))
           {
-            switch (rand.Next(2))
-            {
-              case 0: heads++; break;
-              case 1: tails++; break;
-            }
+            default:
+            case 0: retVal = localeHead; break;
+            case 1: retVal = localeTail; break;
           }
-          retVal = ($"{flipped} {flips}x, `{localeHead}:` {heads}, `{localeTail}:` {tails}");
         }
         else
         {
-          StringBuilder coinflips = new StringBuilder();
-          int heads = 0, tails = 0;
-          for (int i = 0; i < flips; i++)
-          {
-            switch (rand.Next(2))
-            {
-              case 0: coinflips.Append(headLetter); heads++; break;
-              case 1: coinflips.Append(tailLetter); tails++; break;
-            }
-          }
+          char headLetter = (localeHead)[0];
+          char tailLetter = (localeTail)[0];
 
-          retVal = ($"{flipped} {flips}x, `{localeHead}:` {heads}, `{localeTail}:` {tails}: {coinflips.ToString()}");
+          string flipped = languageHandler.GetPhrase(serverSettings.Language, "Flipped");
+          if (flips > 100)
+          {
+            for (int i = 0; i < flips; i++)
+            {
+              switch (rand.Next(2))
+              {
+                case 0: heads++; break;
+                case 1: tails++; break;
+              }
+            }
+            retVal = ($"{flipped} {flips}x, `{localeHead}:` {heads}, `{localeTail}:` {tails}");
+          }
+          else
+          {
+            StringBuilder coinflips = new StringBuilder();
+            for (int i = 0; i < flips; i++)
+            {
+              switch (rand.Next(2))
+              {
+                case 0: coinflips.Append(headLetter); heads++; break;
+                case 1: coinflips.Append(tailLetter); tails++; break;
+              }
+            }
+
+            retVal = ($"{flipped} {flips}x, `{localeHead}:` {heads}, `{localeTail}:` {tails}: {coinflips.ToString()}");
+          }
+        }
+
+        if (heads < tails)
+        {
+          responseColor = new Discord.Color(200, 50, 50);
+        }
+        else if (heads > tails)
+        {
+          responseColor = new Discord.Color(50, 200, 50);
+        }
+        else
+        {
+          responseColor = new Discord.Color(200, 200, 50);
         }
       }
 
-      return retVal;
+
+      Response response = new Response
+      {
+        command = this,
+        embed = Utility.EmbedUtility.StringToEmbed(retVal, responseColor),
+        message = retVal,
+        responseType = ResponseType.Default
+      };
+      return new[] { response };
     }
 
     private List<KeyValuePair<string, string>> ConstructExtraData()

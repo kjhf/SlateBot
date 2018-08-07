@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>Response</CommandType>
+  <CommandType>ResponseMessage</CommandType>
   <Aliases>arms</Aliases>
   <Help>Search the ARMS wiki for the given article.</Help>
   <Module>Lookup Commands</Module>

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using SlateBot.DAL.CommandFile;
 using SlateBot.Utility;
 
-namespace SlateBot.Commands.Response
+namespace SlateBot.Commands.ResponseMessage
 {
-  class ResponseCommandHandler : ICommandHandler
+  class ResponseMessageCommandHandler : ICommandHandler
   {
-    public CommandHandlerType CommandHandlerType => CommandHandlerType.Response;
+    public CommandHandlerType CommandHandlerType => CommandHandlerType.ResponseMessage;
     
     public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
     {
@@ -19,18 +19,20 @@ namespace SlateBot.Commands.Response
       {
         module = ModuleType.General;
       }
-
-      bool responseTypeParsed = Enum.TryParse(file.ResponseType, out ResponseType responseType);
-      if (!responseTypeParsed)
-      {
-        responseType = ResponseType.Default;
-      }
-
+      
       var dictionary = file.ExtraData;
+      ResponseType responseType = ResponseType.Default;
       bool requiresSymbol = true;
       IEnumerable<string> choices;
       if (dictionary.Any())
       {
+        bool hasResponseType = file.ExtraData.TryGetValue("ResponseType", out IEnumerable<string> responseTypeStr) > 0;
+        if (hasResponseType)
+        {
+          Enum.TryParse(responseTypeStr.First(), out responseType);
+          // If not parsed then "Default" will be used.
+        }
+
         bool hasRequiresSymbol = file.ExtraData.TryGetValue("RequiresSymbol", out IEnumerable<string> requiresSymbolStr) > 0;
         if (hasRequiresSymbol)
         {
@@ -44,7 +46,7 @@ namespace SlateBot.Commands.Response
         choices = new string[0];
       }
       
-      return (new ResponseCommand(languageHandler, file.Aliases, choices, file.Examples, file.Help, module, responseType, requiresSymbol));
+      return (new ResponseMessageCommand(languageHandler, file.Aliases, choices, file.Examples, file.Help, module, responseType, requiresSymbol));
     }
   }
 }

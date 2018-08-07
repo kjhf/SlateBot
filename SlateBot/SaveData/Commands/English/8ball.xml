@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>Response</CommandType>
+  <CommandType>ResponseMessage</CommandType>
   <Aliases>8ball,8b</Aliases>
   <Help>8-ball response</Help>
   <Module>Magic 8 Balls</Module>

@@ -32,10 +32,7 @@ namespace SlateBot.DAL.CommandFile
 
     /// <summary> Examples for this command </summary>
     public string Examples { get; private set; }
-
-    /// <summary> How the handler should use this command's response. </summary>
-    public string ResponseType { get; private set; }
-
+    
     /// <summary> Additional data to load or save, keys are node names, values are node values. </summary>
     public List<KeyValuePair<string, string>> ExtraData { get; private set; }
 
@@ -64,7 +61,6 @@ namespace SlateBot.DAL.CommandFile
         Examples = root["Examples"]?.InnerText ?? (Aliases.Length > 0 ? (Constants.BotMention + " " + Aliases[0]) : "");
         Help = root["Help"]?.InnerText ?? "No help available for this command.";
         Module = (root["Module"]?.InnerText) ?? Commands.ModuleType.General.ToString();
-        ResponseType = (root["ResponseType"]?.InnerText) ?? Commands.ResponseType.Default.ToString();
 
         ExtraData = new List<KeyValuePair<string, string>>();
         var extraDataNodes = root["ExtraData"];
@@ -95,7 +91,6 @@ namespace SlateBot.DAL.CommandFile
       this.ExtraData = command.ExtraData;
       this.Help = command.Help;
       this.Module = command.Module.ToString();
-      this.ResponseType = command.ResponseType.ToString();
     }
 
     /// <summary>
@@ -124,9 +119,6 @@ namespace SlateBot.DAL.CommandFile
         root.AppendChild(node);
         node = doc.CreateElement("Module");
         node.InnerText = Module;
-        root.AppendChild(node);
-        node = doc.CreateElement("ResponseType");
-        node.InnerText = ResponseType;
         root.AppendChild(node);
 
         if (ExtraData != null)

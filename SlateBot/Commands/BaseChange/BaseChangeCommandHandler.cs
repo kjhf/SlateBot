@@ -19,13 +19,7 @@ namespace SlateBot.Commands.BaseChange
       {
         module = ModuleType.General;
       }
-
-      bool responseTypeParsed = Enum.TryParse(file.ResponseType, out ResponseType responseType);
-      if (!responseTypeParsed)
-      {
-        responseType = ResponseType.Default;
-      }
-
+      
       var dictionary = file.ExtraData;
       int fromBase = 0;
       int toBase = 0;
@@ -58,7 +52,7 @@ namespace SlateBot.Commands.BaseChange
         valid = false;
       }
 
-      return valid ? (new BaseChangeCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, responseType, fromBase, toBase)) : null;
+      return valid ? (new BaseChangeCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, fromBase, toBase)) : null;
     }
   }
 }

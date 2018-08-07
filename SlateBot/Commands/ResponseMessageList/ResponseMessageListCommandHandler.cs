@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SlateBot.Commands.ResponseList
+namespace SlateBot.Commands.ResponseMessageList
 {
-  internal class ResponseListCommandHandler : ICommandHandler
+  internal class ResponseMessageListCommandHandler : ICommandHandler
   {
-    public CommandHandlerType CommandHandlerType => CommandHandlerType.ResponseList;
+    public CommandHandlerType CommandHandlerType => CommandHandlerType.ResponseMessageList;
 
     public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
     {
@@ -17,19 +17,21 @@ namespace SlateBot.Commands.ResponseList
       {
         module = ModuleType.General;
       }
-
-      bool responseTypeParsed = Enum.TryParse(file.ResponseType, out ResponseType responseType);
-      if (!responseTypeParsed)
-      {
-        responseType = ResponseType.Default;
-      }
-
+      
       var dictionary = file.ExtraData;
+      ResponseType responseType = ResponseType.Default;
       bool requiresSymbol = true;
       string choiceFormat = "";
       string[][] choices;
       if (dictionary.Any())
       {
+        bool hasResponseType = file.ExtraData.TryGetValue("ResponseType", out IEnumerable<string> responseTypeStr) > 0;
+        if (hasResponseType)
+        {
+          Enum.TryParse(responseTypeStr.First(), out responseType);
+          // If not parsed then "Default" will be used.
+        }
+
         bool hasRequiresSymbol = file.ExtraData.TryGetValue("RequiresSymbol", out IEnumerable<string> requiresSymbolStr) > 0;
         if (hasRequiresSymbol)
         {
@@ -63,7 +65,7 @@ namespace SlateBot.Commands.ResponseList
         choices = new string[0][];
       }
 
-      return (new ResponseListCommand(languageHandler, file.Aliases, choices, choiceFormat, file.Examples, file.Help, module, responseType, requiresSymbol));
+      return (new ResponseMessageListCommand(languageHandler, file.Aliases, choices, choiceFormat, file.Examples, file.Help, module, responseType, requiresSymbol));
     }
   }
 }

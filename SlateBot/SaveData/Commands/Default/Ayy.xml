@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>ResponseList</CommandType>
+  <CommandType>ResponseMessageList</CommandType>
   <Aliases>Ayy,Ayyy,Ayyyy,Eyy</Aliases>
   <Help>Gun fingers emoticon face.</Help>
   <Module>Memes</Module>

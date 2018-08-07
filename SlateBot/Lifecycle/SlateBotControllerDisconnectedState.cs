@@ -1,31 +1,17 @@
-﻿using Discord.WebSocket;
-using SlateBot.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
 {
-  class SlateBotControllerDisconnectedState : ISlateBotControllerLifecycleState
+  internal class SlateBotControllerDisconnectedState : ISlateBotControllerLifecycleState
   {
     private readonly SlateBotControllerLifecycle lifecycle;
-
-    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.Disconnected;
 
     public SlateBotControllerDisconnectedState(SlateBotControllerLifecycle lifecycle)
     {
       this.lifecycle = lifecycle;
     }
-    
-    public void OnEntry()
-    {
-    }
 
-    public void OnExit()
-    {
-    }
+    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.Disconnected;
 
     public SlateBotControllerLifecycleStates AttemptConnection()
     {
@@ -53,7 +39,15 @@ namespace SlateBot.Lifecycle
       return StateId;
     }
 
-    public SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination)
+    public void OnEntry()
+    {
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
       lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Information, $"{nameof(SlateBotControllerDisconnectedState)} {nameof(OnMessageReadyToSend)}: Storing message."));
       // TODO -- actually store the message

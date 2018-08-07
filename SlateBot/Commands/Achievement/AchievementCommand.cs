@@ -10,23 +10,19 @@ namespace SlateBot.Commands.Achievement
 {
   public class AchievementCommand : Command
   {
-    private readonly SlateBotController controller;
     private readonly Language.LanguageHandler languageHandler;
     private string[] aliases = new[] { "Achievement", "Achievements" };
     private string examples = Constants.BotMention + " Achievement";
     private string help = "Displays information about user's achievements";
     private ModuleType module = ModuleType.General;
-    private ResponseType responseType = ResponseType.Private;
     
-    internal AchievementCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, ResponseType responseType)
+    internal AchievementCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
     {
-      this.controller = SlateBotProgram.GetController();
       this.languageHandler = languageHandler;
       this.aliases = aliases;
       this.examples = examples;
       this.help = help;
       this.module = module;
-      this.responseType = responseType;
     }
 
     public override string[] Aliases => aliases;
@@ -35,11 +31,9 @@ namespace SlateBot.Commands.Achievement
     public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
     public override string Help => help;
     public override ModuleType Module => module;
-    public override ResponseType ResponseType => responseType;
 
-    public override string Execute(SenderSettings senderDetail, IMessageDetail args)
+    public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
-      StringBuilder output = new StringBuilder();
       ServerSettings serverSettings = senderDetail.ServerSettings;
       UserSettings userSettings = senderDetail.UserSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
@@ -51,38 +45,37 @@ namespace SlateBot.Commands.Achievement
       // First, reply to the room that the command was written in.
       // This has minimal information so as to not spoil achievements
       // for other users.
-      output.AppendLine($"{languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Achievements_AchievementsUnlocked")}: {unlockedAchievements.Count} {Emojis.Trophy}");
+      string outputToChannel = ($"{languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Achievements_AchievementsUnlocked")}: {unlockedAchievements.Count}/{allAchievements.Count} {Emojis.Trophy}");
+      Response channelResponse = new Response
+      {
+        command = this,
+        embed = Utility.EmbedUtility.StringToEmbed(outputToChannel, 200, 200, 50),
+        responseType = ResponseType.Default
+      };
 
       // Next, PM the user their achievements and any still to unlock.
-      // TODO -- redesign this, we should return response objects instead.
-      Task.Run(async () =>
+      StringBuilder sb = new StringBuilder();
+      foreach (var achievement in allAchievements)
       {
-        StringBuilder sb = new StringBuilder();
-        foreach (var achievement in allAchievements)
+        if (achievement.HasAchieved(userSettings.UserStats))
         {
-          if (achievement.HasAchieved(userSettings.UserStats))
-          {
-            sb.AppendLine($"{Emojis.Trophy} {achievement.GetDescription(languageHandler, senderDetail.ServerSettings.Language)}");
-          }
-          else
-          {
-            sb.AppendLine($"???");
-          }
+          sb.AppendLine($"{Emojis.Trophy} {achievement.GetDescription(languageHandler, senderDetail.ServerSettings.Language)}");
         }
-
-        if (args is ConsoleMessageDetail consoleMessageDetail)
+        else
         {
-          controller.ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, sb.ToString()));
+          sb.AppendLine($"???");
         }
-        else if (args is SocketMessageWrapper socketMessageWrapper)
-        {
-          ISocketMessageChannel responseChannel = (ISocketMessageChannel)(await socketMessageWrapper.User.GetOrCreateDMChannelAsync());
+      }
 
-          controller.SendMessage(sb.ToString(), responseChannel);
-        }
-      });
+      string outputToPrivate = sb.ToString();
+      Response privateResponse = new Response
+      {
+        command = this,
+        embed = Utility.EmbedUtility.StringToEmbed(outputToPrivate, 200, 200, 50),
+        responseType = ResponseType.Private
+      };
 
-      return output.ToString();
+      return new[] { channelResponse, privateResponse };
     }
 
     private List<KeyValuePair<string, string>> ConstructExtraData()

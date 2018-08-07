@@ -25,17 +25,15 @@ namespace SlateBot.Commands
 
     /// <summary> The command's module. </summary>
     public abstract ModuleType Module { get; }
-
-    /// <summary> How the handler should use this command's response. </summary>
-    public abstract ResponseType ResponseType { get; }
-
+    
     /// <summary>
-    /// Handle an incoming command and return a string as a result.
-    /// If the string is null or empty, no message will be sent.
+    /// Handle an incoming command and return response object(s) as a result.
+    /// The result may be null or empty to remain unhandled.
     /// </summary>
-    /// <param name="args">Context</param>
-    /// <returns>The message to reply with.</returns>
-    public abstract string Execute(SenderSettings sender, IMessageDetail args);
+    /// <param name="sender">Settings context</param>
+    /// <param name="args">Message context</param>
+    /// <returns>The response objects to reply with.</returns>
+    public abstract IList<Response> Execute(SenderSettings sender, IMessageDetail args);
 
     /// <summary>
     /// Overridden ToString. Returns the <see cref="Module"/> and its aliases.

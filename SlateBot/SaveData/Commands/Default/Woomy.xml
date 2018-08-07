@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>Response</CommandType>
+  <CommandType>ResponseMessage</CommandType>
   <Aliases>Woomy,Ngyes,🦑</Aliases>
   <Help>It's a squid.</Help>
   <Module>Memes</Module>

@@ -1,32 +1,17 @@
-﻿using Discord;
-using Discord.WebSocket;
-using SlateBot.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
 {
-  class SlateBotControllerConnectedTransceivingState : ISlateBotControllerLifecycleState
+  internal class SlateBotControllerConnectedTransceivingState : ISlateBotControllerLifecycleState
   {
     private readonly SlateBotControllerLifecycle lifecycle;
-
-    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.ConnectedTransceiving;
 
     public SlateBotControllerConnectedTransceivingState(SlateBotControllerLifecycle lifecycle)
     {
       this.lifecycle = lifecycle;
     }
 
-    public void OnEntry()
-    {
-    }
-
-    public void OnExit()
-    {
-    }
+    public SlateBotControllerLifecycleStates StateId => SlateBotControllerLifecycleStates.ConnectedTransceiving;
 
     public SlateBotControllerLifecycleStates AttemptConnection()
     {
@@ -51,9 +36,24 @@ namespace SlateBot.Lifecycle
       return SlateBotControllerLifecycleStates.Disconnected;
     }
 
-    public SlateBotControllerLifecycleStates OnMessageReadyToSend(string message, ISocketMessageChannel destination)
+    public void OnEntry()
     {
-      destination.SendMessageAsync(message);
+    }
+
+    public void OnExit()
+    {
+    }
+
+    public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
+    {
+      if (message.embed == null)
+      {
+        destination.SendMessageAsync(message.message);
+      }
+      else
+      {
+        destination.SendMessageAsync("", false, message.embed);
+      }
       return StateId;
     }
   }

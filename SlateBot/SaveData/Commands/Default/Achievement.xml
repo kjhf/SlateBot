@@ -4,5 +4,4 @@
   <Aliases>Achievement,Achievements</Aliases>
   <Help>Displays information about user's achievements</Help>
   <Examples>!Achievement</Examples>
-  <ResponseType>Private</ResponseType>
 </Root>

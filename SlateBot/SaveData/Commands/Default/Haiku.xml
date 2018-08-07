@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>ResponseList</CommandType>
+  <CommandType>ResponseMessageList</CommandType>
   <Aliases>Haiku</Aliases>
   <Help>Make a Half Life Opposing Force haiku</Help>
   <Module>Memes</Module>

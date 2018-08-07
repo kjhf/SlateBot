@@ -10,8 +10,8 @@ namespace SlateBot.Commands
   {
     Unknown = 0,
 
-    Response,
-    ResponseList,
+    ResponseMessage,
+    ResponseMessageList,
     Calc,
     Choose,
     Coin,

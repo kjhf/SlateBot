@@ -19,13 +19,7 @@ namespace SlateBot.Commands.Achievement
         module = ModuleType.General;
       }
 
-      bool responseTypeParsed = Enum.TryParse(file.ResponseType, out ResponseType responseType);
-      if (!responseTypeParsed)
-      {
-        responseType = ResponseType.Default;
-      }
-
-      return (new AchievementCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, responseType));
+      return (new AchievementCommand(languageHandler, file.Aliases, file.Examples, file.Help, module));
     }
   }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>ResponseList</CommandType>
+  <CommandType>ResponseMessageList</CommandType>
   <Aliases>Card</Aliases>
   <Help>Pick a random playing card</Help>
   <Examples>!card</Examples>

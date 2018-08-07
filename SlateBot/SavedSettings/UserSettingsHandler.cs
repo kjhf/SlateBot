@@ -70,7 +70,14 @@ namespace SlateBot.SavedSettings
       }
       else
       {
-        controller.SendMessage(achievementMessage, args.senderSettings.UserSettings.UserStats.LastActiveChannelId);
+        Response response = new Response
+        {
+          command = null,
+          embed = null,
+          message = achievementMessage,
+          responseType = ResponseType.Default
+        };
+        controller.SendMessage(response, args.senderSettings.UserSettings.UserStats.LastActiveChannelId);
       }
     }
 

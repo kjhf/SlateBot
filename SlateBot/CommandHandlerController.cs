@@ -113,22 +113,20 @@ namespace SlateBot
       return handler;
     }
 
-    internal Tuple<Command, string> ExecuteCommand(SenderSettings senderDetail, IMessageDetail messageDetail)
+    internal List<Response> ExecuteCommand(SenderSettings senderDetail, IMessageDetail messageDetail)
     {
-      string response = null;
+      List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
-      Command foundCommand = null;
+
       foreach (Command command in commands)
       {
         if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
         {
-          response = command.Execute(senderDetail, messageDetail);
-          foundCommand = command;
-          break;
+          responses.AddRange(command.Execute(senderDetail, messageDetail));
         }
       }
 
-      return new Tuple<Command, string>(foundCommand, response);
+      return responses;
     }
   }
 }

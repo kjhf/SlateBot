@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>Response</CommandType>
+  <CommandType>ResponseMessage</CommandType>
   <Aliases>Invite,Join</Aliases>
   <Help>Responds with an invite link.</Help>
   <Module>General</Module>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
-  <CommandType>Response</CommandType>
+  <CommandType>ResponseMessage</CommandType>
   <Aliases>42ball,42b,je-sais-tout,jesaistout</Aliases>
   <Help>42.</Help>
   <Module>Magic 8 Balls</Module>

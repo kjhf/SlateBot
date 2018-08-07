@@ -15,7 +15,6 @@ namespace SlateBot.Commands.BaseChange
     private string examples;
     private string help;
     private ModuleType module = ModuleType.General;
-    private ResponseType responseType = ResponseType.Default;
     private readonly int fromBase;
     private readonly int toBase;
 
@@ -24,14 +23,13 @@ namespace SlateBot.Commands.BaseChange
       this.languageHandler = languageHandler;
     }
 
-    internal BaseChangeCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, ResponseType responseType, int fromBase, int toBase)
+    internal BaseChangeCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, int fromBase, int toBase)
     {
       this.languageHandler = languageHandler;
       this.aliases = aliases;
       this.examples = examples;
       this.help = help;
       this.module = module;
-      this.responseType = responseType;
       this.fromBase = fromBase;
       this.toBase = toBase;
     }
@@ -42,18 +40,17 @@ namespace SlateBot.Commands.BaseChange
     public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
     public override string Help => help;
     public override ModuleType Module => module;
-    public override ResponseType ResponseType => responseType;
 
-    public override string Execute(SenderSettings senderDetail, IMessageDetail args)
+    public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
-      StringBuilder output = new StringBuilder();
+      StringBuilder sb = new StringBuilder();
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
 
       string commandDetail = command.CommandDetail;
       if (string.IsNullOrEmpty(commandDetail))
       {
-        output.AppendLine(command.CommandSymbol + command.CommandParams[0] + " " + "100");
+        sb.AppendLine(command.CommandSymbol + command.CommandParams[0] + " " + "100");
       }
       else
       {
@@ -97,15 +94,15 @@ namespace SlateBot.Commands.BaseChange
                 byte[] parts = BitConverter.GetBytes(part);
                 if (toBase == 64)
                 {
-                  output.Append(Convert.ToBase64String(parts) + " ");
+                  sb.Append(Convert.ToBase64String(parts) + " ");
                 }
                 else if (toBase == 16)
                 {
-                  output.Append(part.ToString("X2") + " ");
+                  sb.Append(part.ToString("X2") + " ");
                 }
                 else
                 {
-                  output.Append(Convert.ToString(part, toBase) + " ");
+                  sb.Append(Convert.ToString(part, toBase) + " ");
                 }
                 break;
               }
@@ -117,15 +114,15 @@ namespace SlateBot.Commands.BaseChange
 
                 if (toBase == 64)
                 {
-                  output.Append(Convert.ToBase64String(parts) + " ");
+                  sb.Append(Convert.ToBase64String(parts) + " ");
                 }
                 else if (toBase == 16)
                 {
-                  output.Append(part.ToString("X2") + " ");
+                  sb.Append(part.ToString("X2") + " ");
                 }
                 else
                 {
-                  output.Append(Convert.ToString(part, toBase) + " ");
+                  sb.Append(Convert.ToString(part, toBase) + " ");
                 }
                 break;
               }
@@ -133,24 +130,33 @@ namespace SlateBot.Commands.BaseChange
           }
           catch (FormatException)
           {
-            output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, "Error_IncorrectParameter")}: {col}.");
+            sb.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, "Error_IncorrectParameter")}: {col}.");
           }
           catch (Exception ex)
           {
-            output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, "Error_Oops")}: {col} {ex.Message}");
+            sb.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(serverSettings.Language, "Error_Oops")}: {col} {ex.Message}");
           }
         }
 
         // If multiple things to translate, also provide the answer without spaces.
         if (command.CommandParams.Length > 2)
         {
-          string outputWithoutSpace = output.ToString().Replace(" ", "");
-          output.AppendLine();
-          output.AppendLine(outputWithoutSpace);
+          string outputWithoutSpace = sb.ToString().Replace(" ", "");
+          sb.AppendLine();
+          sb.AppendLine(outputWithoutSpace);
         }
       }
 
-      return output.ToString();
+      string output = sb.ToString();
+      Response response = new Response
+      {
+        command = this,
+        embed = EmbedUtility.StringToEmbed(output),
+        message = output,
+        responseType = ResponseType.Default
+      };
+
+      return new[] { response };
     }
 
     private List<KeyValuePair<string, string>> ConstructExtraData()
