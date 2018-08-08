@@ -1,45 +1,26 @@
-﻿using SlateBot.DAL.CommandFile;
+﻿using SlateBot.Language;
 using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.Commands.BaseChange
 {
   public class BaseChangeCommand : Command
   {
-    private readonly Language.LanguageHandler languageHandler;
-    private string[] aliases;
-    private string examples;
-    private string help;
-    private ModuleType module = ModuleType.General;
     private readonly int fromBase;
+    private readonly LanguageHandler languageHandler;
     private readonly int toBase;
 
-    internal BaseChangeCommand(Language.LanguageHandler languageHandler)
+    internal BaseChangeCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, int fromBase, int toBase)
+      : base(CommandHandlerType.BaseChange, aliases, examples, help, module)
     {
       this.languageHandler = languageHandler;
-    }
-
-    internal BaseChangeCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, int fromBase, int toBase)
-    {
-      this.languageHandler = languageHandler;
-      this.aliases = aliases;
-      this.examples = examples;
-      this.help = help;
-      this.module = module;
       this.fromBase = fromBase;
       this.toBase = toBase;
     }
-
-    public override string[] Aliases => aliases;
-    public override CommandHandlerType CommandHandlerType => CommandHandlerType.Coin;
-    public override string Examples => examples;
-    public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
-    public override string Help => help;
-    public override ModuleType Module => module;
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
@@ -48,9 +29,11 @@ namespace SlateBot.Commands.BaseChange
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
 
       string commandDetail = command.CommandDetail;
+      Discord.Color? embedColour = null;
+
       if (string.IsNullOrEmpty(commandDetail))
       {
-        sb.AppendLine(command.CommandSymbol + command.CommandParams[0] + " " + "100");
+        sb.AppendLine(Help);
       }
       else
       {
@@ -61,9 +44,18 @@ namespace SlateBot.Commands.BaseChange
         commandDetail = commandDetail.Replace(",", " ").Trim();
 
         // Special case hex to decimal in cases of 6 or 8 characters.
+        bool is6Chars = commandDetail.Length == 6;
         bool is8Chars = commandDetail.Length == 8;
-        if (fromBase == 16 && (commandDetail.Length == 6 || is8Chars))
+        if (fromBase == 16 && (is6Chars || is8Chars))
         {
+          // Try and convert the source hex number into a colour.
+          if (uint.TryParse(commandDetail, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint argb))
+          {
+            // Remove alpha channel (N.B. this usually makes it transparent as a = 0, but Discord fixes this to fully opaque)
+            argb &= 0x00FFFFFF;
+            embedColour = new Discord.Color(argb);
+          }
+
           commandDetail += " ";
           commandDetail += commandDetail.Substring(0, 2);
           commandDetail += " ";
@@ -78,6 +70,32 @@ namespace SlateBot.Commands.BaseChange
         }
 
         string[] commandParams = commandDetail.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
+
+        if (fromBase == 10)
+        {
+          // Try and convert the source decimal number(s) into a colour.
+          if (commandParams.Length == 1)
+          {
+            if (uint.TryParse(commandParams[0], out uint argb))
+            {
+              // Remove alpha channel (N.B. this usually makes it transparent as a = 0, but Discord fixes this to fully opaque)
+              argb &= 0x00FFFFFF;
+              embedColour = new Discord.Color(argb);
+            }
+          }
+          else if (commandParams.Length == 3 || commandParams.Length == 4)
+          {
+            // Using -n here as alpha could be included at the front.
+            bool canParseColour = (byte.TryParse(commandParams[commandParams.Length - 3], out byte r));
+            canParseColour &= (byte.TryParse(commandParams[commandParams.Length - 2], out byte g));
+            canParseColour &= (byte.TryParse(commandParams[commandParams.Length - 1], out byte b));
+
+            if (canParseColour)
+            {
+              embedColour = new Discord.Color(r, g, b);
+            }
+          }
+        }
 
         foreach (string col in commandParams)
         {
@@ -143,6 +161,12 @@ namespace SlateBot.Commands.BaseChange
         {
           string outputWithoutSpace = sb.ToString().Replace(" ", "");
           sb.AppendLine();
+          switch (toBase)
+          {
+            case 2: sb.Append("0b "); break;
+            case 8: sb.Append("0o "); break;
+            case 16: sb.Append("0x "); break;
+          }
           sb.AppendLine(outputWithoutSpace);
         }
       }
@@ -151,7 +175,7 @@ namespace SlateBot.Commands.BaseChange
       Response response = new Response
       {
         command = this,
-        embed = EmbedUtility.StringToEmbed(output),
+        embed = EmbedUtility.StringToEmbed(output, embedColour),
         message = output,
         responseType = ResponseType.Default
       };
@@ -159,7 +183,7 @@ namespace SlateBot.Commands.BaseChange
       return new[] { response };
     }
 
-    private List<KeyValuePair<string, string>> ConstructExtraData()
+    protected override List<KeyValuePair<string, string>> ConstructExtraData()
     {
       var retVal = new List<KeyValuePair<string, string>>
       {

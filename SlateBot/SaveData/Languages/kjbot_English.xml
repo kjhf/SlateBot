@@ -322,6 +322,12 @@
 <!-- First command achievement -->
 <string name="Achievements_FirstCommand">"First command!"</string>
 
+<!-- Ten commands achievement -->
+<string name="Achievements_TenCommands">"Ten commands!"</string>
+
+<!-- One hundred commands achievement -->
+<string name="Achievements_OneHundredCommands">"100 commands!"</string>
+
 <!-- Phrase when a user earns an achievement -->
 <string name="Achievements_YouEarnedAnAchievement">"You earned an achievement!"</string>
 
@@ -335,7 +341,7 @@
 <string name="Achievements_ImpossibleMastermindWin">"You won a game of impossible Mastermind!"</string>
 
 <!-- Achievement for the assistance of the development of kjbot -->
-<string name="Achievements_Developer">"You helped kjbot &lt;3"</string>
+<string name="Achievements_Developer">"You helped kjbot 💖"</string>
 
 <!-- Achievement for drawing a game of Tic Tac Toe -->
 <string name="Achievements_TicTacToeTie">"You tied a game of Tic Tac Toe!"</string>

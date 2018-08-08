@@ -328,6 +328,12 @@
 <!-- First command achievement -->
 <string name="Achievements_FirstCommand">"Première commande!"</string>
 
+<!-- Ten commands achievement -->
+<string name="Achievements_TenCommands">"Dix commandes!"</string>
+
+<!-- One hundred commands achievement -->
+<string name="Achievements_OneHundredCommands">"100 commandes!"</string>
+
 <!-- Phrase when a user earns an achievement -->
 <string name="Achievements_YouEarnedAnAchievement">"Vous avez gagné un exploit!"</string>
 

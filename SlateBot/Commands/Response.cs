@@ -10,9 +10,9 @@ namespace SlateBot.Commands
     public Command command;
 
     /// <summary>
-    /// The <see cref="Embed"/> response message.
+    /// The <see cref="EmbedBuilder"/> response message.
     /// </summary>
-    public Embed embed;
+    public EmbedBuilder embed;
 
     /// <summary>
     /// The message to respond with (if Embed is null or not supported).

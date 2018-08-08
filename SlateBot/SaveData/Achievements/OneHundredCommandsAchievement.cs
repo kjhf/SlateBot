@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlateBot.SaveData.Achievements
+﻿namespace SlateBot.SaveData.Achievements
 {
   public class OneHundredCommandsAchievement : Achievement
   {
@@ -33,7 +27,7 @@ namespace SlateBot.SaveData.Achievements
     /// <returns></returns>
     public override string GetDescription(Language.LanguageHandler languageHandler, Language.Languages language)
     {
-      return languageHandler.GetPhrase(language, "Achievements_OneHundredCommands"); // TODO description
+      return languageHandler.GetPhrase(language, "Achievements_OneHundredCommands");
     }
 
     /// <summary>

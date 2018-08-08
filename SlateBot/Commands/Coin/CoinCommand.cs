@@ -1,39 +1,18 @@
-﻿using SlateBot.DAL.CommandFile;
-using System;
+﻿using SlateBot.Language;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.Commands.Coin
 {
   public class CoinCommand : Command
   {
-    private readonly Language.LanguageHandler languageHandler;
-    private string[] aliases = new[] { "coin" };
-    private string examples = Constants.BotMention + " coin";
-    private string help = "Flips heads/tails on a coin.";
-    private ModuleType module = ModuleType.General;
+    private LanguageHandler languageHandler;
 
-    internal CoinCommand(Language.LanguageHandler languageHandler)
+    internal CoinCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
+      : base(CommandHandlerType.Coin, aliases, examples, help, module)
     {
       this.languageHandler = languageHandler;
     }
-
-    internal CoinCommand(Language.LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
-    {
-      this.languageHandler = languageHandler;
-      this.aliases = aliases;
-      this.examples = examples;
-      this.help = help;
-      this.module = module;
-    }
-
-    public override string[] Aliases => aliases;
-    public override CommandHandlerType CommandHandlerType => CommandHandlerType.Coin;
-    public override string Examples => examples;
-    public override List<KeyValuePair<string, string>> ExtraData => ConstructExtraData();
-    public override string Help => help;
-    public override ModuleType Module => module;
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
@@ -67,8 +46,8 @@ namespace SlateBot.Commands.Coin
           switch (rand.Next(2))
           {
             default:
-            case 0: retVal = localeHead; break;
-            case 1: retVal = localeTail; break;
+            case 0: retVal = localeHead; heads++; break;
+            case 1: retVal = localeTail; tails++; break;
           }
         }
         else
@@ -119,7 +98,6 @@ namespace SlateBot.Commands.Coin
         }
       }
 
-
       Response response = new Response
       {
         command = this,
@@ -128,12 +106,6 @@ namespace SlateBot.Commands.Coin
         responseType = ResponseType.Default
       };
       return new[] { response };
-    }
-
-    private List<KeyValuePair<string, string>> ConstructExtraData()
-    {
-      // No extra data for the command.
-      return null;
     }
   }
 }

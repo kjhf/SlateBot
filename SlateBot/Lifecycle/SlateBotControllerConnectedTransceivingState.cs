@@ -52,7 +52,7 @@ namespace SlateBot.Lifecycle
       }
       else
       {
-        destination.SendMessageAsync("", false, message.embed);
+        destination.SendMessageAsync("", false, message.embed.Build());
       }
       return StateId;
     }
