@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ud,urban,urbandictionary</Aliases>
+  <Help>Search the Urban Dictionary for the given article.</Help>
+  <Module>NSFW</Module>
+  <ExtraData>
+    <C>http://www.urbandictionary.com/define.php?term=%escapeddetail%</C>
+  </ExtraData>
+</Root>

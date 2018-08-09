@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>dk,dkwiki</Aliases>
+  <Help>Search the Donkey Kong Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!dkwiki Diddy Kong</Examples>
+  <ExtraData>
+    <C>http://www.dkwiki.com/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

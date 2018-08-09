@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Donger,Dongers,raiseyourdonger,raiseyourdongers</Aliases>
+  <Help>RAISE YOUR DONGERS.</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!donger</Examples>
+  <ExtraData>
+    <C1>ヽ༼ຈل͜ຈ༽ﾉ raise your dongers ヽ༼ຈل͜ຈ༽ﾉ</C1>
+    <C2>ヽ༼ຈل͜ຈ༽ﾉ THANK YOU BASED QT ヽ༼ຈل͜ຈ༽ﾉ</C2>
+    <C3>(ง'̀-'́)ง ＤＯＮＧＥＲ ＯＲ ＤＩＥ (ง'̀-'́)ง</C3>
+  </ExtraData>
+</Root>

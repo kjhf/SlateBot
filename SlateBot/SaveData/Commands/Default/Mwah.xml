@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Mwah,kiss</Aliases>
+  <Help>😘</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!mwah</Examples>
+  <ExtraData>
+    <C1>⁽˙³˙⁾</C1>
+    <C2>ヽ|･з･|ゞ</C2>
+    <C3>(｡･з･)ゞ</C3>
+    <C4>ヽ( ˘з˘ )ゝ</C4>
+    <C5>(〃ﾟ3ﾟ〃)</C5>
+    <C6>😘</C6>
+  </ExtraData>
+</Root>

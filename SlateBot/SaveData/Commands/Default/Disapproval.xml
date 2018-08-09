@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Disapproval,disapprove,Disappoint</Aliases>
+  <Help>ಠ_ಠ</Help>
+  <Module>Meme Commands</Module>
+  <Examples>@SlateBot disapprove</Examples>
+  <ExtraData>
+    <C1>ಠ_ಠ</C1>
+    <C2>ಠ__ಠ</C2>
+    <C3>ಠ~ಠ</C3>
+  </ExtraData>
+</Root>

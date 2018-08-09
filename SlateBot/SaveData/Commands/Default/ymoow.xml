@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ymoow,seygn</Aliases>
+  <Help>It's a squid.</Help>
+  <Examples>!ymoow</Examples>
+  <ExtraData>
+    <C1>ymooW! くコ:彡</C1>
+    <C2>くコ:彡 ~~</C2>
+    <C3>ymooW! &gt; :squid: :octopus: &lt; seygN!</C3>
+    <C4>seygN! くコ:彡</C4>
+    <C5>~~ 彡:C> ymooW!</C5>
+    <C6>~~ 彡:C> seygN!</C6>
+  </ExtraData>
+</Root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Bing</Aliases>
+  <Help>Give a link to Bing. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!Bing Is Bing better than Google?</Examples>
+  <ExtraData>
+    <C1>https://www.bing.com/search?q&#61;%escapeddetail%&amp;go&#61;Submit</C1>
+  </ExtraData>
+</Root>

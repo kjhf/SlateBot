@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>bulb,bulbapedia,bulba</Aliases>
+  <Help>Search Bulbapedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!bulb hm01\r\n!bulb pokerus</Examples>
+  <ExtraData>
+    <C1>https://bulbapedia.bulbagarden.net/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C1>
+  </ExtraData>
+</Root>

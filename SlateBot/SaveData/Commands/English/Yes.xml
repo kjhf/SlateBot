@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>,?</Aliases>
+  <Help>Yes?</Help>
+  <Examples>!?</Examples>
+  <ExtraData>
+    <C>Yes?</C>
+    <C>Did you want something?</C>
+    <C>Yeah?</C>
+    <C>What's up?</C>
+    <C>Hello?</C>
+    <C>Hey!</C>
+    <C>Oh, that's me!</C>
+    <C>My time to shine 8)</C>
+  </ExtraData>
+</Root>

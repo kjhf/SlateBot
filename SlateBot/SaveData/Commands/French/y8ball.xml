@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>y8ball,y8b,yoda</Aliases>
+  <Help>Réponse de la boule magique Yoda</Help>
+  <Module>Magic 8 Balls</Module>
+  <ExtraData>
+    <C>💭 Oui, ainsi il en est, je le sens.</C>
+    <C>💭 "Oui" est la réponse à ta question.</C>
+    <C>💭 Une simple question tu poses. "Oui" je répond.</C>
+    <C>💭 Une question difficile tu poses. "Oui" je répond.</C>
+
+    <C>💭 Utilise la force. La réponse elle t'enseignera.</C>
+    <C>💭 En toi tu dois chercher. En toi la solution tu trouveras.</C>
+    <C>💭 Beaucoup de questions tu poses.</C>
+    <C>💭 Cela même Yoda ignore.</C>
+    <C>💭 Les réponses que tu cherches dans la Force tu peux trouver.</C>
+
+    <C>💭 Non, ainsi il n'en sera pas, je le sens.</C>
+    <C>💭 "Non" est la réponse à ta question.</C>
+    <C>💭 Une simple question tu poses. "Non" je répond.</C>
+    <C>💭 Une question difficile tu poses. "Non" je répond.</C>
+  </ExtraData>
+</Root>

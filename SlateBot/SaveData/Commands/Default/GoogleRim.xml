@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>googlerim,reverseim,reverseimage</Aliases>
+  <Help>Give a link to Google reverse image search. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>https://www.google.com/searchbyimage?site&#61;search&amp;sa&#61;X&amp;image_url&#61;%escapeddetail%</C>
+  </ExtraData>
+</Root>

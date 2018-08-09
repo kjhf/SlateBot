@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>s8ball,s8b</Aliases>
+  <Help>Réponse de la boule magique sarcastique</Help>
+  <Module>Magic 8 Balls</Module>
+  <ExtraData>
+    <C1>😏 Comme si ça allait se passer comme ça!</C1>
+    <C2>😏 Je m'en fiche.</C2>
+    <C3>😏 Elle est bête, ta question. Pose-en une autre.</C3>
+    <C4>😏 Tu ferais mieux d'oublier.</C4>
+    <C5>😏 Débrouille-toi.</C5>
+    <C6>😏 Dans tes rêves.</C6>
+    <C7>😏 Nan.</C7>
+    <C8>😏 Ça risque pas.</C8>
+    <C9>😏 De toute évidence.</C9>
+    <C10>😏 J'en ai marre.</C10>
+    <C11>😏 Ouais, certainement.</C11>
+    <C12>😏 C'est n'importe quoi.</C12>
+    <C13>😏 Peut-être.</C13>
+    <C14>😏 Qu'est-ce que tu crois?</C14>
+    <C15>😏 Peu importe.</C15>
+    <C16>😏 Mais qu'est-ce que j'm'en fiche!</C16>
+    <C17>😏 C'est ça, et moi j'suis le pape.</C17>
+    <C18>😏 Mouais.</C18>
+    <C19>😏 Tu aimerais!</C19>
+    <C20>😏 C'est juste une blague, hein?</C20>
+  </ExtraData>
+</Root>

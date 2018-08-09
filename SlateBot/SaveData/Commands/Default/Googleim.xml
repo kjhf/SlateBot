@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Googleim,Searchim</Aliases>
+  <Help>Give a link to Google Images. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!Googleim cute cats</Examples>
+  <ExtraData>
+    <C>https://www.google.com/#sclient=psy&amp;q&#61;%escapeddetail%&amp;tbm&#61;isch</C>
+  </ExtraData>
+</Root>

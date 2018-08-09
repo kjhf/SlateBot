@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>s8ball,s8b</Aliases>
+  <Help>Sarcastic 8-ball response</Help>
+  <Module>Magic 8 Balls</Module>
+  <Examples>!s8ball I'll have good luck today, right?</Examples>
+  <ExtraData>
+    <C1>😏 As if.</C1>
+    <C2>😏 I don't care.</C2>
+    <C3>😏 Dumb question. Ask another.</C3>
+    <C4>😏 Forget about it.</C4>
+    <C5>😏 Get a clue.</C5>
+    <C6>😏 In your dreams.</C6>
+    <C7>😏 Not.</C7>
+    <C8>😏 Not a chance.</C8>
+    <C9>😏 Obviously.</C9>
+    <C10>😏 Oh please.</C10>
+    <C11>😏 Sure.</C11>
+    <C12>😏 That's ridiculous.</C12>
+    <C13>😏 Well maybe.</C13>
+    <C14>😏 What do you think?</C14>
+    <C15>😏 Whatever.</C15>
+    <C16>😏 Who cares?</C16>
+    <C17>😏 Yeah, and I'm the pope.</C17>
+    <C18>😏 Yeah right.</C18>
+    <C19>😏 You wish.</C19>
+    <C20>😏 You've got to be kidding.</C20>
+  </ExtraData>
+</Root>

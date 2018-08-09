@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Sunglasses</Aliases>
+  <Help>Sunglasses face.</Help>
+  <Module>Meme Commands</Module>
+  <ExtraData>
+    <C1>(⌐■_■)</C1>
+    <C2>(■_■-)</C2>
+  </ExtraData>
+</Root>

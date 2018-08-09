@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Define,Définir,Definir</Aliases>
+  <Module>Lookup Commands</Module>
+  <Help>Give a link to Google. Optionally search.</Help>
+  <Examples>!define syzygy</Examples>
+  <ExtraData>
+    <C>https://www.google.com/#sclient=psy&amp;q=define:%20%escapeddetail%</C>
+  </ExtraData>
+</Root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Out,dehors</Aliases>
+  <Help>➝🚪</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!out</Examples>
+  <ExtraData>
+    <C>➝🚪</C>
+  </ExtraData>
+</Root>

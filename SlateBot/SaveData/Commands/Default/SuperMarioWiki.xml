@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>sm,smwiki,supermario,supermariowiki,mariowiki</Aliases>
+  <Help>Search the Super Mario Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>https://www.mariowiki.com/w/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

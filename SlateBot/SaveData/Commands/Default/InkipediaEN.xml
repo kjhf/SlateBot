@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ink,inkipedia</Aliases>
+  <Help>Search the English Inkipedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!ink Squid Sisters</Examples>
+  <ExtraData>
+    <C>https://splatoonwiki.org/w/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

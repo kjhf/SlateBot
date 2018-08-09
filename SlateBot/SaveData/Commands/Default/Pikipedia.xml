@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>piki,pikminwiki,pikipedia</Aliases>
+  <Help>Search Pikipedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!piki Olimar</Examples>
+  <ExtraData>
+    <C>https://www.pikminwiki.com/w/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>strat,strategy,strategywiki</Aliases>
+  <Help>Search the Strategy Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>http://www.strategywiki.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

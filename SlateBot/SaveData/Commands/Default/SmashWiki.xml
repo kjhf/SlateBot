@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ssb,smash,smashwiki</Aliases>
+  <Help>Search the Smash Wiki for the given article.</Help>
+  <ExtraData>
+    <C>https://www.ssbwiki.com/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

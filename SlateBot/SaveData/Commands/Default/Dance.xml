@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>/o/,\o\</Aliases>
+  <Help>\o/</Help>
+  <RequiresSymbol>false</RequiresSymbol>
+  <Module>Meme Commands</Module>
+  <Examples>\o\</Examples>
+  <ExtraData>
+    <C>|o|</C>
+  </ExtraData>
+</Root>

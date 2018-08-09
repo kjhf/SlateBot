@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ddg,DuckDuckGo</Aliases>
+  <Help>Give a link to Duck Duck Go. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!ddg Why use DuckDuckGo instead of Google or Bing?</Examples>
+  <ExtraData>
+    <C>https://duckduckgo.com/?q=%escapeddetail%</C>
+  </ExtraData>
+</Root>

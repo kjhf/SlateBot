@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Justright,😔</Aliases>
+  <Help>Justright response</Help>
+  <Module>Meme Commands</Module>
+  <Examples>@SlateBot justright</Examples>
+  <ExtraData>
+    <C1>✋😔👌</C1>
+    <C2>https://i.kym-cdn.com/entries/icons/original/000/019/698/d96.jpg</C2>
+    <C3>https://images7.memedroid.com/images/UPLOADED804/5a6342bbec8df.jpeg</C3>
+    <C4>https://pics.me.me/Facebook-When-you-hit-88mph-just-right-61e62a.png</C4>
+    <C5>https://images7.memedroid.com/images/UPLOADED177/5702cf6aea70f.jpeg</C5>
+    <C6>https://i.imgflip.com/1utxbf.jpg</C6>
+    <C7>http://41.media.tumblr.com/c7a0cf68f8aa446eb263bde292ccdaeb/tumblr_o3ogq8GE7E1sr6y44o1_r1_500.jpg</C7>
+    <C8>https://memeguy.com/photos/images/the-customer-ordered-a-pizza-just-right-210756.jpg</C8>
+    <C9>https://i.imgur.com/mTvGsBol.png</C9>
+    <C10>https://i.kym-cdn.com/photos/images/original/001/073/767/c96.jpg</C10>
+    <C11>https://media.tenor.com/images/aec958c19350bcb199e44234ccc03e7d/tenor.gif</C11>
+    <C12>http://i.imgur.com/lM1E6na.jpg</C12>
+    <C13>https://orig00.deviantart.net/3b0e/f/2016/041/2/1/when_the_backstab_is_just_right_by_myopicmoose-d9ravgw.jpg</C13>
+    <C14>https://i.kym-cdn.com/photos/images/original/001/104/603/5cf.png</C14>
+    <C15>https://pics.astrologymemes.com/when-the-high-noon-is-just-right-2653946.png</C15>
+    <C16>https://i.kym-cdn.com/photos/images/original/001/091/136/8f4.png</C16>
+    <C17>https://img.fireden.net/v/image/1454/20/1454202004090.png</C17>
+    <C18>https://assets.rbl.ms/13362349/980x.png</C18>
+    <C19>https://pm1.narvii.com/6673/a150ec100ec35f9828881b044801b14071906a78_hq.jpg</C19>
+    
+  </ExtraData>
+</Root>

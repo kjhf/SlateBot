@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>wk,wikirby</Aliases>
+  <Help>Search Wikirby for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>http://wikirby.com/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Froyo</Aliases>
+  <Help>Froyo response</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!froyo</Examples>
+  <ExtraData>
+    <C>&lt;:froyo:369912146558976000&gt; 👉 🛏</C>
+  </ExtraData>
+</Root>

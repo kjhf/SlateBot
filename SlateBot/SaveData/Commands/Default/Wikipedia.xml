@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>wikip,wikipedia</Aliases>
+  <Help>Search the English Wikipedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>https://en.wikipedia.org/w/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

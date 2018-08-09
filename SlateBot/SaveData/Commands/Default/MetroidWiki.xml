@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>metroid,metroidwiki</Aliases>
+  <Help>Search the Metroid Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!metroid Samus</Examples>
+  <ExtraData>
+    <C>http://www.metroidwiki.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

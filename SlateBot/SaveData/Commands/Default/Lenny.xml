@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Lenny</Aliases>
+  <Help>Lenny.</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!lenny</Examples>
+  <ExtraData>
+    <C1>( ͡° ͜ʖ ͡°)</C1>
+    <C2>( ﾟ ͜ʖ ﾟ)</C2>
+    <C3>( ͡º ͜ʖ͡º)</C3>
+  </ExtraData>
+</Root>

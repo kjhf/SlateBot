@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Doot</Aliases>
+  <Help>Doot response</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!doot</Examples>
+  <ExtraData>
+    <C1>🎺 Doot 🎺</C1>
+    <C2>🎺 Doot Doot 🎺</C2>
+    <C3>🎺 Toot Toot 🎺</C3>
+    <C4>📯 Pfffammpt 📯</C4>
+  </ExtraData>
+</Root>

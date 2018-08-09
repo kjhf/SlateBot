@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>mc,minecraft,minecraftwiki</Aliases>
+  <Help>Search the Minecraft wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!minecraft Crafting</Examples>
+  <ExtraData>
+    <C>http://minecraft.gamepedia.com/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

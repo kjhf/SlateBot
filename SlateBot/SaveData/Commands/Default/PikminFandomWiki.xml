@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>pf,pikminfanon</Aliases>
+  <Help>Search the Pikmin Fanon Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!pf Olimar</Examples>
+  <ExtraData>
+    <C>http://www.pikminfanon.com/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

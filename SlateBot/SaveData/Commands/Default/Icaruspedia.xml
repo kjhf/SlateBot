@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>ip,icarus,kid,kidicarus,icaruspedia</Aliases>
+  <Help>Search the Icaruspedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!ip Dark Pit</Examples>
+  <ExtraData>
+    <C>http://www.kidicaruswiki.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

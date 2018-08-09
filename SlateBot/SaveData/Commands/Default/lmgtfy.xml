@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>lmgtfy</Aliases>
+  <Help>Give a link to let me google that for you. Optionally specify parameters</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!lmgtfy Google</Examples>
+  <ExtraData>
+    <C>http://lmgtfy.com/?q&#61;%escapeddetail%</C>
+  </ExtraData>
+</Root>

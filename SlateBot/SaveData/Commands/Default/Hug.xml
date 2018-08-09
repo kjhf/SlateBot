@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Hug,Hugs</Aliases>
+  <Help>Gives the user or target a hug</Help>
+  <Examples>!hug\r\n!hugs Nintendo</Examples>
+  <Module>Meme Commands</Module>
+  <ExtraData>
+    <C1>Come here, %usernameordetail%! *hugs* </C1>
+    <C2>*Hugs %usernameordetail%*</C2>
+    <C3>*Glomps %usernameordetail%*</C3>
+    <C4>🤗 %usernameordetail%</C4>
+  </ExtraData>
+</Root>

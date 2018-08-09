@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Respect,Respects,f,R,Hommage</Aliases>
+  <Help>Pay your respects.</Help>
+  <Module>Meme Commands</Module>
+  <Examples>!f</Examples>
+  <ExtraData>
+    <C1>_%username% has paid their respects._</C1>
+    <C2>💐🇫, _thanks %username%._</C2>    
+  </ExtraData>
+</Root>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Thanks,merci</Aliases>
+  <Help>Thanks response</Help>
+  <ExtraData>
+    <C1>De rien! 😃</C1>
+    <C2>Je t'en prie! 😃</C2>
+  </ExtraData>
+</Root>

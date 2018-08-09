@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>niwa,niwawiki,central</Aliases>
+  <Help>Search the NIWA Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!niwa NintendoWiki:Coverage</Examples>
+  <ExtraData>
+    <C>http://www.niwanetwork.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

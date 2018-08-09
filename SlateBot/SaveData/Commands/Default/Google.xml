@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Google,Search</Aliases>
+  <Help>Give a link to Google. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!Google Is Google better than Bing?</Examples>
+  <ExtraData>
+    <C>https://www.google.com/#sclient&#61;psy&amp;q&#61;%escapeddetail%</C>
+  </ExtraData>
+</Root>

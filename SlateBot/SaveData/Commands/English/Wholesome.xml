@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>wholesome,compliment,complement,positive,positivity,motivational</Aliases>
+  <Help>For when people just need that boost</Help>
+  <Examples>!hug\r\n!hugs username</Examples>
+  <Module>Meme Commands</Module>
+  <ExtraData>
+    <C>My ultimate goal is to be an interesting, useful, wholesome %usernameordetail%. But you're successful on top of that? You're way ahead of everybody.</C>
+    <C>What if %usernameordetail% took a step back and devoted some time to loving yourself more?</C>
+    <C>I wish more of the world was as intelligent as you, %usernameordetail%</C>
+    <C>You don't have to be perfect to be amazing, %usernameordetail%</C>
+    <C>A comfort zone is a great place... but you can't grow anything there, %usernameordetail%</C>
+    <C>It doesn't matter what others are doing, it matters what you're doing, %usernameordetail%</C>
+    <C>Mistakes are proof that you're trying, %usernameordetail%</C>
+    <C>You are beautiful, %usernameordetail%. Your kind of beautiful.</C>
+    <C>We're all cheering you on %usernameordetail%. Now and forever.</C>
+    <C>Too many people undervalue what they are, or overvalue what they are not. Don't make that mistake, %usernameordetail%</C>
+    <C>You have a finite amount of energy. Use it for positivity, not pointless fighting, %usernameordetail% ~</C>
+    <C>You can say no without explaining yourself, %usernameordetail%</C>
+    <C>There are so many reasons to be happy, but you're one of them, %usernameordetail%</C>
+    <C>Don't over-think it, %usernameordetail%. The sun rises, the sun sets. Be thankful for the time you have and spend it doing what you love.</C>
+    <C>Don't think about what could go wrong, but of all the things that can go right.</C>
+    <C>There'll never be another one of you, %usernameordetail%. You're the only you.</C>
+    <C>Don't ruin the now by dwelling on the past. Look to the new future ~</C>
+    <C>Time with you is never wasted, %usernameordetail%.</C>
+    <C>Not every day is a good day, but there's something good in every day.</C>
+    <C>Don't hold onto things that cause you pain. Give the room to something that loves you back, %usernameordetail%.</C>
+    <C>When I say I love you, %usernameordetail%, I don't say it out of habit or to strike up a conversation. It's to remind you of how awesome you are ~</C>
+    <C>You are loved, %usernameordetail%, always.</C>
+    <C>Learning to ignore the crap is a step in right direction to inner peace ~</C>
+    <C>Forgive those that hurt you. YOu can take away their power that way.</C>
+    <C>I've seen you at your worst, %usernameordetail%, and I still think you're the best.</C>
+    <C>Hard to climb mountains often lead to unbelievable views.</C>
+    <C>What is weighing you down, %usernameordetail%, and what is yours to carry? Unburden yourself. Let go~</C>
+    <C>One year is 365 days I get to be with you, %usernameordetail%</C>
+    <C>You only need one person's approval, %usernameordetail%, and that's your own.</C>
+    <C>Your value doesn't decrease based one someone else's clouded perception.</C>
+    <C>Remember if anyone is trying to bring you down, then they're already below you. Stay on top, %usernameordetail%.</C>
+  </ExtraData>
+</Root>

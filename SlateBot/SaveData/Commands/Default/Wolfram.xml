@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>wa,wolfram,wolframalpha</Aliases>
+  <Help>Give a link to WolframAlpha. Optionally search.</Help>
+  <Module>Lookup Commands</Module>
+  <ExtraData>
+    <C>http://www.wolframalpha.com/input/?i=%escapeddetail%</C>
+  </ExtraData>
+</Root>

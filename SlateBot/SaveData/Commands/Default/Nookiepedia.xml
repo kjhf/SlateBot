@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>np,nookipedia,animalcrossing,animalcrossingwiki</Aliases>
+  <Help>Search Nookipedia for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!np Resetti</Examples>
+  <ExtraData>
+    <C>https://nookipedia.com/w/index.php?title=Special%3ASearch&amp;search=%escapeddetail%&amp;go=Go</C>
+  </ExtraData>
+</Root>

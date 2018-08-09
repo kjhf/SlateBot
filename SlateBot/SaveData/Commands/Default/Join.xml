@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Join,Invite,joindre,invit</Aliases>
+  <Help>Responds with an invite link</Help>
+  <Examples>@SlateBot join</Examples>
+  <ExtraData>
+    <C>https://discordapp.com/oauth2/authorize?client_id&#61;%appid%&amp;scope&#61;bot&amp;permissions&#61;3533888</C>
+  </ExtraData>
+</Root>

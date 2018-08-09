@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>smogon</Aliases>
+  <Help>Custom Google search for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!smogon hm01\r\n!smogon bulbasaur</Examples>
+  <ExtraData>
+    <C>https://www.google.com/search?q=site%3Awww.smogon.com+%escapeddetail%</C>
+  </ExtraData>
+</Root>

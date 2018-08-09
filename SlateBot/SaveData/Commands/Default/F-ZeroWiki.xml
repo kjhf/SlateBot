@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>fz,fzwiki,fzero,mutecity</Aliases>
+  <Help>Search the F-Zero Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!fz Captain Falcon</Examples>
+  <ExtraData>
+    <C>http://mutecity.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

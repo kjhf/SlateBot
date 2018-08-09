@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>dq,dqwiki,dragonquest</Aliases>
+  <Help>Search the Dragon Quest Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!dq Dragon Quest</Examples>
+  <ExtraData>
+    <C>http://dragon-quest.org/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

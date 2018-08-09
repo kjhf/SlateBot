@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Dancegif,Robogif,robotdance</Aliases>
+  <Module>Meme Commands</Module>
+  <Help>Dancegif response</Help>
+  <Examples>!Dancegif</Examples>
+  <ExtraData>
+    <C>http://transhuman.neocities.org/midibot.gif</C>
+  </ExtraData>
+</Root>

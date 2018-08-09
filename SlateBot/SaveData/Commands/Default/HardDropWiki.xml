@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>hd,hdwiki,harddrop</Aliases>
+  <Help>Search the Hard Drop Wiki for the given article.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!hd Tetromino</Examples>
+  <ExtraData>
+    <C>http://harddrop.com/wiki/index.php?search=%escapeddetail%&amp;title=Special%3ASearch&amp;go=Go</C>
+  </ExtraData>
+</Root>

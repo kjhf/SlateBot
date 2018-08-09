@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>Newsletter</Aliases>
+  <Help>Newsletter response</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!newsletter</Examples>
+  <ExtraData>
+    <C>https://docs.google.com/document/d/1WSnIu8L0tHmqgpjF355p7dk_VLXfDEV59HHxrbEZPfo/edit?usp=sharing</C>
+  </ExtraData>
+</Root>

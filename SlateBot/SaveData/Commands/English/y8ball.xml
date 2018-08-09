@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ResponseMessage</CommandType>
+  <Aliases>y8ball,y8b,yoda</Aliases>
+  <Help>Yoda 8-ball response, from</Help>
+  <Module>Magic 8 Balls</Module>
+  <Examples>!y8ball Good luck today, will I have?</Examples>
+  <ExtraData>
+    <C>💭 Yes, I sense this is.</C>
+    <C>💭 The answer you seek is yes.</C>
+    <C>💭 Simple question you ask. Yes, I answer.</C>
+    <C>💭 Difficult question you ask. Yes, I answer.</C>
+    
+    <C>💭 Use the force. Teach you it will.</C>
+    <C>💭 Search your feelings. Answer this question it will.</C>
+    <C>💭 Many questions you ask.</C>
+    <C>💭 This even Yoda does not know.</C>
+    <C>💭 Answers you seek can be found in the Force.</C>
+    
+    <C>💭 No, I sense this.</C>
+    <C>💭 The answer you seek is no.</C>
+    <C>💭 Simple question you ask. No, I answer.</C>
+    <C>💭 Difficult question you ask. No, I answer.</C>
+  </ExtraData>
+</Root>

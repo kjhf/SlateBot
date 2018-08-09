@@ -96,7 +96,7 @@ namespace SlateBot
           }
 
           // React to the message handled.
-          sum.AddReactionAsync(new Emoji("✅"));
+          sum.AddReactionAsync(new Emoji(Emojis.CheckUnicode));
         }
       }
       else if (message is ConsoleMessageDetail) // If from the console
@@ -157,7 +157,7 @@ namespace SlateBot
       return Task.CompletedTask;
     }
 
-    private Task Client_MessageUpdated(Discord.Cacheable<Discord.IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
+    private Task Client_MessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
     {
       if (arg2 != null)
       {

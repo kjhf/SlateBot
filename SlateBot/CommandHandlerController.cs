@@ -2,6 +2,7 @@
 using SlateBot.DAL.CommandFile;
 using SlateBot.Errors;
 using SlateBot.Language;
+using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace SlateBot
   internal class CommandController : IController
   {
     private readonly Dictionary<CommandHandlerType, ICommandHandler> commandHandlers;
-    private readonly List<Command> commands;
+    private readonly Dictionary<Languages, List<Command>> commands;
     private readonly IErrorLogger errorLogger;
     private readonly DAL.SlateBotDAL slateBotDAL;
     private readonly LanguageHandler languageHandler;
@@ -25,7 +26,7 @@ namespace SlateBot
       this.slateBotDAL = slateBotDAL ?? throw new ArgumentNullException(nameof(slateBotDAL));
       this.languageHandler = languageHandler ?? throw new ArgumentNullException(nameof(languageHandler));
       this.commandHandlers = new Dictionary<CommandHandlerType, ICommandHandler>();
-      this.commands = new List<Command>();
+      this.commands = new Dictionary<Languages, List<Command>>();
 
       // Get all ICommandHandler in the assembly
       var allCommandHandlerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ICommandHandler)));
@@ -89,7 +90,7 @@ namespace SlateBot
             }
             else
             {
-              commands.Add(c);
+              commands.AddToInner(language, c);
             }
           }
         }
@@ -117,8 +118,25 @@ namespace SlateBot
     {
       List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
+      Languages currentLanguage = senderDetail.ServerSettings.Language;
 
-      foreach (Command command in commands)
+      // If we're running default, assume English.
+      if (currentLanguage == Languages.Default)
+      {
+        currentLanguage = Languages.English;
+      }
+      
+      // Check language specific commands.
+      foreach (Command command in commands[currentLanguage])
+      {
+        if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+        {
+          responses.AddRange(command.Execute(senderDetail, messageDetail));
+        }
+      }
+
+      // Then check defaults.
+      foreach (Command command in commands[Languages.Default])
       {
         if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
         {
