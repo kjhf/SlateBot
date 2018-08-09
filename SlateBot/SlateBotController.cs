@@ -7,6 +7,8 @@ using SlateBot.Events;
 using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
+using SlateBot.Utility;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -71,17 +73,30 @@ namespace SlateBot
     /// Handle a command received from chat.
     /// This is after filtering to make sure a message is a command.
     /// </summary>
-    internal void HandleCommandReceived(SenderSettings senderDetail, IMessageDetail message)
+    internal void HandleCommandReceived(SenderSettings senderSettings, IMessageDetail message)
     {
-      var responses = commandHandlerController.ExecuteCommand(senderDetail, message);
+      var responses = commandHandlerController.ExecuteCommand(senderSettings, message);
 
       if (responses.Count > 0)
       {
         foreach (var response in responses)
         {
-          OnCommandReceived?.Invoke(this, new CommandReceivedEventArgs(senderDetail, message, response));
+          OnCommandReceived?.Invoke(this, new CommandReceivedEventArgs(senderSettings, message, response));
           /// Handled by <see cref="SlateBotController_OnCommandReceived"/>
           /// and the <see cref="UserSettingsHandler"/>
+        }
+
+        if ((message is SocketMessageWrapper smw) && (smw.socketMessage is SocketUserMessage sum))
+        {
+          // Help out if we're debugging.
+          if (Debugger.IsAttached)
+          {
+            var sb = MiscUtility.DumpObject(sum);
+            ErrorLogger.LogDebug("Handled " + sum.GetType() + ": \r\n" + sb);
+          }
+
+          // React to the message handled.
+          sum.AddReactionAsync(new Emoji("✅"));
         }
       }
       else if (message is ConsoleMessageDetail) // If from the console
@@ -174,9 +189,6 @@ namespace SlateBot
               (IMessageChannel)socketMessageWrapper.Channel;
 
           SendMessage(args.response, responseChannel);
-
-          // TODO
-          // React to the message
         }
         else
         {

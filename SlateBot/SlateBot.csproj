@@ -229,6 +229,7 @@
     <Compile Include="SaveData\UserStats.cs" />
     <Compile Include="Utility\DuplicateKeyDictionaryExtensions.cs" />
     <Compile Include="Utility\EmbedUtility.cs" />
+    <Compile Include="Utility\MiscUtility.cs" />
     <Compile Include="Utility\SynchronizationContextExtensions.cs" />
     <Compile Include="VariableStrings.cs" />
   </ItemGroup>
