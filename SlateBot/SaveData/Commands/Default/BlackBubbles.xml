@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Replace</CommandType>
+  <Aliases>bbubble,blackbubble,blackbubbles</Aliases>
+  <Help>Replaces letters with black bubble letters</Help>
+  <Module>Text Commands</Module>
+  <Examples>@SlateBot bbubble Test</Examples>
+  <ExtraData>
+    <IgnoreCase>true</IgnoreCase>
+    <Old>a</Old>
+    <New>🅐</New>
+    <Old>b</Old>
+    <New>🅑</New>
+    <Old>c</Old>
+    <New>🅒</New>
+    <Old>d</Old>
+    <New>🅓</New>
+    <Old>e</Old>
+    <New>🅔</New>
+    <Old>f</Old>
+    <New>🅕</New>
+    <Old>g</Old>
+    <New>🅖</New>
+    <Old>h</Old>
+    <New>🅗</New>
+    <Old>i</Old>
+    <New>🅘</New>
+    <Old>j</Old>
+    <New>🅙</New>
+    <Old>k</Old>
+    <New>🅚</New>
+    <Old>l</Old>
+    <New>🅛</New>
+    <Old>m</Old>
+    <New>🅜</New>
+    <Old>n</Old>
+    <New>🅝</New>
+    <Old>o</Old>
+    <New>🅞</New>
+    <Old>p</Old>
+    <New>🅟</New>
+    <Old>q</Old>
+    <New>🅠</New>
+    <Old>r</Old>
+    <New>🅡</New>
+    <Old>s</Old>
+    <New>🅢</New>
+    <Old>t</Old>
+    <New>🅣</New>
+    <Old>u</Old>
+    <New>🅤</New>
+    <Old>v</Old>
+    <New>🅥</New>
+    <Old>w</Old>
+    <New>🅦</New>
+    <Old>x</Old>
+    <New>🅧</New>
+    <Old>y</Old>
+    <New>🅨</New>
+    <Old>z</Old>
+    <New>🅩</New>
+    <Old>0</Old>
+    <New>🄌</New>
+    <Old>1</Old>
+    <New>➊</New>
+    <Old>2</Old>
+    <New>➋</New>
+    <Old>3</Old>
+    <New>➌</New>
+    <Old>4</Old>
+    <New>➍</New>
+    <Old>5</Old>
+    <New>➎</New>
+    <Old>6</Old>
+    <New>➏</New>
+    <Old>7</Old>
+    <New>➐</New>
+    <Old>8</Old>
+    <New>➑</New>
+    <Old>9</Old>
+    <New>➒</New>
+  </ExtraData>
+</Root>

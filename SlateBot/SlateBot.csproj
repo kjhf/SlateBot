@@ -173,6 +173,10 @@
     <Compile Include="Commands\CommandMessageHelper.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ModuleType.cs" />
+    <Compile Include="Commands\PullImage\PullImageCommand.cs" />
+    <Compile Include="Commands\PullImage\PullImageCommandHandler.cs" />
+    <Compile Include="Commands\Replace\ReplaceCommand.cs" />
+    <Compile Include="Commands\Replace\ReplaceCommandHandler.cs" />
     <Compile Include="Commands\Response.cs" />
     <Compile Include="Commands\ResponseMessageList\ResponseMessageListCommand.cs" />
     <Compile Include="Commands\ResponseMessageList\ResponseMessageListCommandHandler.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="Events\AchievementUnlockedEvent.cs" />
     <Compile Include="Events\CommandReceivedEvent.cs" />
     <Compile Include="ExitCodes.cs" />
+    <Compile Include="IAsyncResponder.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IMessageDetail.cs" />
     <Compile Include="Language\LanguageDefinitions.cs" />
@@ -230,7 +235,10 @@
     <Compile Include="Utility\CollectionsExtensions.cs" />
     <Compile Include="Utility\DuplicateKeyDictionaryExtensions.cs" />
     <Compile Include="Utility\EmbedUtility.cs" />
+    <Compile Include="Utility\FileAsync.cs" />
+    <Compile Include="Utility\JSONHelper.cs" />
     <Compile Include="Utility\MiscUtility.cs" />
+    <Compile Include="Utility\StringExtensions.cs" />
     <Compile Include="Utility\SynchronizationContextExtensions.cs" />
     <Compile Include="VariableStrings.cs" />
   </ItemGroup>

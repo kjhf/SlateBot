@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>PullImage</CommandType>
+  <Aliases>Dog,doggo,pupper</Aliases>
+  <Help>Dog.</Help>
+  <Module>Image Commands</Module>
+  <Examples>@SlateBot Dog</Examples>
+  <ExtraData>
+    <URL>https://random.dog/woof.json</URL>
+    <FormattedResponseURL>%file%</FormattedResponseURL>
+    <JSONProperty>url</JSONProperty>
+  </ExtraData>
+</Root>

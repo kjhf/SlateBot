@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>PullImage</CommandType>
+  <Aliases>Cat,meowmix</Aliases>
+  <Help>Cat.</Help>
+  <Module>Image Commands</Module>
+  <Examples>@SlateBot Cat</Examples>
+  <ExtraData>
+    <URL>http://aws.random.cat/meow</URL>
+    <FormattedResponseURL>%file%</FormattedResponseURL>
+    <JSONProperty>file</JSONProperty>
+  </ExtraData>
+</Root>

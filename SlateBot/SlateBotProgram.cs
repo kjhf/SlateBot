@@ -56,6 +56,15 @@ namespace SlateBot
     {
       return instance.controller;
     }
+    
+    /// <summary>
+    /// Get the asynchronous responder to messages.
+    /// </summary>
+    /// <returns></returns>
+    internal static IAsyncResponder GetAsyncResponder()
+    {
+      return instance.controller;
+    }
 
     /// <summary>
     /// The Main Loop of the console. Waits for input to execute commands.

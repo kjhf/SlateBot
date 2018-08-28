@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Replace</CommandType>
+  <Aliases>leet,l33t,1337</Aliases>
+  <Help>Replaces text with leetspeak</Help>
+  <Module>Text Commands</Module>
+  <Examples>@SlateBot 1337 this is leet speak</Examples>
+  <ExtraData>
+    <IgnoreCase>true</IgnoreCase>
+    <Old>a</Old>
+    <New>4</New>
+    <Old>b</Old>
+    <New>8</New>
+    <Old>c</Old>
+    <New>&lt;</New>
+    <Old>d</Old>
+    <New>|&gt;</New>
+    <Old>e</Old>
+    <New>3</New>
+    <Old>f</Old>
+    <New>|=</New>
+    <Old>g</Old>
+    <New>9</New>
+    <Old>h</Old>
+    <New>4</New>
+    <Old>i</Old>
+    <New>1</New>
+    <Old>j</Old>
+    <New>1</New>
+    <Old>k</Old>
+    <New>|&lt;</New>
+    <Old>l</Old>
+    <New>|ˍ</New>
+    <Old>m</Old>
+    <New>⁄\\⁄\\</New>
+    <Old>n</Old>
+    <New>|\\|</New>
+    <Old>o</Old>
+    <New>0</New>
+    <Old>p</Old>
+    <New>ρ</New>
+    <Old>q</Old>
+    <New>9</New>
+    <Old>r</Old>
+    <New>|2</New>
+    <Old>s</Old>
+    <New>5</New>
+    <Old>t</Old>
+    <New>7</New>
+    <Old>u</Old>
+    <New>|ˍ|</New>
+    <Old>v</Old>
+    <New>\\⁄</New>
+    <Old>w</Old>
+    <New>\\⁄\\⁄</New>
+    <Old>x</Old>
+    <New>&gt;&lt;</New>
+    <Old>y</Old>
+    <New>'⁄</New>
+    <Old>z</Old>
+    <New>̄⁄ˍ</New>
+    <Old>?</Old>
+    <New>:grey_question:</New>
+    <Old>!</Old>
+    <New>:grey_exclamation:</New>
+  </ExtraData>
+</Root>

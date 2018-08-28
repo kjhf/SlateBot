@@ -33,5 +33,25 @@ namespace SlateBot.Utility
       }
       return builder;
     }
+
+    public static EmbedBuilder UrlToEmbed(string imageUrl, Color? color, string title = null)
+    {
+      var builder = new EmbedBuilder()
+        .WithImageUrl(imageUrl);
+
+      if (color != null)
+      {
+        builder = builder.WithColor((Color)color);
+      }
+
+      if (title != null)
+      {
+        builder = builder.WithAuthor(author =>
+        {
+          author.WithName(title);
+        });
+      }
+      return builder;
+    }
   }
 }

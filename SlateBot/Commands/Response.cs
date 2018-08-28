@@ -22,7 +22,7 @@ namespace SlateBot.Commands
     /// <summary>
     /// How the bot should respond.
     /// </summary>
-    public ResponseType responseType;
+    public ResponseType responseType = ResponseType.Default;
 
     public override string ToString()
     {

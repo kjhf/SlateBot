@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>PullImage</CommandType>
+  <Aliases>neko</Aliases>
+  <Help>Neko image.</Help>
+  <Module>NSFW Commands</Module>
+  <Examples>@SlateBot neko</Examples>
+  <ExtraData>
+    <URL>https://nekos.life/api/neko</URL>
+    <FormattedResponseURL>%file%</FormattedResponseURL>
+    <JSONProperty>neko</JSONProperty>
+  </ExtraData>
+</Root>

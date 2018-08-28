@@ -45,7 +45,7 @@ namespace SlateBot.Commands
 
     /// <summary>
     /// Handle an incoming command and return response object(s) as a result.
-    /// The result may be null or empty to remain unhandled.
+    /// The result may not be null. Empty indicates unhandled. A response can be of <see cref="ResponseType.None"/> for a handled silent response.
     /// </summary>
     /// <param name="sender">Settings context</param>
     /// <param name="args">Message context</param>

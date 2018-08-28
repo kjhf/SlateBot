@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>PullImage</CommandType>
+  <Aliases>Bird,birb</Aliases>
+  <Help>Bird.</Help>
+  <Module>Image Commands</Module>
+  <Examples>@SlateBot Bird</Examples>
+  <ExtraData>
+    <URL>https://random.birb.pw/tweet.json/</URL>
+    <FormattedResponseURL>https://random.birb.pw/img/%file%</FormattedResponseURL>
+    <JSONProperty>file</JSONProperty>
+  </ExtraData>
+</Root>

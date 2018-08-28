@@ -16,13 +16,13 @@ namespace SlateBot
   /// <summary>
   /// The <see cref="SlateBotController"/> handles the main part of the program.
   /// </summary>
-  internal class SlateBotController : IController
+  internal class SlateBotController : IController, IAsyncResponder
   {
+    internal readonly DiscordSocketClient client;
     internal readonly CommandController commandHandlerController;
     internal readonly SlateBotDAL dal;
     internal readonly LanguageHandler languageHandler;
     internal readonly ServerSettingsHandler serverSettingsHandler;
-    internal readonly DiscordSocketClient client;
     private readonly SlateBotControllerLifecycle lifecycle;
     private readonly UserSettingsHandler userSettingsHandler;
 
@@ -67,6 +67,41 @@ namespace SlateBot
       this.userSettingsHandler.Initialise();
 
       ErrorLogger.LogDebug("Program initialised successfully.");
+    }
+
+    public async Task SendResponseAsync(CommandReceivedEventArgs args)
+    {
+      bool isFromConsole = args.message is ConsoleMessageDetail;
+      bool isFromSocket = args.message is SocketMessageWrapper;
+
+      if (isFromConsole || args.response.responseType == ResponseType.LogOnly)
+      {
+        // Log the result.
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, args.response.message));
+      }
+      else if (args.response.responseType == ResponseType.None)
+      {
+        // Nothing to do.
+      }
+      else
+      {
+        if (isFromSocket)
+        {
+          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)args.message;
+
+          // If private response, get the DM channel to the user, otherwise use the current channel.
+          IMessageChannel responseChannel =
+            args.response.responseType == ResponseType.Private ?
+              (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
+              (IMessageChannel)socketMessageWrapper.Channel;
+
+          SendMessage(args.response, responseChannel);
+        }
+        else
+        {
+          ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {args.message.ChannelName} ({args.message.ChannelId}) by user {args.message.Username} ({args.message.UserId}) as the message is not from the socket."));
+        }
+      }
     }
 
     /// <summary>
@@ -168,33 +203,7 @@ namespace SlateBot
 
     private async void SlateBotController_OnCommandReceived(object sender, CommandReceivedEventArgs args)
     {
-      bool isFromConsole = args.message is ConsoleMessageDetail;
-      bool isFromSocket = args.message is SocketMessageWrapper;
-
-      if (isFromConsole || args.response.responseType == ResponseType.LogOnly)
-      {
-        // Log the result.
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, args.response.message));
-      }
-      else
-      {
-        if (isFromSocket)
-        {
-          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)args.message;
-
-          // If private response, get the DM channel to the user, otherwise use the current channel.
-          IMessageChannel responseChannel =
-            args.response.responseType == ResponseType.Private ?
-              (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) : 
-              (IMessageChannel)socketMessageWrapper.Channel;
-
-          SendMessage(args.response, responseChannel);
-        }
-        else
-        {
-          ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {args.message.ChannelName} ({args.message.ChannelId}) by user {args.message.Username} ({args.message.UserId}) as the message is not from the socket."));
-        }
-      }
+      await SendResponseAsync(args);
     }
   }
 }

@@ -15,6 +15,11 @@
     /// <summary> 
     /// Reply to the user in private.
     /// </summary>
-    Private
+    Private,
+    
+    /// <summary> 
+    /// No synchronous response.
+    /// </summary>
+    None
   }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Replace</CommandType>
+  <Aliases>reaction,React</Aliases>
+  <Help>Replaces text with regional indicator Emoji</Help>
+  <Module>Text Commands</Module>
+  <Examples>@SlateBot react text</Examples>
+  <ExtraData>
+    <IgnoreCase>true</IgnoreCase>
+    <Old>a</Old>
+    <New>🇦</New>
+    <Old>b</Old>
+    <New>🇧</New>
+    <Old>c</Old>
+    <New>🇨</New>
+    <Old>d</Old>
+    <New>🇩</New>
+    <Old>e</Old>
+    <New>🇪</New>
+    <Old>f</Old>
+    <New>🇫</New>
+    <Old>g</Old>
+    <New>🇬</New>
+    <Old>h</Old>
+    <New>🇭</New>
+    <Old>i</Old>
+    <New>🇮</New>
+    <Old>j</Old>
+    <New>🇯</New>
+    <Old>k</Old>
+    <New>🇰</New>
+    <Old>l</Old>
+    <New>🇱</New>
+    <Old>m</Old>
+    <New>🇲</New>
+    <Old>n</Old>
+    <New>🇳</New>
+    <Old>o</Old>
+    <New>🇴</New>
+    <Old>p</Old>
+    <New>🇵</New>
+    <Old>q</Old>
+    <New>🇶</New>
+    <Old>r</Old>
+    <New>🇷</New>
+    <Old>s</Old>
+    <New>🇸</New>
+    <Old>t</Old>
+    <New>🇹</New>
+    <Old>u</Old>
+    <New>🇺</New>
+    <Old>v</Old>
+    <New>🇻</New>
+    <Old>w</Old>
+    <New>🇼</New>
+    <Old>x</Old>
+    <New>🇽</New>
+    <Old>y</Old>
+    <New>🇾</New>
+    <Old>z</Old>
+    <New>🇿</New>
+    <Old>?</Old>
+    <New>:grey_question: </New>
+    <Old>!</Old>
+    <New>:grey_exclamation: </New>
+    <Old> </Old>
+    <New>   </New>
+  </ExtraData>
+</Root>
