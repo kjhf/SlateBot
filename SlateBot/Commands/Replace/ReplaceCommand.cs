@@ -39,7 +39,7 @@ namespace SlateBot.Commands.Replace
       if (string.IsNullOrWhiteSpace(message))
       {
         // Use the command's name instead.
-        message = command.FullCommand;
+        message = command.FullCommandExcludingCommandPrefix;
       }
 
       // Shrug.

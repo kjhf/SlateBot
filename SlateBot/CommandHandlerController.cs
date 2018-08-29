@@ -118,32 +118,35 @@ namespace SlateBot
     {
       List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
-      Languages currentLanguage = senderDetail.ServerSettings.Language;
 
-      // If we're running default, assume English.
-      if (currentLanguage == Languages.Default)
+      if (helper.IsCommand)
       {
-        currentLanguage = Languages.English;
-      }
-      
-      // Check language specific commands.
-      foreach (Command command in commands[currentLanguage])
-      {
-        if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+        Languages currentLanguage = senderDetail.ServerSettings.Language;
+
+        // If we're running default, assume English.
+        if (currentLanguage == Languages.Default)
         {
-          responses.AddRange(command.Execute(senderDetail, messageDetail));
+          currentLanguage = Languages.English;
+        }
+
+        // Check language specific commands.
+        foreach (Command command in commands[currentLanguage])
+        {
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          {
+            responses.AddRange(command.Execute(senderDetail, messageDetail));
+          }
+        }
+
+        // Then check defaults.
+        foreach (Command command in commands[Languages.Default])
+        {
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          {
+            responses.AddRange(command.Execute(senderDetail, messageDetail));
+          }
         }
       }
-
-      // Then check defaults.
-      foreach (Command command in commands[Languages.Default])
-      {
-        if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
-        {
-          responses.AddRange(command.Execute(senderDetail, messageDetail));
-        }
-      }
-
       return responses;
     }
   }

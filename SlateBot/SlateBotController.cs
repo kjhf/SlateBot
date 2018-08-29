@@ -177,6 +177,12 @@ namespace SlateBot
     private Task Client_LoggedIn()
     {
       lifecycle.OnConnection();
+
+      if (Debugger.IsAttached)
+      {
+        client.SetGameAsync("~ Debugger Connected ~", null, ActivityType.Streaming);
+      }
+
       return Task.CompletedTask;
     }
 
