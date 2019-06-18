@@ -49,6 +49,14 @@ namespace SlateBot.Language
     }
 
     /// <summary>
+    /// Get a timespan in localised form Days : Hours : Minutes : Seconds
+    /// </summary>
+    public string GetLocalisedTimeSpan(Languages language, TimeSpan ts)
+    {
+      return $"{ts.Days} {GetPhrase(language, "Days")} : {ts.Hours} {GetPhrase(language, "Hours")} : {ts.Minutes} {GetPhrase(language, "Minutes")} : {ts.Seconds} {GetPhrase(language, "Seconds")}";
+    }
+
+    /// <summary>
     /// Get a localised phrase.
     /// </summary>
     /// <param name="language">The language to search</param>

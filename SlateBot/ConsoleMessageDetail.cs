@@ -34,6 +34,8 @@ namespace SlateBot
 
     public string MentionUsername => ConsoleConstant;
 
+    public bool IsPrivate => true;
+
     /// <summary>
     /// Construct a <see cref="ConsoleMessageDetail"/> with the message.
     /// </summary>

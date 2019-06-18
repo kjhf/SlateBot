@@ -12,7 +12,7 @@ namespace SlateBot.Commands.Replace
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Replace;
     
-    public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
+    public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
@@ -22,6 +22,7 @@ namespace SlateBot.Commands.Replace
       
       var dictionary = file.ExtraData;
       bool ignoreCase = true;
+      bool reverse = false;
       string[] old;
       string[] @new;
       Dictionary<string, string> replacements = new Dictionary<string, string>();
@@ -31,6 +32,12 @@ namespace SlateBot.Commands.Replace
         if (hasIgnoreCase)
         {
           ignoreCase = bool.Parse(ignoreCaseStr.First());
+        }
+
+        bool hasReverse = file.ExtraData.TryGetValue("Reverse", out IEnumerable<string> reverseStr) > 0;
+        if (hasReverse)
+        {
+          reverse = bool.Parse(reverseStr.First());
         }
 
         old = file.ExtraData.Where(pair => pair.Key.Equals("Old")).Select(pair => pair.Value).ToArray();
@@ -45,7 +52,7 @@ namespace SlateBot.Commands.Replace
         }
       }
       
-      return (new ReplaceCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, replacements, ignoreCase));
+      return (new ReplaceCommand(file.Aliases, file.Examples, file.Help, module, replacements, ignoreCase, reverse));
     }
   }
 }

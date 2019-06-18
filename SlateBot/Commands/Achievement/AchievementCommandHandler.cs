@@ -11,7 +11,7 @@ namespace SlateBot.Commands.Achievement
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Achievements;
     
-    public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
+    public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
@@ -19,7 +19,7 @@ namespace SlateBot.Commands.Achievement
         module = ModuleType.General;
       }
 
-      return (new AchievementCommand(languageHandler, file.Aliases, file.Examples, file.Help, module));
+      return (new AchievementCommand(controller.languageHandler, file.Aliases, file.Examples, file.Help, module));
     }
   }
 }

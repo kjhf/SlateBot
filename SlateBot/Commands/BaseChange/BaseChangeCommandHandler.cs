@@ -12,7 +12,7 @@ namespace SlateBot.Commands.BaseChange
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.BaseChange;
     
-    public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
+    public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
@@ -52,7 +52,7 @@ namespace SlateBot.Commands.BaseChange
         valid = false;
       }
 
-      return valid ? (new BaseChangeCommand(languageHandler, file.Aliases, file.Examples, file.Help, module, fromBase, toBase)) : null;
+      return valid ? (new BaseChangeCommand(controller.languageHandler, file.Aliases, file.Examples, file.Help, module, fromBase, toBase)) : null;
     }
   }
 }

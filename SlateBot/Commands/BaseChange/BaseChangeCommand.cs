@@ -174,7 +174,6 @@ namespace SlateBot.Commands.BaseChange
       string output = sb.ToString();
       Response response = new Response
       {
-        command = this,
         embed = EmbedUtility.StringToEmbed(output, embedColour),
         message = output,
         responseType = ResponseType.Default

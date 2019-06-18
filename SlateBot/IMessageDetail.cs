@@ -14,5 +14,6 @@
     ulong UserId { get; }
     string Username { get; }
     string MentionUsername { get; }
+    bool IsPrivate { get; }
   }
 }

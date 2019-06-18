@@ -12,7 +12,7 @@ namespace SlateBot.Commands.ResponseMessage
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.ResponseMessage;
     
-    public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
+    public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
@@ -46,7 +46,7 @@ namespace SlateBot.Commands.ResponseMessage
         choices = new string[0];
       }
       
-      return (new ResponseMessageCommand(languageHandler, file.Aliases, choices, file.Examples, file.Help, module, responseType, requiresSymbol));
+      return (new ResponseMessageCommand(file.Aliases, choices, file.Examples, file.Help, module, responseType, requiresSymbol));
     }
   }
 }

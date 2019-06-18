@@ -11,6 +11,6 @@ namespace SlateBot.Commands
   {
     CommandHandlerType CommandHandlerType { get; }
 
-    Command CreateCommand(Language.LanguageHandler language, CommandFile file);
+    Command CreateCommand(SlateBotController controller, CommandFile file);
   }
 }

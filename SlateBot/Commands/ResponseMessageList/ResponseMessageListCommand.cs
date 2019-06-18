@@ -11,7 +11,6 @@ namespace SlateBot.Commands.ResponseMessageList
     public readonly bool requiresSymbol;
     protected readonly string choiceFormat;
     protected readonly string[][] choices;
-    private readonly LanguageHandler languageHandler;
     private readonly ResponseType responseType = ResponseType.Default;
 
     /// <summary>
@@ -20,10 +19,9 @@ namespace SlateBot.Commands.ResponseMessageList
     /// <param name="aliases"></param>
     /// <param name="choices"></param>
     /// <param name="help"></param>
-    public ResponseMessageListCommand(LanguageHandler languageHandler, IEnumerable<string> aliases, string[][] choices, string choiceFormat, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
+    public ResponseMessageListCommand(IEnumerable<string> aliases, string[][] choices, string choiceFormat, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
       : base(CommandHandlerType.ResponseMessageList, aliases?.ToArray(), examples, help, module)
     {
-      this.languageHandler = languageHandler;
       this.choices = choices;
       this.choiceFormat = choiceFormat;
       this.responseType = responseType;
@@ -45,7 +43,6 @@ namespace SlateBot.Commands.ResponseMessageList
 
       Response response = new Response
       {
-        command = this,
         embed = null,
         message = result,
         responseType = responseType

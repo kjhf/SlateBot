@@ -9,7 +9,6 @@ namespace SlateBot.Commands.ResponseMessage
   {
     public readonly bool requiresSymbol;
     private readonly string[] choices;
-    private readonly LanguageHandler languageHandler;
     private readonly ResponseType responseType;
 
     /// <summary>
@@ -20,8 +19,8 @@ namespace SlateBot.Commands.ResponseMessage
     /// <param name="choice"></param>
     /// <param name="help"></param>
     /// <param name="requiresSymbol"</param>
-    public ResponseMessageCommand(LanguageHandler languageHandler, IEnumerable<string> aliases, string choice, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
-      : this(languageHandler, aliases, new string[] { choice }, examples, help, module, responseType, requiresSymbol)
+    public ResponseMessageCommand(IEnumerable<string> aliases, string choice, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
+      : this(aliases, new string[] { choice }, examples, help, module, responseType, requiresSymbol)
     {
     }
 
@@ -31,10 +30,9 @@ namespace SlateBot.Commands.ResponseMessage
     /// <param name="aliases"></param>
     /// <param name="choices"></param>
     /// <param name="help"></param>
-    public ResponseMessageCommand(LanguageHandler languageHandler, IEnumerable<string> aliases, IEnumerable<string> choices, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
+    public ResponseMessageCommand(IEnumerable<string> aliases, IEnumerable<string> choices, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
       : base(CommandHandlerType.ResponseMessage, aliases?.ToArray(), examples, help, module)
     {
-      this.languageHandler = languageHandler;
       this.choices = choices?.ToArray();
       this.responseType = responseType;
       this.requiresSymbol = requiresSymbol;
@@ -51,7 +49,6 @@ namespace SlateBot.Commands.ResponseMessage
 
       Response response = new Response
       {
-        command = this,
         embed = null,
         message = result,
         responseType = responseType

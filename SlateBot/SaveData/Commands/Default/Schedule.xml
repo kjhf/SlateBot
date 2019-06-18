@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Schedule</CommandType>
+  <Aliases>Schedule,repeat,repeating</Aliases>
+  <Module>Scheduler</Module>
+  <Help>A schedule for reminding you of tasks or saying a repeating message.</Help>
+  <Examples>'''@SlateBot schedule [new|set|enable|disable|remove|list] [_id_] [Due|Repeating|Message|Enabled] [_value_]'''</Examples>
+</Root>

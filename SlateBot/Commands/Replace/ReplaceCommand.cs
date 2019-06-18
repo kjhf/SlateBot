@@ -9,9 +9,9 @@ namespace SlateBot.Commands.Replace
 {
   public class ReplaceCommand : Command
   {
-    private readonly LanguageHandler languageHandler;
     private readonly IDictionary<string, string> replaceTable;
     private readonly bool ignoreCase;
+    private readonly bool reverse;
 
     /// <summary>
     /// Replace the message with the supplied characters.
@@ -19,12 +19,12 @@ namespace SlateBot.Commands.Replace
     /// <param name="aliases"></param>
     /// <param name="choices"></param>
     /// <param name="help"></param>
-    public ReplaceCommand(LanguageHandler languageHandler, IEnumerable<string> aliases, string examples, string help, ModuleType module, IDictionary<string, string> replacements, bool ignoreCase)
+    public ReplaceCommand(IEnumerable<string> aliases, string examples, string help, ModuleType module, IDictionary<string, string> replacements, bool ignoreCase, bool reverse = false)
       : base(CommandHandlerType.Replace, aliases?.ToArray(), examples, help, module)
     {
-      this.languageHandler = languageHandler;
       this.replaceTable = replacements;
       this.ignoreCase = ignoreCase;
+      this.reverse = reverse;
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
@@ -47,6 +47,7 @@ namespace SlateBot.Commands.Replace
 
       // Now substitute the replacements from the table.
       StringBuilder sb = new StringBuilder();
+
       foreach (char c in message)
       {
         string letter = c.ToString();
@@ -62,12 +63,11 @@ namespace SlateBot.Commands.Replace
         }
         sb.Append(letter);
       }
-
+      
       Response response = new Response
       {
-        command = this,
         embed = null,
-        message = sb.ToString(),
+        message = reverse ? new string(sb.ToString().Reverse().ToArray()) : sb.ToString(),
         responseType = ResponseType.Default
       };
       return new[] { response };
@@ -77,8 +77,13 @@ namespace SlateBot.Commands.Replace
     {
       var retVal = new List<KeyValuePair<string, string>>(1 + (replaceTable.Count * 2))
       {
-        // Extra data is IgnoreCase
-        { "IgnoreCase", ignoreCase.ToString() }
+        // Extra data is IgnoreCase and Reverse
+        {
+          "IgnoreCase", ignoreCase.ToString()
+        },
+        {
+          "Reverse", reverse.ToString()
+        }
       };
 
       // And the replacements

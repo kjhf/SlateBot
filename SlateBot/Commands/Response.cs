@@ -5,11 +5,6 @@ namespace SlateBot.Commands
   public class Response
   {
     /// <summary>
-    /// The command that was executed.
-    /// </summary>
-    public Command command;
-
-    /// <summary>
     /// The <see cref="EmbedBuilder"/> response message.
     /// </summary>
     public EmbedBuilder embed;
@@ -26,7 +21,7 @@ namespace SlateBot.Commands
 
     public override string ToString()
     {
-      return $"{nameof(Response)}: \"{message}\" sending to {responseType} from command {command}";
+      return $"{nameof(Response)}: \"{message}\" sending to {responseType}";
     }
   }
 }

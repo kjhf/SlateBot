@@ -21,6 +21,8 @@ namespace SlateBot
 
     public string ChannelName => socketMessage.Channel?.Name ?? Username;
 
+    public bool IsPrivate => Channel.IsPrivate();
+
     public string Message => socketMessage.Content;
 
     public ulong MessageId => socketMessage.Id;
@@ -39,7 +41,7 @@ namespace SlateBot
 
     public string Username => User?.Username;
 
-    public string MentionUsername => "<@" + UserId + ">";
+    public string MentionUsername => "<@!" + UserId + ">";
 
     /// <summary>
     /// Construct a <see cref="SocketMessageWrapper"/> from a <see cref="SocketMessage"/>.

@@ -16,15 +16,11 @@ namespace SlateBot
   {
     private readonly Dictionary<CommandHandlerType, ICommandHandler> commandHandlers;
     private readonly Dictionary<Languages, List<Command>> commands;
-    private readonly IErrorLogger errorLogger;
-    private readonly DAL.SlateBotDAL slateBotDAL;
-    private readonly LanguageHandler languageHandler;
+    private readonly SlateBotController controller;
 
-    public CommandController(IErrorLogger errorLogger, DAL.SlateBotDAL slateBotDAL, LanguageHandler languageHandler)
+    public CommandController(SlateBotController controller)
     {
-      this.errorLogger = errorLogger ?? throw new ArgumentNullException(nameof(errorLogger));
-      this.slateBotDAL = slateBotDAL ?? throw new ArgumentNullException(nameof(slateBotDAL));
-      this.languageHandler = languageHandler ?? throw new ArgumentNullException(nameof(languageHandler));
+      this.controller = controller ?? throw new ArgumentNullException(nameof(controller));
       this.commandHandlers = new Dictionary<CommandHandlerType, ICommandHandler>();
       this.commands = new Dictionary<Languages, List<Command>>();
 
@@ -38,7 +34,7 @@ namespace SlateBot
 
         if (commandHandlers.TryGetValue(handler.CommandHandlerType, out ICommandHandler dummy))
         {
-          errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, "Duplicate command handler found: " + handler.CommandHandlerType + " in type " + handler.GetType()));
+          controller.ErrorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, "Duplicate command handler found: " + handler.CommandHandlerType + " in type " + handler.GetType()));
         }
 
         // Add it to the dictionary.
@@ -52,10 +48,11 @@ namespace SlateBot
         {
           if (cht != CommandHandlerType.Unknown)
           {
-            errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Warning, cht.ToString()));
+            controller.ErrorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Warning, cht.ToString()));
           }
         }
       }
+
     }
 
     public void Initialise()
@@ -67,7 +64,7 @@ namespace SlateBot
     {
       commands.Clear();
 
-      var commandFiles = slateBotDAL.ReadCommandFiles();
+      var commandFiles = controller.dal.ReadCommandFiles();
 
       foreach (var pair in commandFiles)
       {
@@ -79,14 +76,14 @@ namespace SlateBot
           ICommandHandler commandHandler = GetCommandHandlerFromCommandHandlerType(file.CommandType);
           if (commandHandler == null)
           {
-            errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{file.CommandType} specified in an xml file with aliases {file.AliasesStr}"));
+            controller.ErrorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{file.CommandType} specified in an XML file with aliases {file.AliasesStr}"));
           }
           else
           {
-            Command c = commandHandler.CreateCommand(languageHandler, file);
+            Command c = commandHandler.CreateCommand(controller, file);
             if (c == null)
             {
-              errorLogger.LogError(new Error(ErrorCode.CommandNotValid, ErrorSeverity.Error, $"Found handler but did not create a {file.CommandType} specified in an xml file with aliases {file.AliasesStr}"));
+              controller.ErrorLogger.LogError(new Error(ErrorCode.CommandNotValid, ErrorSeverity.Error, $"Found handler but did not create a {file.CommandType} specified in an XML file with aliases {file.AliasesStr}"));
             }
             else
             {
@@ -107,7 +104,7 @@ namespace SlateBot
 
         if (!found)
         {
-          errorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{search} exists but does not have an associated command handler."));
+          controller.ErrorLogger.LogError(new Error(ErrorCode.CommandHandlerNotImplemented, ErrorSeverity.Error, $"{search} exists but does not have an associated command handler."));
         }
       }
 
@@ -119,7 +116,7 @@ namespace SlateBot
       List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
 
-      if (helper.IsCommand)
+      if (helper.IsCommand || messageDetail.IsPrivate)
       {
         Languages currentLanguage = senderDetail.ServerSettings.Language;
 

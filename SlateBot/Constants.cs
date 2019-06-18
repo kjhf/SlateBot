@@ -32,7 +32,7 @@ namespace SlateBot
 
     public static bool IsBotOwner(ulong id)
     {
-      return id == OwnerId;
+      return (id == OwnerId) || (id == ConsoleId);
     }
   }
 }

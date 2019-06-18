@@ -1,4 +1,5 @@
 ﻿using SlateBot.Commands;
+using SlateBot.Commands.Schedule;
 using SlateBot.Language;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace SlateBot
     /// <summary>
     /// Join messages
     /// </summary>
-    public IList<string> JoinServerMessages { get; internal set; } = new List<string>();
+    public List<string> JoinServerMessages { get; internal set; } = new List<string>();
 
     /// <summary>
     /// The server's language
@@ -38,14 +39,17 @@ namespace SlateBot
     /// <summary>
     /// Quit messages
     /// </summary>
-    public IList<string> QuitServerMessages { get; internal set; } = new List<string>();
+    public List<string> QuitServerMessages { get; internal set; } = new List<string>();
 
     /// <summary>
     /// Channels that the bot will add ratings to
     /// </summary>
     public HashSet<ulong> RateChannels { get; internal set; } = new HashSet<ulong>();
 
-    //public IList<RepeatingCommandData> RepeatingChannels { get; internal set; } = new List<RepeatingCommandData>();
+    /// <summary>
+    /// Messages that are scheduled on this server
+    /// </summary>
+    public List<ScheduledMessageData> ScheduledMessages { get; internal set; } = new List<ScheduledMessageData>();
 
     /// <summary>
     /// Channels that announce Splatoon 2 rotations

@@ -5,6 +5,7 @@ namespace SlateBot
 {
   public interface IAsyncResponder
   {
-    Task SendResponseAsync(CommandReceivedEventArgs args);
+    Task SendResponseAsync(IMessageDetail message, Commands.Response response);
+    Task SendResponseAsync(ulong channelId, Commands.Response response);
   }
 }

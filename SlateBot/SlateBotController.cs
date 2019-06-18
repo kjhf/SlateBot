@@ -7,6 +7,7 @@ using SlateBot.Events;
 using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
+using SlateBot.Scheduler;
 using SlateBot.Utility;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace SlateBot
     internal readonly CommandController commandHandlerController;
     internal readonly SlateBotDAL dal;
     internal readonly LanguageHandler languageHandler;
+    internal readonly ScheduleHandler scheduleHandler;
     internal readonly ServerSettingsHandler serverSettingsHandler;
     private readonly SlateBotControllerLifecycle lifecycle;
     private readonly UserSettingsHandler userSettingsHandler;
@@ -31,7 +33,8 @@ namespace SlateBot
       this.dal = new SlateBotDAL();
       this.languageHandler = new LanguageHandler(dal);
       this.lifecycle = new SlateBotControllerLifecycle(this);
-      this.commandHandlerController = new CommandController(ErrorLogger, dal, languageHandler);
+      this.scheduleHandler = new ScheduleHandler();
+      this.commandHandlerController = new CommandController(this);
       this.serverSettingsHandler = new ServerSettingsHandler(ErrorLogger, dal);
       this.userSettingsHandler = new UserSettingsHandler(this);
 
@@ -65,21 +68,22 @@ namespace SlateBot
       this.commandHandlerController.Initialise();
       this.serverSettingsHandler.Initialise();
       this.userSettingsHandler.Initialise();
+      this.scheduleHandler.LoadScheduledTasks(serverSettingsHandler.ServerSettings, serverSettingsHandler, this);
 
       ErrorLogger.LogDebug("Program initialised successfully.");
     }
 
-    public async Task SendResponseAsync(CommandReceivedEventArgs args)
+    public async Task SendResponseAsync(IMessageDetail message, Response response)
     {
-      bool isFromConsole = args.message is ConsoleMessageDetail;
-      bool isFromSocket = args.message is SocketMessageWrapper;
+      bool isFromConsole = message is ConsoleMessageDetail;
+      bool isFromSocket = message is SocketMessageWrapper;
 
-      if (isFromConsole || args.response.responseType == ResponseType.LogOnly)
+      if (isFromConsole || response.responseType == ResponseType.LogOnly)
       {
         // Log the result.
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, args.response.message));
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.message));
       }
-      else if (args.response.responseType == ResponseType.None)
+      else if (response.responseType == ResponseType.None)
       {
         // Nothing to do.
       }
@@ -87,20 +91,33 @@ namespace SlateBot
       {
         if (isFromSocket)
         {
-          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)args.message;
+          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)message;
 
           // If private response, get the DM channel to the user, otherwise use the current channel.
           IMessageChannel responseChannel =
-            args.response.responseType == ResponseType.Private ?
+            response.responseType == ResponseType.Private ?
               (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
               (IMessageChannel)socketMessageWrapper.Channel;
 
-          SendMessage(args.response, responseChannel);
+          SendMessage(response, responseChannel);
         }
         else
         {
-          ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {args.message.ChannelName} ({args.message.ChannelId}) by user {args.message.Username} ({args.message.UserId}) as the message is not from the socket."));
+          ErrorLogger.LogError(new Error(ErrorCode.NotImplemented, ErrorSeverity.Error, $"Cannot reply to channel {message.ChannelName} ({message.ChannelId}) by user {message.Username} ({message.UserId}) as the message is not from the socket."));
         }
+      }
+    }
+
+    public async Task SendResponseAsync(ulong channelId, Response response)
+    {
+      if (channelId == Constants.ConsoleId)
+      {
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.message));
+      }
+      else
+      {
+        var channel = await client.GetMessageChannelAsync(channelId);
+        SendMessage(response, channel);
       }
     }
 
@@ -142,8 +159,9 @@ namespace SlateBot
 
     internal void HandleConsoleCommand(string line)
     {
+      ServerSettings consoleServerSettings = serverSettingsHandler.GetOrCreateServerSettings(Constants.ConsoleId);
       UserSettings consoleUserSettings = userSettingsHandler.GetOrCreateUserSettings(Constants.ConsoleId);
-      HandleCommandReceived(new SenderSettings(serverSettingsHandler.consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
+      HandleCommandReceived(new SenderSettings(consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
     }
 
     internal void HandleMessageReceived(SocketMessageWrapper socketMessage)
@@ -209,7 +227,7 @@ namespace SlateBot
 
     private async void SlateBotController_OnCommandReceived(object sender, CommandReceivedEventArgs args)
     {
-      await SendResponseAsync(args);
+      await SendResponseAsync(args.message, args.response);
     }
   }
 }

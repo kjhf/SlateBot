@@ -6,7 +6,7 @@ namespace SlateBot.Commands.Coin
 {
   public class CoinCommand : Command
   {
-    private LanguageHandler languageHandler;
+    private readonly LanguageHandler languageHandler;
 
     internal CoinCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
       : base(CommandHandlerType.Coin, aliases, examples, help, module)
@@ -100,7 +100,6 @@ namespace SlateBot.Commands.Coin
 
       Response response = new Response
       {
-        command = this,
         embed = Utility.EmbedUtility.StringToEmbed(retVal, responseColor),
         message = retVal,
         responseType = ResponseType.Default

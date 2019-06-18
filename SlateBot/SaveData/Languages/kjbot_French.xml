@@ -90,6 +90,10 @@
 <!-- The command is restricted to the server owner only. -->
 <string name="Error_ServerOwnerOnly">"L'usage de cette commande est limité au propriétaire du serveur"</string>
 
+<!-- Command is restricted to the server owner only -->
+<!-- The command is restricted to the server owner only. -->
+<string name="Error_ServerOwnerOrPrivateOnly">"L'usage de cette commande est limité au propriétaire du serveur ou message privé"</string>
+
 <!-- Unknown Minecraft recipe -->
 <!-- The recipe specified was not found. e.g. for Minecraft and TF2. -->
 <string name="Error_UnknownRecipe">"Impossible de trouver une recette pour"</string>

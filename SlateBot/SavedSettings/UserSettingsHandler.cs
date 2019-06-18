@@ -72,7 +72,6 @@ namespace SlateBot.SavedSettings
       {
         Response response = new Response
         {
-          command = null,
           embed = null,
           message = achievementMessage,
           responseType = ResponseType.Default

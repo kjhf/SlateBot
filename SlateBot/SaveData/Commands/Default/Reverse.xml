@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Replace</CommandType>
+  <Aliases>reverse</Aliases>
+  <Help>Reverses letters</Help>
+  <Module>Text Commands</Module>
+  <Examples>@SlateBot reverse Test</Examples>
+  <ExtraData>
+    <IgnoreCase>true</IgnoreCase>
+    <Reverse>true</Reverse>
+  </ExtraData>
+</Root>

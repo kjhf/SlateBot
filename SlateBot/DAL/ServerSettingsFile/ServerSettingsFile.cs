@@ -1,4 +1,5 @@
-﻿using SlateBot.Errors;
+﻿using SlateBot.Commands.Schedule;
+using SlateBot.Errors;
 using SlateBot.Language;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// <summary>
     /// Join messages
     /// </summary>
-    public IList<string> JoinServerMessages { get; private set; } = new List<string>();
+    public List<string> JoinServerMessages { get; private set; } = new List<string>();
 
     /// <summary>
     /// The server's language
@@ -42,14 +43,17 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// <summary>
     /// Quit messages
     /// </summary>
-    public IList<string> QuitServerMessages { get; private set; } = new List<string>();
+    public List<string> QuitServerMessages { get; private set; } = new List<string>();
 
     /// <summary>
     /// Channels that the bot will add ratings to
     /// </summary>
     public HashSet<string> RateChannels { get; private set; } = new HashSet<string>();
-    
-    //public IList<RepeatingCommandData> RepeatingChannels { get; private set; } = new List<RepeatingCommandData>();
+
+    /// <summary>
+    /// Messages that are scheduled on this server
+    /// </summary>
+    public List<ScheduledMessageData> ScheduledMessages { get; internal set; } = new List<ScheduledMessageData>();
 
     /// <summary>
     /// Channels that announce Splatoon 2 rotations
@@ -89,35 +93,68 @@ namespace SlateBot.DAL.ServerSettingsFile
         XmlNode root = doc.LastChild; // FirstChild is decl
 
         var blockedModuleNodes = root["BlockedModules"];
-        foreach (XmlElement node in blockedModuleNodes?.OfType<XmlElement>())
+        if (blockedModuleNodes != null)
         {
-          BlockedModules.Add(node.InnerText);
+          foreach (XmlElement node in blockedModuleNodes.OfType<XmlElement>())
+          {
+            BlockedModules.Add(node.InnerText);
+          }
         }
         CommandSymbol = root["CommandSymbol"].InnerText;
         JoinQuitChannelId = (root["JoinQuitChannelId"].InnerText);
         var joinServerMessageNodes = root["JoinServerMessages"];
-        foreach (XmlElement node in joinServerMessageNodes?.OfType<XmlElement>())
+        if (joinServerMessageNodes != null)
         {
-          JoinServerMessages.Add(node.InnerText);
+          foreach (XmlElement node in joinServerMessageNodes.OfType<XmlElement>())
+          {
+            JoinServerMessages.Add(node.InnerText);
+          }
         }
         Language = root["Language"].InnerText;
         var quitServerMessageNodes = root["QuitServerMessages"];
-        foreach (XmlElement node in quitServerMessageNodes?.OfType<XmlElement>())
+        if (quitServerMessageNodes != null)
         {
-          QuitServerMessages.Add(node.InnerText);
+          foreach (XmlElement node in quitServerMessageNodes.OfType<XmlElement>())
+          {
+            QuitServerMessages.Add(node.InnerText);
+          }
         }
         var rateChannelNodes = root["RateChannels"];
-        foreach (XmlElement node in rateChannelNodes?.OfType<XmlElement>())
+        if (rateChannelNodes != null)
         {
-          RateChannels.Add(node.InnerText);
+          foreach (XmlElement node in rateChannelNodes.OfType<XmlElement>())
+          {
+            RateChannels.Add(node.InnerText);
+          }
+        }
+        var scheduledMessagesNode = root["ScheduledMessages"];
+        if (scheduledMessagesNode != null)
+        {
+          foreach (XmlElement node in scheduledMessagesNode.OfType<XmlElement>())
+          {
+            ulong channelId = ulong.Parse(node.GetElementsByTagName("Channel")[0].InnerText);
+            ushort id = ushort.Parse(node.GetElementsByTagName("Id")[0].InnerText);
+            ScheduledMessages.Add(
+              new ScheduledMessageData(channelId, id)
+              {
+                enabled = bool.Parse(node.GetElementsByTagName("Enabled")[0].InnerText),
+                message = node.GetElementsByTagName("Message")[0].InnerText,
+                nextDue = new DateTime(long.Parse(node.GetElementsByTagName("NextDueTicks")[0].InnerText)),
+                repetitionTimeSpan = new TimeSpan(long.Parse(node.GetElementsByTagName("RepetitionTicks")[0].InnerText)),
+              }
+            );
+          }
         }
         var splatoon2RotationChannelNodes = root["Splatoon2RotationChannels"];
-        foreach (XmlElement node in splatoon2RotationChannelNodes?.OfType<XmlElement>())
+        if (splatoon2RotationChannelNodes != null)
         {
-          Splatoon2RotationChannels.Add(node.InnerText);
+          foreach (XmlElement node in splatoon2RotationChannelNodes.OfType<XmlElement>())
+          {
+            Splatoon2RotationChannels.Add(node.InnerText);
+          }
         }
         ServerId = (root["ServerId"].InnerText);
-        TrackDeletedMessages = bool.Parse(root["TrackDeletedMessages"].InnerText);
+        TrackDeletedMessages = bool.Parse(root["TrackDeletedMessages"]?.InnerText ?? "false");
       }
       catch (Exception ex)
       {
@@ -142,6 +179,7 @@ namespace SlateBot.DAL.ServerSettingsFile
       this.Language = serverSettings.Language.ToString();
       this.QuitServerMessages = serverSettings.QuitServerMessages;
       this.RateChannels = new HashSet<string>(serverSettings.RateChannels.Select(c => c.ToString()));
+      this.ScheduledMessages = serverSettings.ScheduledMessages;
       this.ServerId = serverSettings.ServerId.ToString();
       this.Splatoon2RotationChannels = new HashSet<string>(serverSettings.Splatoon2RotationChannels.Select(c => c.ToString()));
       this.TrackDeletedMessages = serverSettings.TrackDeletedMessages;
@@ -202,6 +240,37 @@ namespace SlateBot.DAL.ServerSettingsFile
           node = doc.CreateElement("C");
           node.InnerText = channel;
           rateChannelsNode.AppendChild(node);
+        }
+        var scheduledMessagesNode = doc.CreateElement("ScheduledMessages");
+        root.AppendChild(scheduledMessagesNode);
+        foreach (var data in ScheduledMessages)
+        {
+          var parentNode = doc.CreateElement("M");
+          scheduledMessagesNode.AppendChild(parentNode);
+
+          node = doc.CreateElement("Channel");
+          node.InnerText = data.channelId.ToString();
+          parentNode.AppendChild(node);
+
+          node = doc.CreateElement("Id");
+          node.InnerText = data.id.ToString();
+          parentNode.AppendChild(node);
+
+          node = doc.CreateElement("Enabled");
+          node.InnerText = data.enabled.ToString();
+          parentNode.AppendChild(node);
+
+          node = doc.CreateElement("Message");
+          node.InnerText = data.message;
+          parentNode.AppendChild(node);
+
+          node = doc.CreateElement("NextDueTicks");
+          node.InnerText = data.nextDue.Ticks.ToString();
+          parentNode.AppendChild(node);
+
+          node = doc.CreateElement("RepetitionTicks");
+          node.InnerText = data.repetitionTimeSpan.Ticks.ToString();
+          parentNode.AppendChild(node);
         }
         node = doc.CreateElement("ServerId");
         node.InnerText = ServerId;

@@ -10,7 +10,7 @@ namespace SlateBot.Commands.PullImage
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.PullImage;
 
-    public Command CreateCommand(Language.LanguageHandler languageHandler, CommandFile file)
+    public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
@@ -59,7 +59,7 @@ namespace SlateBot.Commands.PullImage
         throw new InvalidOperationException("XML for PullImageCommand is insufficient.");
       }
 
-      return (new PullImageCommand(languageHandler, SlateBotProgram.GetAsyncResponder(), file.Aliases, file.Examples, file.Help, module, url, formattedResponseURL, jsonProperty));
+      return (new PullImageCommand(controller.languageHandler, controller, file.Aliases, file.Examples, file.Help, module, url, formattedResponseURL, jsonProperty));
     }
   }
 }

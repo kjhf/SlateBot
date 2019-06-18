@@ -41,6 +41,7 @@ namespace SlateBot
     public const string NoEntrySign = ":no_entry_sign:";
 
     public const string CheckUnicode = "✅";
+    public const string MessageUnicode = "✉️";
 
     // Server emojis
     public const string Splatoon_SplatZones = "<:Splatoon_Mode_Splat_Zones:346072719911026689>";

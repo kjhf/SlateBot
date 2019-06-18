@@ -11,7 +11,7 @@ namespace SlateBot.Commands.Achievement
     internal AchievementCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
       : base(CommandHandlerType.Achievements, aliases, examples, help, module)
     {
-      this.languageHandler = languageHandler;
+      this.languageHandler = languageHandler ?? throw new System.ArgumentNullException(nameof(languageHandler));
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
@@ -30,7 +30,6 @@ namespace SlateBot.Commands.Achievement
       string outputToChannel = ($"{languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Achievements_AchievementsUnlocked")}: {unlockedAchievements.Count}/{allAchievements.Count} {Emojis.Trophy}");
       Response channelResponse = new Response
       {
-        command = this,
         embed = Utility.EmbedUtility.StringToEmbed(outputToChannel, 200, 200, 50),
         responseType = ResponseType.Default
       };
@@ -52,7 +51,6 @@ namespace SlateBot.Commands.Achievement
       string outputToPrivate = sb.ToString();
       Response privateResponse = new Response
       {
-        command = this,
         embed = Utility.EmbedUtility.StringToEmbed(outputToPrivate, 200, 200, 50),
         responseType = ResponseType.Private
       };

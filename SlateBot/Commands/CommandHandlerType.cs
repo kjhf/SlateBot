@@ -37,7 +37,7 @@ namespace SlateBot.Commands
     Wave,
     Achievements,
     Cheerleader,
-    Repeating,
+    Schedule,
     RemindMe,
     Rate,
     Users,

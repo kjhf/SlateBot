@@ -46,26 +46,7 @@ namespace SlateBot
         Enum.TryParse<ExitCodes>(args[1], out lastExitCode);
       }
     }
-
-    [Obsolete("Code smell.")]
-    /// <summary>
-    /// Sneaky way of getting the controller.
-    /// </summary>
-    /// <returns></returns>
-    internal static SlateBotController GetController()
-    {
-      return instance.controller;
-    }
     
-    /// <summary>
-    /// Get the asynchronous responder to messages.
-    /// </summary>
-    /// <returns></returns>
-    internal static IAsyncResponder GetAsyncResponder()
-    {
-      return instance.controller;
-    }
-
     /// <summary>
     /// The Main Loop of the console. Waits for input to execute commands.
     /// </summary>
@@ -83,7 +64,7 @@ namespace SlateBot
       // Load commands
       controller.Initialise();
 
-      // Connet now?
+      // Connect now?
       switch (lastExitCode)
       {
         case ExitCodes.SuccessReconnect:

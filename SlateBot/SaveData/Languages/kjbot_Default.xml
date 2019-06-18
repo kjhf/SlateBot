@@ -55,7 +55,7 @@
 <string name="Error_BotOwnerOnly">"Bot owner only"</string>
 
 <!-- Bot attempted to do something, but it threw an exception. -->
-<!-- A command was processed, but caused an exception while handling the outbound message. This could indicate a programming flaw with the "Oops" handling, or unstable connection, or the message that kjbot would otherwise post is too large. -->
+<!-- A command was processed, but caused an exception while handling the outbound message. This could indicate a programming flaw with the "Oops" handling, or unstable connection, or the message that the bot would otherwise post is too large. -->
 <string name="Error_CantDoThat">"Oak's words echoed... %username%, there's a time and place for everything, but not now."</string>
 
 <!-- Incorrect command parameter -->
@@ -76,7 +76,7 @@
 
 <!-- Unexpected error -->
 <!-- A command caused an exception while being processed. This usually indicates a flaw in IncorrectParameter handling. -->
-<string name="Error_Oops">"kjbot is confused! It hurt itself in its confusion!"</string>
+<string name="Error_Oops">"The bot is confused! It hurt itself in its confusion!"</string>
 <string name="Error_PokemonNotFound">"The Pokédex has no entry for"</string>
 
 <!-- Server not found error -->
@@ -86,6 +86,10 @@
 <!-- Command is restricted to the server owner only -->
 <!-- The command is restricted to the server owner only. -->
 <string name="Error_ServerOwnerOnly">"Server owner only"</string>
+
+<!-- Command is restricted to the server owner only -->
+<!-- The command is restricted to the server owner only. -->
+<string name="Error_ServerOwnerOrPrivateOnly">"Server owner or private only"</string>
 
 <!-- Unknown Minecraft recipe -->
 <!-- The recipe specified was not found. e.g. for Minecraft and TF2. -->
@@ -292,16 +296,16 @@
 <!-- -1 -->
 <string name="Difficulty__1">"Smart-arse"</string>
 
-<!-- Kjbot searched previous messages for an attachment or URL, but could not find any. -->
+<!-- The bot searched previous messages for an attachment or URL, but could not find any. -->
 <string name="Error_NoImageMessages">"No messages with images were found"</string>
 
-<!-- kjbot attempted to create a dynamic function (to manipulate images), however could not do so, probably because the user input is malformed. -->
+<!-- The bot attempted to create a dynamic function (to manipulate images), however could not do so, probably because the user input is malformed. -->
 <string name="Error_UnableToCreateFunction">"Unable to create function"</string>
 
 <!-- For Clarifai (this image is ...) -->
 <string name="ThisIs">"This is "</string>
 
-<!-- For square command or otherwise where kjbot would output a result that is too long -->
+<!-- For square command or otherwise where the bot would output a result that is too long -->
 <string name="Error_MessageTooLong">"The message you entered is too long!"</string>
 
 <!-- The bot is working to complete the task, please wait for this to be done -->
@@ -340,8 +344,8 @@
 <!-- Achievement for winning an impossible game of Mastermind -->
 <string name="Achievements_ImpossibleMastermindWin">"You won a game of impossible Mastermind!"</string>
 
-<!-- Achievement for the assistance of the development of kjbot -->
-<string name="Achievements_Developer">"You helped kjbot 💖"</string>
+<!-- Achievement for the assistance of the development of the bot -->
+<string name="Achievements_Developer">"You helped the bot 💖"</string>
 
 <!-- Achievement for drawing a game of Tic Tac Toe -->
 <string name="Achievements_TicTacToeTie">"You tied a game of Tic Tac Toe!"</string>
@@ -442,9 +446,9 @@
 <!-- Pokemon Height/Weight comparison to an average person -->
 <string name="Pokemon_OfAnAveragePerson">"an average person"</string>
 
-<!-- Kjbot cannot post to a channel because it doesn't have permission to do so. -->
+<!-- The bot cannot post to a channel because it doesn't have permission to do so. -->
 <string name="Error_DisallowedPermissionToPost">"I can't post to a channel. Please configure your Discord permissions"</string>
 
-<!-- Kjbot cannot delete messages from a channel because it doesn't have permission to do so. -->
+<!-- The bot cannot delete messages from a channel because it doesn't have permission to do so. -->
 <string name="Error_DisallowedPermissionToDelete">"I can't delete messages from a channel. Please configure your Discord permissions"</string>
 </resources>

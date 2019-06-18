@@ -87,6 +87,10 @@
 <!-- The command is restricted to the server owner only. -->
 <string name="Error_ServerOwnerOnly">"Server owner only"</string>
 
+<!-- Command is restricted to the server owner only -->
+<!-- The command is restricted to the server owner only. -->
+<string name="Error_ServerOwnerOrPrivateOnly">"Server owner or private only"</string>
+
 <!-- Unknown Minecraft recipe -->
 <!-- The recipe specified was not found. e.g. for Minecraft and TF2. -->
 <string name="Error_UnknownRecipe">"Could not find a recipe for"</string>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SlateBot.Commands;
+using SlateBot.Commands.Schedule;
 using SlateBot.DAL.ServerSettingsFile;
 using SlateBot.Errors;
 using SlateBot.Language;
@@ -12,10 +13,10 @@ namespace SlateBot.SavedSettings
 {
   class ServerSettingsHandler : IController
   {
-    public readonly ServerSettings consoleServerSettings;
     private readonly IErrorLogger errorLogger;
     private readonly DAL.SlateBotDAL dal;
     private Dictionary<ulong, ServerSettings> serverSettings;
+    internal IReadOnlyCollection<ServerSettings> ServerSettings => serverSettings.Values;
 
     /// <summary>
     /// Constructor of the <see cref="ServerSettingsHandler"/>.
@@ -24,7 +25,6 @@ namespace SlateBot.SavedSettings
     {
       this.errorLogger = errorLogger;
       this.dal = dal;
-      consoleServerSettings = new ServerSettings(Constants.ConsoleId);
     }
 
     /// <summary>
@@ -48,6 +48,7 @@ namespace SlateBot.SavedSettings
             Language = (Languages)Enum.Parse(typeof(Languages), file.Language),
             QuitServerMessages = file.QuitServerMessages,
             RateChannels = new HashSet<ulong>(file.RateChannels.Select(c => ulong.Parse(c))),
+            ScheduledMessages = new List<ScheduledMessageData>(file.ScheduledMessages),
             ServerId = serverId,
             Splatoon2RotationChannels = new HashSet<ulong>(file.Splatoon2RotationChannels.Select(c => ulong.Parse(c))),
             TrackDeletedMessages = file.TrackDeletedMessages
@@ -68,9 +69,14 @@ namespace SlateBot.SavedSettings
       {
         retVal = new ServerSettings(key);
         serverSettings.Add(key, retVal);
-        dal.SaveServerSettingsFile(retVal);
+        WriteServerSettings(retVal);
       }
       return retVal;
+    }
+
+    public void WriteServerSettings(ServerSettings settingsToSave)
+    {
+      dal.SaveServerSettingsFile(settingsToSave);
     }
 
   }

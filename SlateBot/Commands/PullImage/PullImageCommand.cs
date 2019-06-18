@@ -10,7 +10,7 @@ namespace SlateBot.Commands.PullImage
 {
   public class PullImageCommand : Command
   {
-    private LanguageHandler languageHandler;
+    private readonly LanguageHandler languageHandler;
     private readonly IAsyncResponder asyncResponder;
     private readonly string url;
     private readonly string formattedResponseURL;
@@ -53,19 +53,17 @@ namespace SlateBot.Commands.PullImage
 
         Response asyncResponse = new Response
         {
-          command = this,
           responseType = ResponseType.Default,
           embed = (file == null) ? null : (EmbedUtility.UrlToEmbed(file, null)),
           message = message
         };
 
-        await asyncResponder.SendResponseAsync(new Events.CommandReceivedEventArgs(senderDetail, args, asyncResponse));
+        await asyncResponder.SendResponseAsync(args, asyncResponse);
       });
       
       // Return out the lifecycle with no response.
       Response noSynchResponse = new Response
       {
-        command = this,
         responseType = ResponseType.None
       };
       return new[] { noSynchResponse };

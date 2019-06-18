@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using SlateBot.DAL.CommandFile;
 
-namespace SlateBot.Commands.Coin
+namespace SlateBot.Commands.Schedule
 {
-  class CoinCommandHandler : ICommandHandler
+  class ScheduleCommandHandler : ICommandHandler
   {
-    public CommandHandlerType CommandHandlerType => CommandHandlerType.Coin;
+    public CommandHandlerType CommandHandlerType => CommandHandlerType.Schedule;
     
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
@@ -19,7 +19,7 @@ namespace SlateBot.Commands.Coin
         module = ModuleType.General;
       }
 
-      return (new CoinCommand(controller.languageHandler, file.Aliases, file.Examples, file.Help, module));
+      return new ScheduleCommand(controller.languageHandler, controller.serverSettingsHandler, controller.scheduleHandler, controller, file.Aliases, file.Examples, file.Help, module);
     }
   }
 }
