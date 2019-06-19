@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="2.2.1" />
     <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
+    <PackageReference Include="ncalc" Version="1.3.8" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.AppContext" Version="4.3.0" />
@@ -118,7 +119,7 @@
     <Content Include="SaveData\Commands\Default\lmgtfy.xml" />
     <Content Include="SaveData\Commands\Default\LylatWiki.xml" />
     <Content Include="SaveData\Commands\Default\MetroidWiki.xml" />
-    <Content Include="SaveData\Commands\Default\MinecraftWiki.xml" />
+    <Content Include="SaveData\Commands\Default\Minecraft.xml" />
     <Content Include="SaveData\Commands\Default\Mwah.xml" />
     <Content Include="SaveData\Commands\Default\Newsletter.xml" />
     <Content Include="SaveData\Commands\Default\NIWAWiki.xml" />

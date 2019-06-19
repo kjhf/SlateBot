@@ -43,7 +43,7 @@ namespace SlateBot.Commands
     Users,
     DecodeEncode,
     Add,
-    Recipe,
+    Minecraft,
     ASCII,
     Colour,
     CurrentDir,

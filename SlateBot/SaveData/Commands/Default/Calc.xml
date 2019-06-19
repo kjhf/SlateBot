@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Calc</CommandType>
+  <Aliases>Cal,Calc,Math,Maths</Aliases>
+  <Help>Calculate a given mathematical statement.</Help>
+  <Module>Calc Command</Module>
+  <Examples>!calc (2+2) - (3-1) * 5\r\n!calc 22/7\r\n!calc log(100)^2\r\n!calc root(64) mod 3\r\n!calc not(true or false)\r\n!calc 6 | 1\r\n!calc expi\r\n!calc 2E-4 + 1E3\r\n!calc floor(5.5)\r\n!calc 2*3 ; 3*2\r\n\r\nThe command supports:
+* Addition (+)
+* Subtraction (-)
+* Multiplication (* or x)
+* Division (/)
+* Power (^ or ** or xx)
+* Natural log (log)
+* Square root (root sqr sqrt)
+* Modulus/Remainder operation (% or mod)
+* Basic Trigonometry (sin cos tan atan)
+* Logic and Bit-wise (and or not, &amp; | ¬, &lt; &gt; = ==)
+* Constants (e c pi infinity)
+* Scientific notation (e.g. 2E-10)
+* Other functions (abs, fix, floor)
+* Splitting of statements using ;</Examples>
+</Root>
