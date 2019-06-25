@@ -8,6 +8,10 @@
     <Copyright>Copyright ©Kristian "kjhf" Faulkner 2019</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="SaveData\Commands\Default\Help.xml" />
+    <None Remove="SaveData\Commands\French\Aide.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.1.1" />
     <PackageReference Include="Discord.Net.Commands" Version="2.1.1" />
     <PackageReference Include="Discord.Net.Core" Version="2.1.1" />
@@ -103,6 +107,7 @@
     <Content Include="SaveData\Commands\Default\Google.xml" />
     <Content Include="SaveData\Commands\Default\Googleim.xml" />
     <Content Include="SaveData\Commands\Default\GoogleRim.xml" />
+    <Content Include="SaveData\Commands\English\Help.xml" />
     <Content Include="SaveData\Commands\Default\H2B.xml" />
     <Content Include="SaveData\Commands\Default\H2D.xml" />
     <Content Include="SaveData\Commands\Default\H2O.xml" />
@@ -162,6 +167,7 @@
     <Content Include="SaveData\Commands\French\42ball.xml" />
     <Content Include="SaveData\Commands\French\8ball.xml" />
     <Content Include="SaveData\Commands\French\Carte.xml" />
+    <Content Include="SaveData\Commands\French\Aide.xml" />
     <Content Include="SaveData\Commands\French\Merci.xml" />
     <Content Include="SaveData\Commands\French\Pièce.xml" />
     <Content Include="SaveData\Commands\French\s8ball.xml" />

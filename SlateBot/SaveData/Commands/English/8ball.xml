@@ -4,7 +4,7 @@
   <Aliases>8ball,8b</Aliases>
   <Help>8-ball response</Help>
   <Module>Magic 8 Balls</Module>
-  <Examples>!8ball Will I have good luck today?</Examples>
+  <Examples>@SlateBot 8ball Will I have good luck today?</Examples>
   <ExtraData>
     <Choice1>🎱 As I see it, yes.</Choice1>
     <Choice2>🎱 It is certain.</Choice2>

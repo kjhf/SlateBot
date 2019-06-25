@@ -3,7 +3,7 @@
   <CommandType>ResponseMessageList</CommandType>
   <Aliases>Carte</Aliases>
   <Help>Choisissez une carte à jouer aléatoire</Help>
-  <Examples>!carte</Examples>
+  <Examples>@SlateBot carte</Examples>
   <ExtraData>
     <ChoiceFormat>{0} de {1}</ChoiceFormat>
     <A>As</A>

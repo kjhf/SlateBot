@@ -2,9 +2,9 @@
 <Root>
   <CommandType>ResponseMessage</CommandType>
   <Aliases>42ball,42b,knowitall,know-it-all</Aliases>
-  <Help>42.</Help>
+  <Help>What is the answer to life the universe and everything?</Help>
   <Module>Magic 8 Balls</Module>
-  <Examples>What is the answer to life the universe and everything?</Examples>
+  <Examples>@SlateBot 42b</Examples>
   <ExtraData>
     <Choice>:four::two:</Choice>
     <Choice>42.</Choice>

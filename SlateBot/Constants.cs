@@ -10,7 +10,8 @@ namespace SlateBot
   {
     public const string Owner = "kjhf";
     public const string OwnerUsernameWithDiscriminator = Owner + "#3249";
-    public const string Username = @"SlateBot";
+    public const string Username = "SlateBot";
+    public const string AtUsername = "@SlateBot";
     public const string UsernameWithDiscriminator = Username + "#1979";
     public const ulong BotSpamChannelId = 189111240004468736;
     public const ulong DevelopmentServerId = 255312220567764993;

@@ -3,7 +3,7 @@
   <CommandType>ResponseMessageList</CommandType>
   <Aliases>Card</Aliases>
   <Help>Pick a random playing card</Help>
-  <Examples>!card</Examples>
+  <Examples>@SlateBot card</Examples>
   <ExtraData>
     <ChoiceFormat>{0} of {1}</ChoiceFormat>
     <A>Ace</A>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Help</CommandType>
+  <Aliases>Help</Aliases>
+  <Help>That's it!</Help>
+  <Module>General Commands</Module>
+  <Examples>@SlateBot help [command]</Examples>
+</Root>

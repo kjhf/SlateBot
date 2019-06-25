@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot
 {
@@ -52,12 +50,26 @@ namespace SlateBot
           }
         }
       }
-
     }
 
     public void Initialise()
     {
       LoadCommands();
+    }
+
+    public Command[] GetCommandsForLanguage(Languages language, bool includeDefault = true)
+    {
+      List<Command> retVal = new List<Command>();
+      if (commands.TryGetValue(language, out List<Command> temp))
+      {
+        retVal.AddRange(temp);
+      }
+
+      if (includeDefault && language != Languages.Default)
+      {
+        retVal.AddRange(commands[Languages.Default]);
+      }
+      return retVal.ToArray();
     }
 
     private void LoadCommands()
