@@ -1,4 +1,6 @@
 ﻿using SlateBot.Errors;
+using System;
+using System.Threading.Tasks;
 
 namespace SlateBot.Lifecycle
 {
@@ -46,14 +48,71 @@ namespace SlateBot.Lifecycle
 
     public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
-      if (message.embed == null)
+      if (message.ResponseType == Commands.ResponseType.PleaseWaitMessage)
       {
-        destination.SendMessageAsync(message.message);
+        // We need to run this asynchronously.
+        Task.Run(async () =>
+        {
+          try
+          {
+            Discord.IUserMessage m;
+            if (message.Embed == null)
+            {
+              if (message.FilePath == null)
+              {
+                m = await destination.SendMessageAsync(message.Message);
+              }
+              else
+              {
+                m = await destination.SendFileAsync(message.FilePath, message.Message);
+              }
+            }
+            else
+            {
+              if (message.FilePath == null)
+              {
+                m = await destination.SendMessageAsync("", false, message.Embed.Build());
+              }
+              else
+              {
+                m = await destination.SendFileAsync(message.FilePath, "", false, message.Embed.Build());
+              }
+            }
+            lifecycle.PleaseWaitHandler.PushToStack(m);
+          }
+          catch (Exception ex)
+          {
+            lifecycle.ErrorLogger.LogException(ex, ErrorSeverity.Error);
+          }
+        });
       }
       else
       {
-        destination.SendMessageAsync("", false, message.embed.Build());
+        // This can be fired and forgotten.
+        if (message.Embed == null)
+        {
+          if (message.FilePath == null)
+          {
+            destination.SendMessageAsync(message.Message);
+          }
+          else
+          {
+            destination.SendFileAsync(message.FilePath, message.Message);
+          }
+        }
+        else
+        {
+          if (message.FilePath == null)
+          {
+            destination.SendMessageAsync("", false, message.Embed.Build());
+          }
+          else
+          {
+            destination.SendFileAsync(message.FilePath, "", false, message.Embed.Build());
+          }
+        }
       }
+      
       return StateId;
     }
   }

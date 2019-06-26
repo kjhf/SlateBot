@@ -232,9 +232,9 @@ namespace SlateBot.Commands.Minecraft
 
         Response asyncResponse = new Response
         {
-          responseType = ResponseType.Default,
-          embed = EmbedUtility.StringToEmbed(output.ToString(), null),
-          message = output.ToString()
+          ResponseType = ResponseType.Default,
+          Embed = EmbedUtility.StringToEmbed(output.ToString(), null),
+          Message = output.ToString()
         };
 
         await asyncResponder.SendResponseAsync(args, asyncResponse);
@@ -243,7 +243,7 @@ namespace SlateBot.Commands.Minecraft
       // Return out the lifecycle with no response.
       Response noSynchResponse = new Response
       {
-        responseType = ResponseType.None
+        ResponseType = ResponseType.None
       };
       return new[] { noSynchResponse };
     }

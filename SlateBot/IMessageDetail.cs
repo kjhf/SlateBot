@@ -11,6 +11,8 @@
     string GuildName { get; }
     ulong GuildOwnerId { get; }
     string GuildOwnerName { get; }
+    string[] URLs { get; }
+
     ulong UserId { get; }
     string Username { get; }
     string MentionUsername { get; }

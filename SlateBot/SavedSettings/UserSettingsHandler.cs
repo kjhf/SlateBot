@@ -72,9 +72,9 @@ namespace SlateBot.SavedSettings
       {
         Response response = new Response
         {
-          embed = null,
-          message = achievementMessage,
-          responseType = ResponseType.Default
+          Embed = null,
+          Message = achievementMessage,
+          ResponseType = ResponseType.Default
         };
         controller.SendMessage(response, args.senderSettings.UserSettings.UserStats.LastActiveChannelId);
       }

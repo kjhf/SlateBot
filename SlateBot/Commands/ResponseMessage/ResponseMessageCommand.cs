@@ -49,9 +49,9 @@ namespace SlateBot.Commands.ResponseMessage
 
       Response response = new Response
       {
-        embed = null,
-        message = result,
-        responseType = responseType
+        Embed = null,
+        Message = result,
+        ResponseType = responseType
       };
       return new[] { response };
     }

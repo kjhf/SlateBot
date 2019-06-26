@@ -372,8 +372,8 @@ namespace SlateBot.Commands.Schedule
       
       return new[] { new Response
       {
-        message = output.ToString(),
-        responseType = ResponseType.Default
+        Message = output.ToString(),
+        ResponseType = ResponseType.Default
       }};
     }
     
@@ -395,7 +395,7 @@ namespace SlateBot.Commands.Schedule
       {
         bool valid = scheduleHandler.StartJob(m, () =>
         {
-          asyncResponder.SendResponseAsync(m.channelId, new Response { embed = null, message = m.message, responseType = ResponseType.Default });
+          asyncResponder.SendResponseAsync(m.channelId, new Response { Embed = null, Message = m.message, ResponseType = ResponseType.Default });
 
           // Save enabled/disabled and due time.
           serverSettingsHandler.WriteServerSettings(s);

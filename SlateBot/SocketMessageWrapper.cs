@@ -1,8 +1,10 @@
 ﻿using Discord.WebSocket;
+using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -37,6 +39,8 @@ namespace SlateBot
 
     public string GuildOwnerName => Guild?.Owner?.Username;
 
+    public string[] URLs { get; }
+
     public ulong UserId => User?.Id ?? Constants.ErrorId;
 
     public string Username => User?.Username;
@@ -47,9 +51,48 @@ namespace SlateBot
     /// Construct a <see cref="SocketMessageWrapper"/> from a <see cref="SocketMessage"/>.
     /// </summary>
     /// <param name="e"></param>
-    public SocketMessageWrapper(SocketMessage e)
+    public SocketMessageWrapper(SocketMessage msg)
     {
-      this.socketMessage = e;
+      this.socketMessage = msg;
+
+      List<string> urls = new List<string>();
+      if (msg?.Application?.IconUrl != null)
+      {
+        urls.Add(msg.Application.IconUrl);
+      }
+
+      if (msg.Attachments != null && msg.Attachments.Count > 0)
+      {
+        foreach (var a in msg.Attachments)
+        {
+          if (!string.IsNullOrEmpty(a.Url))
+          {
+            urls.Add(a.Url);
+          }          
+        }
+      }
+
+      if (msg.Embeds != null && msg.Embeds.Count > 0)
+      {
+        foreach (var e in msg.Embeds)
+        {
+          if (!string.IsNullOrEmpty(e.Url))
+          {
+            urls.Add(e.Url);
+          }
+        }
+      }
+
+      var urlMatches = HTTPHelper.URL_REGEX.Matches(msg.Content);
+      foreach (Match m in urlMatches)
+      {
+        if (m.Success)
+        {
+          urls.Add(m.Value);
+        }
+      }
+
+      URLs = urls.ToArray();
     }
   }
 }

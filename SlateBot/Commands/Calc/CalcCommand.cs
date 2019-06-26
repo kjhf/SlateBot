@@ -113,9 +113,9 @@ namespace SlateBot.Commands.Calc
 
       Response response = new Response
       {
-        embed = Utility.EmbedUtility.StringToEmbed(output.ToString(), responseColor),
-        message = output.ToString(),
-        responseType = ResponseType.Default
+        Embed = Utility.EmbedUtility.StringToEmbed(output.ToString(), responseColor),
+        Message = output.ToString(),
+        ResponseType = ResponseType.Default
       };
       return new[] { response };
     }

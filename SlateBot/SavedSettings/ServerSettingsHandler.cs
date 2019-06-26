@@ -11,7 +11,7 @@ using SlateBot.Language;
 
 namespace SlateBot.SavedSettings
 {
-  class ServerSettingsHandler : IController
+  public class ServerSettingsHandler : IController
   {
     private readonly IErrorLogger errorLogger;
     private readonly DAL.SlateBotDAL dal;

@@ -53,9 +53,9 @@ namespace SlateBot.Commands.PullImage
 
         Response asyncResponse = new Response
         {
-          responseType = ResponseType.Default,
-          embed = (file == null) ? null : (EmbedUtility.UrlToEmbed(file, null)),
-          message = message
+          ResponseType = ResponseType.Default,
+          Embed = (file == null) ? null : (EmbedUtility.UrlToEmbed(file, null)),
+          Message = message
         };
 
         await asyncResponder.SendResponseAsync(args, asyncResponse);
@@ -64,7 +64,7 @@ namespace SlateBot.Commands.PullImage
       // Return out the lifecycle with no response.
       Response noSynchResponse = new Response
       {
-        responseType = ResponseType.None
+        ResponseType = ResponseType.None
       };
       return new[] { noSynchResponse };
     }

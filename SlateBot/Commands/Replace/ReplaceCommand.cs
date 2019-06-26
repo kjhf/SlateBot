@@ -66,9 +66,9 @@ namespace SlateBot.Commands.Replace
       
       Response response = new Response
       {
-        embed = null,
-        message = reverse ? new string(sb.ToString().Reverse().ToArray()) : sb.ToString(),
-        responseType = ResponseType.Default
+        Embed = null,
+        Message = reverse ? new string(sb.ToString().Reverse().ToArray()) : sb.ToString(),
+        ResponseType = ResponseType.Default
       };
       return new[] { response };
     }

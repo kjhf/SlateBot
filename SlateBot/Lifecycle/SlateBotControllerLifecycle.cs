@@ -5,6 +5,7 @@ namespace SlateBot.Lifecycle
 {
   internal class SlateBotControllerLifecycle
   {
+    internal PleaseWaitHandler PleaseWaitHandler => controller.waitHandler;
     internal IErrorLogger ErrorLogger => controller.ErrorLogger;
     internal DiscordSocketClient Client => controller.client;
 

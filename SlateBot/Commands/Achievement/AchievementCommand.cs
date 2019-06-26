@@ -30,8 +30,8 @@ namespace SlateBot.Commands.Achievement
       string outputToChannel = ($"{languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Achievements_AchievementsUnlocked")}: {unlockedAchievements.Count}/{allAchievements.Count} {Emojis.Trophy}");
       Response channelResponse = new Response
       {
-        embed = Utility.EmbedUtility.StringToEmbed(outputToChannel, 200, 200, 50),
-        responseType = ResponseType.Default
+        Embed = Utility.EmbedUtility.StringToEmbed(outputToChannel, 200, 200, 50),
+        ResponseType = ResponseType.Default
       };
 
       // Next, PM the user their achievements and any still to unlock.
@@ -51,8 +51,8 @@ namespace SlateBot.Commands.Achievement
       string outputToPrivate = sb.ToString();
       Response privateResponse = new Response
       {
-        embed = Utility.EmbedUtility.StringToEmbed(outputToPrivate, 200, 200, 50),
-        responseType = ResponseType.Private
+        Embed = Utility.EmbedUtility.StringToEmbed(outputToPrivate, 200, 200, 50),
+        ResponseType = ResponseType.Private
       };
 
       return new[] { channelResponse, privateResponse };

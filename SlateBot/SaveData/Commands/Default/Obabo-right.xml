@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Obabo</CommandType>
+  <Aliases>Obabo-right,amama,deted</Aliases>
+  <Help>Creates an obabo image by mirroring the right onto the left.</Help>
+  <Module>Image</Module>
+  <Examples>@SlateBot amama http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <MirrorType>RightOntoLeft</MirrorType>
+  </ExtraData>
+</Root>

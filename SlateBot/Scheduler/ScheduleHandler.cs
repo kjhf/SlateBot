@@ -23,7 +23,7 @@ namespace SlateBot.Scheduler
           {
             StartJob(m, () =>
             {
-              asyncResponder.SendResponseAsync(m.channelId, new Commands.Response { embed = null, message = m.message, responseType = Commands.ResponseType.Default });
+              asyncResponder.SendResponseAsync(m.channelId, new Commands.Response { Embed = null, Message = m.message, ResponseType = Commands.ResponseType.Default });
 
               // Save enabled/disabled and due time.
               serverSettingsHandler.WriteServerSettings(s);

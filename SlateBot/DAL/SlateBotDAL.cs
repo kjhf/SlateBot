@@ -13,7 +13,7 @@ namespace SlateBot.DAL
   /// <summary>
   /// The Data Abstraction Layer handles saving and loading of bot and user data.
   /// </summary>
-  internal class SlateBotDAL : IController
+  public class SlateBotDAL : IController
   {
     internal readonly ErrorLogger errorLogger;
     private readonly Dictionary<Languages, CommandFileDAL> commandFileDALs;

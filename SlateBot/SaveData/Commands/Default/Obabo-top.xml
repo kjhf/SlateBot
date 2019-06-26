@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Obabo</CommandType>
+  <Aliases>Obabo-top,hooh</Aliases>
+  <Help>Splits an image in half and mirrors the top side onto the bottom.</Help>
+  <Module>Image</Module>
+  <Examples>@SlateBot hooh http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <MirrorType>TopOntoBottom</MirrorType>
+  </ExtraData>
+</Root>

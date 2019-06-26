@@ -100,9 +100,9 @@ namespace SlateBot.Commands.Coin
 
       Response response = new Response
       {
-        embed = Utility.EmbedUtility.StringToEmbed(retVal, responseColor),
-        message = retVal,
-        responseType = ResponseType.Default
+        Embed = Utility.EmbedUtility.StringToEmbed(retVal, responseColor),
+        Message = retVal,
+        ResponseType = ResponseType.Default
       };
       return new[] { response };
     }

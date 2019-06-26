@@ -53,6 +53,7 @@ namespace SlateBot
     private void MainLoop()
     {
       Console.WriteLine("C: Connect");
+      Console.WriteLine("d: Dump debug");
       Console.WriteLine("D: Disconnect");
       Console.WriteLine("#: Connection options");
       Console.WriteLine("L: Load app settings");
@@ -91,6 +92,12 @@ namespace SlateBot
               case 'C':
               {
                 controller.Connect();
+                break;
+              }
+
+              case 'd':
+              {
+                controller.ToggleDumpDebug();
                 break;
               }
 

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SlateBot.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -36,6 +38,8 @@ namespace SlateBot
 
     public bool IsPrivate => true;
 
+    public string[] URLs { get; }
+
     /// <summary>
     /// Construct a <see cref="ConsoleMessageDetail"/> with the message.
     /// </summary>
@@ -43,6 +47,17 @@ namespace SlateBot
     public ConsoleMessageDetail(string message)
     {
       this.Message = message;
+      List<string> urls = new List<string>();
+      var urlMatches = HTTPHelper.URL_REGEX.Matches(message);
+      foreach (Match m in urlMatches)
+      {
+        if (m.Success)
+        {
+          urls.Add(m.Value);
+        }
+      }
+
+      URLs = urls.ToArray();
     }
   }
 }

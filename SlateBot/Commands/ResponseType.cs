@@ -20,6 +20,11 @@
     /// <summary> 
     /// No synchronous response.
     /// </summary>
-    None
+    None,
+
+    /// <summary> 
+    /// This is a Please Wait message.
+    /// </summary>
+    PleaseWaitMessage
   }
 }

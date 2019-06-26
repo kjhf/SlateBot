@@ -25,8 +25,10 @@ namespace SlateBot
     internal readonly LanguageHandler languageHandler;
     internal readonly ScheduleHandler scheduleHandler;
     internal readonly ServerSettingsHandler serverSettingsHandler;
+    internal readonly PleaseWaitHandler waitHandler;
     private readonly SlateBotControllerLifecycle lifecycle;
     private readonly UserSettingsHandler userSettingsHandler;
+    private bool dumpDebug;
 
     public SlateBotController()
     {
@@ -37,13 +39,13 @@ namespace SlateBot
       this.commandHandlerController = new CommandController(this);
       this.serverSettingsHandler = new ServerSettingsHandler(ErrorLogger, dal);
       this.userSettingsHandler = new UserSettingsHandler(this);
+      this.waitHandler = new PleaseWaitHandler(serverSettingsHandler, languageHandler);
 
       this.client = new DiscordSocketClient();
       client.LoggedIn += Client_LoggedIn;
       client.LoggedOut += Client_LoggedOut;
       client.MessageReceived += Client_MessageReceived;
       client.MessageUpdated += Client_MessageUpdated;
-
       OnCommandReceived += SlateBotController_OnCommandReceived;
     }
 
@@ -69,8 +71,14 @@ namespace SlateBot
       this.serverSettingsHandler.Initialise();
       this.userSettingsHandler.Initialise();
       this.scheduleHandler.LoadScheduledTasks(serverSettingsHandler.ServerSettings, serverSettingsHandler, this);
+      this.waitHandler.Initialise();
 
       ErrorLogger.LogDebug("Program initialised successfully.");
+    }
+
+    public void ToggleDumpDebug()
+    {
+      dumpDebug = !dumpDebug;
     }
 
     public async Task SendResponseAsync(IMessageDetail message, Response response)
@@ -78,12 +86,17 @@ namespace SlateBot
       bool isFromConsole = message is ConsoleMessageDetail;
       bool isFromSocket = message is SocketMessageWrapper;
 
-      if (isFromConsole || response.responseType == ResponseType.LogOnly)
+      if (isFromConsole || response.ResponseType == ResponseType.LogOnly)
       {
         // Log the result.
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.message));
+        string str = response.Message;
+        if (response.FilePath != null)
+        {
+          str += "\n" + response.FilePath;
+        }
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, str));  
       }
-      else if (response.responseType == ResponseType.None)
+      else if (response.ResponseType == ResponseType.None)
       {
         // Nothing to do.
       }
@@ -95,7 +108,7 @@ namespace SlateBot
 
           // If private response, get the DM channel to the user, otherwise use the current channel.
           IMessageChannel responseChannel =
-            response.responseType == ResponseType.Private ?
+            response.ResponseType == ResponseType.Private ?
               (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
               (IMessageChannel)socketMessageWrapper.Channel;
 
@@ -112,7 +125,7 @@ namespace SlateBot
     {
       if (channelId == Constants.ConsoleId)
       {
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.message));
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.Message));
       }
       else
       {
@@ -129,13 +142,24 @@ namespace SlateBot
     {
       var responses = commandHandlerController.ExecuteCommand(senderSettings, message);
 
+      if (dumpDebug)
+      {
+        var sb = MiscUtility.DumpObject(message);
+        ErrorLogger.LogDebug("Handled " + message.GetType() + ": \r\n" + sb, true);
+      }
+
       if (responses.Count > 0)
       {
-        foreach (var response in responses)
+        foreach (Response response in responses)
         {
           OnCommandReceived?.Invoke(this, new CommandReceivedEventArgs(senderSettings, message, response));
           /// Handled by <see cref="SlateBotController_OnCommandReceived"/>
           /// and the <see cref="UserSettingsHandler"/>
+          if (dumpDebug)
+          {
+            var sb = MiscUtility.DumpObject(response);
+            ErrorLogger.LogDebug("Response " + response.GetType() + ": \r\n" + sb, true);
+          }
         }
 
         if ((message is SocketMessageWrapper smw) && (smw.socketMessage is SocketUserMessage sum))
@@ -144,7 +168,7 @@ namespace SlateBot
           if (Debugger.IsAttached)
           {
             var sb = MiscUtility.DumpObject(sum);
-            ErrorLogger.LogDebug("Handled " + sum.GetType() + ": \r\n" + sb);
+            ErrorLogger.LogDebug("Handled " + sum.GetType() + ": \r\n" + sb, dumpDebug);
           }
 
           // React to the message handled.

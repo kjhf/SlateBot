@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="SaveData\Commands\Default\Help.xml" />
+    <None Remove="SaveData\Commands\Default\Obabo.xml" />
     <None Remove="SaveData\Commands\French\Aide.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +73,7 @@
     <PackageReference Include="System.Threading.Timer" Version="4.3.0" />
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
     <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+    <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SaveData\Commands\Default\642D.xml" />
@@ -107,6 +109,7 @@
     <Content Include="SaveData\Commands\Default\Google.xml" />
     <Content Include="SaveData\Commands\Default\Googleim.xml" />
     <Content Include="SaveData\Commands\Default\GoogleRim.xml" />
+    <Content Include="SaveData\Commands\Default\Obabo.xml" />
     <Content Include="SaveData\Commands\English\Help.xml" />
     <Content Include="SaveData\Commands\Default\H2B.xml" />
     <Content Include="SaveData\Commands\Default\H2D.xml" />
