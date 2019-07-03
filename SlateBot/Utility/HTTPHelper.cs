@@ -14,7 +14,7 @@ namespace SlateBot.Utility
     {
       using (var client = new HttpClient())
       {
-        client.MaxResponseContentBufferSize = 0x100000; // 1MB
+        client.MaxResponseContentBufferSize = 0x200000; // 2MB
         client.Timeout = TimeSpan.FromSeconds(3);
         using (HttpResponseMessage result = await client.GetAsync(url, HttpCompletionOption.ResponseContentRead))
         {

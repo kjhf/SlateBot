@@ -8,6 +8,7 @@ using System.DrawingCore;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -102,10 +103,24 @@ namespace SlateBot.Commands.Obabo
             break;
           }
         }
+        catch (HttpRequestException ex)
+        {
+          errorLogger.LogDebug($"HttpRequestException exception downloading file: {url}. Assuming file too big.", true);
+          errorLogger.LogException(ex, ErrorSeverity.Information);
+          string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(language, "Error_NotAFile")}");
+          response = new Response
+          {
+            Embed = EmbedUtility.StringToEmbed(err),
+            Message = err,
+            ResponseType = ResponseType.Default
+          };
+          break;
+        }
         catch (Exception ex)
         {
-          errorLogger.LogDebug($"URL exception downloading file: {url}", true);
+          errorLogger.LogDebug($"Exception downloading or handling Obabo file: {url}", true);
           errorLogger.LogException(ex, ErrorSeverity.Information);
+          // try other urls
         }
       }
       return response;
