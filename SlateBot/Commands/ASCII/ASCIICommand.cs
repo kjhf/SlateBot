@@ -4,31 +4,28 @@ using SlateBot.Language;
 using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.DrawingCore;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SlateBot.Commands.Obabo
+namespace SlateBot.Commands.ASCII
 {
-  public class ObaboCommand : Command
+  public class ASCIICommand : Command
   {
     private readonly PleaseWaitHandler waitHandler;
     private readonly IAsyncResponder asyncResponder;
     private readonly LanguageHandler languageHandler;
-    private readonly MirrorType mirrorType;
     private readonly IErrorLogger errorLogger;
 
-    internal ObaboCommand(IErrorLogger errorLogger, PleaseWaitHandler waitHandler, IAsyncResponder asyncResponder, LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module, MirrorType mirrorType)
-      : base(CommandHandlerType.Obabo, aliases, examples, help, module)
+    internal ASCIICommand(IErrorLogger errorLogger, PleaseWaitHandler waitHandler, IAsyncResponder asyncResponder, LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
+      : base(CommandHandlerType.ASCII, aliases, examples, help, module)
     {
       this.errorLogger = errorLogger;
       this.waitHandler = waitHandler;
       this.asyncResponder = asyncResponder;
       this.languageHandler = languageHandler;
-      this.mirrorType = mirrorType;
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
@@ -51,7 +48,7 @@ namespace SlateBot.Commands.Obabo
 
         Task.Run(async () =>
         {
-          Response asyncResponse = await BuildObaboImageAsync(senderDetail.ServerSettings.Language, args);
+          Response asyncResponse = await BuildAsciiImageAsync(senderDetail.ServerSettings.Language, args);
           if (asyncResponse == null)
           {
             string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_NoImageMessages")}");
@@ -70,7 +67,7 @@ namespace SlateBot.Commands.Obabo
       return new[] { response };
     }
 
-    private async Task<Response> BuildObaboImageAsync(Languages language, IMessageDetail m)
+    private async Task<Response> BuildAsciiImageAsync(Languages language, IMessageDetail m)
     {
       string[] urls = m.URLs;
       Response response = null;
@@ -86,7 +83,7 @@ namespace SlateBot.Commands.Obabo
             var tuple = await HTTPHelper.DownloadFile(url);
             if (tuple.Item2 != null)
             {
-              response = DoBuildObaboImage(language, tuple.Item2);
+              response = DoBuildAsciiImage(language, tuple.Item2);
             }
             else
             {
@@ -111,7 +108,7 @@ namespace SlateBot.Commands.Obabo
       return response;
     }
 
-    private Response DoBuildObaboImage(Languages language, byte[] file)
+    private Response DoBuildAsciiImage(Languages language, byte[] file)
     {
       Response response = new Response
       {
@@ -120,14 +117,43 @@ namespace SlateBot.Commands.Obabo
 
       try
       {
+        const int MaximumNumberOfCharacters = Constants.MessageLimit;
+        const int MaximumWidth = 130;
+        const int MaximumHeight = 60;
 
         using (Image original = Image.FromStream(new MemoryStream(file)))
         {
           using (Bitmap bmp = new Bitmap(original))
           {
-            ImageManipulator.PerformObabo(bmp, mirrorType);
-            response.FilePath = Path.GetTempFileName() + ".png";
-            bmp.Save(response.FilePath);
+            float width = original.Width;
+            float height = original.Height;
+
+            // width + 1 for new line
+            while (((((int)width + 1) * (int)height) > MaximumNumberOfCharacters) || (width > MaximumWidth) || (height > MaximumHeight))
+            {
+              width *= 0.9995f;
+              height *= 0.9995f;
+
+              if (width < 1)
+              {
+                width = 1;
+              }
+              if (height < 1)
+              {
+                height = 1;
+              }
+            }
+
+            using (Bitmap newCanvas = new Bitmap((int)width, (int)height))
+            {
+              using (Graphics g = Graphics.FromImage(newCanvas))
+              {
+                g.Clear(Color.White);
+                g.DrawImage(original, 0, 0, (int)width, (int)height);
+                g.Save();
+              }
+              response.Message = ($"```{ImageManipulator.GreyscaleImageToASCII(newCanvas)}```");
+            }
           }
         }
       }
@@ -151,14 +177,5 @@ namespace SlateBot.Commands.Obabo
       return response;
     }
 
-    protected override List<KeyValuePair<string, string>> ConstructExtraData()
-    {
-      var retVal = new List<KeyValuePair<string, string>>
-      {
-        { "MirrorType", mirrorType.ToString() }
-      };
-
-      return retVal;
-    }
   }
 }

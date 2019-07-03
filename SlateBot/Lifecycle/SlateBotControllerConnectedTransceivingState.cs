@@ -1,4 +1,6 @@
-﻿using SlateBot.Errors;
+﻿using Discord;
+using SlateBot.Commands;
+using SlateBot.Errors;
 using System;
 using System.Threading.Tasks;
 
@@ -40,6 +42,12 @@ namespace SlateBot.Lifecycle
 
     public void OnEntry()
     {
+      // Attempt to send all pending messages.
+      Tuple<Response, IMessageChannel>[] pendingMessages = lifecycle.GetPendingMessages();
+      foreach (var tuple in pendingMessages)
+      {
+        lifecycle.OnMessageReadyToSend(tuple.Item1, tuple.Item2);
+      }
     }
 
     public void OnExit()

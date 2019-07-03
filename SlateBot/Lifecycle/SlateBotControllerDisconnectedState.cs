@@ -50,7 +50,7 @@ namespace SlateBot.Lifecycle
     public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
       lifecycle.ErrorLogger.LogError(new Error(ErrorCode.UnexpectedEvent, ErrorSeverity.Information, $"{nameof(SlateBotControllerDisconnectedState)} {nameof(OnMessageReadyToSend)}: Storing message."));
-      // TODO -- actually store the message
+      lifecycle.StorePendingMessage(message, destination);
       return StateId;
     }
   }

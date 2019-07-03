@@ -19,7 +19,7 @@ namespace SlateBot.Commands
     ChangeServerSetting,
     Clean,
     Pokemon,
-    Youtube,
+    YouTube,
     PokemonType,
     TF2Craft,
     BaseChange,

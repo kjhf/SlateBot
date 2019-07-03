@@ -1,4 +1,8 @@
-﻿using Discord.WebSocket;
+﻿using System;
+using System.Collections.Generic;
+using Discord;
+using Discord.WebSocket;
+using SlateBot.Commands;
 using SlateBot.Errors;
 
 namespace SlateBot.Lifecycle
@@ -19,6 +23,7 @@ namespace SlateBot.Lifecycle
     private readonly object lifecycleLock;
     private ISlateBotControllerLifecycleState CurrentState => states[(int)CurrentStateId];
     private readonly SlateBotController controller;
+    private readonly List<Tuple<Response, IMessageChannel>> pendingMessages = new List<Tuple<Response, IMessageChannel>>();
     private SlateBotControllerLifecycleStates currentStateId;
 
     private SlateBotControllerLifecycleStates CurrentStateId
@@ -53,6 +58,21 @@ namespace SlateBot.Lifecycle
       };
       currentStateId = SlateBotControllerLifecycleStates.Disconnected;
       CurrentState.OnEntry();
+    }
+
+    internal void StorePendingMessage(Response message, IMessageChannel destination)
+    {
+      pendingMessages.Add(new Tuple<Response, IMessageChannel>(message, destination));
+    }
+
+    internal Tuple<Response, IMessageChannel>[] GetPendingMessages()
+    {
+      lock (pendingMessages)
+      {
+        var arr = pendingMessages.ToArray();
+        pendingMessages.Clear();
+        return arr;
+      }
     }
 
     /// <summary>

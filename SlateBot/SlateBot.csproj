@@ -8,8 +8,12 @@
     <Copyright>Copyright ©Kristian "kjhf" Faulkner 2019</Copyright>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="SaveData\Commands\Default\ASCII.xml" />
     <None Remove="SaveData\Commands\Default\Help.xml" />
     <None Remove="SaveData\Commands\Default\Obabo.xml" />
+    <None Remove="SaveData\Commands\Default\YouTube.xml" />
+    <None Remove="SaveData\Commands\Default\YouTubeRepeat.xml" />
+    <None Remove="SaveData\Commands\Default\YouTubeSaveFrom.xml" />
     <None Remove="SaveData\Commands\French\Aide.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +83,10 @@
     <Content Include="SaveData\Commands\Default\642D.xml" />
     <Content Include="SaveData\Commands\Default\Achievement.xml" />
     <Content Include="SaveData\Commands\Default\ARMS.xml" />
+    <Content Include="SaveData\Commands\Default\YouTubeSaveFrom.xml" />
+    <Content Include="SaveData\Commands\Default\YouTubeRepeat.xml" />
+    <Content Include="SaveData\Commands\Default\YouTube.xml" />
+    <Content Include="SaveData\Commands\Default\ASCII.xml" />
     <Content Include="SaveData\Commands\Default\Ayy.xml" />
     <Content Include="SaveData\Commands\Default\B264.xml" />
     <Content Include="SaveData\Commands\Default\B2D.xml" />
@@ -109,7 +117,6 @@
     <Content Include="SaveData\Commands\Default\Google.xml" />
     <Content Include="SaveData\Commands\Default\Googleim.xml" />
     <Content Include="SaveData\Commands\Default\GoogleRim.xml" />
-    <Content Include="SaveData\Commands\Default\Obabo.xml" />
     <Content Include="SaveData\Commands\English\Help.xml" />
     <Content Include="SaveData\Commands\Default\H2B.xml" />
     <Content Include="SaveData\Commands\Default\H2D.xml" />

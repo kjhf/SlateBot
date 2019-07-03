@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>ASCII</CommandType>
+  <Aliases>ASCII,draw</Aliases>
+  <Help>Converts an image into ASCII art.</Help>
+  <Module>Image</Module>
+  <Examples>@SlateBot ascii http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png </Examples>
+</Root>
