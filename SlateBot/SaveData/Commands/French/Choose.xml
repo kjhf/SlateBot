@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Choose</CommandType>
+  <Aliases>Choose,Choisir,Decide,Choisis</Aliases>
+  <Help>Choisissez une option parmi toutes les options données.</Help>
+  <Module>General</Module>
+  <Examples>!choisis A B C D\r\n!choose Pokémon Sun ou Pokémon Moon</Examples>
+  <ExtraData>
+    <Delimiter> ou </Delimiter>
+  </ExtraData>
+</Root>

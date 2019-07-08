@@ -48,12 +48,13 @@ namespace SlateBot.Commands
       this.CommandSymbol = commandSymbol;
 
       // Remove the BotMention
-      this.FullCommandExcludingCommandPrefix =
-            (message.StartsWith(Constants.BotMention) ?
-            message.Substring(Constants.BotMention.Length) :
-            message)
-            .Trim();
+      this.FullCommandExcludingCommandPrefix = message;
 
+      if (FullCommandExcludingCommandPrefix.StartsWith(Constants.BotMention))
+      {
+        FullCommandExcludingCommandPrefix = FullCommandExcludingCommandPrefix.Substring(Constants.BotMention.Length).Trim();
+      }
+      
       // Remove the BotMention
       if (FullCommandExcludingCommandPrefix.StartsWith(Constants.AtUsername))
       {
