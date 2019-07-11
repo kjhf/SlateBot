@@ -12,6 +12,7 @@ namespace SlateBot
   {
     #region Static and Main
     private static SlateBotProgram instance;
+    public static bool ConsoleIsPrivate = true;
 
     static void Main(string[] args)
     {
@@ -31,9 +32,7 @@ namespace SlateBot
     }
     #endregion
 
-
-    
-    private SlateBotController controller;
+    private readonly SlateBotController controller;
     private readonly ExitCodes lastExitCode;
 
     public SlateBotProgram(string[] args)
@@ -61,6 +60,7 @@ namespace SlateBot
       Console.WriteLine("t: Change title");
       Console.WriteLine("x: Close");
       Console.WriteLine("\\: Test code");
+      Console.WriteLine("!: Toggle console is private");
 
       // Load commands
       controller.Initialise();
@@ -140,6 +140,13 @@ namespace SlateBot
 
                 // Closes the current process
                 Environment.Exit((int)ExitCodes.Success);
+                break;
+              }
+
+              case '!':
+              {
+                ConsoleIsPrivate = !ConsoleIsPrivate;
+                Console.WriteLine("Console is private now: " + ConsoleIsPrivate);
                 break;
               }
             }

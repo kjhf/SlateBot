@@ -16,7 +16,7 @@ namespace SlateBot
 
     public string ChannelName => ConsoleConstant;
 
-    public string Message { get; private set; }
+    public string Message { get; }
 
     public ulong MessageId => Constants.ConsoleId;
 
@@ -36,7 +36,7 @@ namespace SlateBot
 
     public string MentionUsername => ConsoleConstant;
 
-    public bool IsPrivate => true;
+    public bool IsPrivate { get; }
 
     public string[] URLs { get; }
 
@@ -44,8 +44,9 @@ namespace SlateBot
     /// Construct a <see cref="ConsoleMessageDetail"/> with the message.
     /// </summary>
     /// <param name="message"></param>
-    public ConsoleMessageDetail(string message)
+    public ConsoleMessageDetail(string message, bool isPrivate)
     {
+      this.IsPrivate = isPrivate;
       this.Message = message;
       List<string> urls = new List<string>();
       var urlMatches = HTTPHelper.URL_REGEX.Matches(message);

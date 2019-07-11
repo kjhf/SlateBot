@@ -17,10 +17,15 @@ namespace SlateBot.Commands.ResponseMessageList
       {
         module = ModuleType.General;
       }
-      
+
+      bool requiresSymbolParsed = bool.TryParse(file.RequiresSymbol, out bool requiresSymbol);
+      if (!requiresSymbolParsed)
+      {
+        requiresSymbol = true;
+      }
+
       var dictionary = file.ExtraData;
       ResponseType responseType = ResponseType.Default;
-      bool requiresSymbol = true;
       string choiceFormat = "";
       string[][] choices;
       if (dictionary.Any())
@@ -30,12 +35,6 @@ namespace SlateBot.Commands.ResponseMessageList
         {
           Enum.TryParse(responseTypeStr.First(), out responseType);
           // If not parsed then "Default" will be used.
-        }
-
-        bool hasRequiresSymbol = file.ExtraData.TryGetValue("RequiresSymbol", out IEnumerable<string> requiresSymbolStr) > 0;
-        if (hasRequiresSymbol)
-        {
-          requiresSymbol = bool.Parse(requiresSymbolStr.First());
         }
 
         bool hasChoiceFormat = file.ExtraData.TryGetValue("ChoiceFormat", out IEnumerable<string> choiceFormats) > 0;

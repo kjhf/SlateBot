@@ -16,13 +16,14 @@ namespace SlateBot.Commands
     /// <param name="aliases"></param>
     /// <param name="examples"></param>
     /// <param name="help"></param>
-    protected Command(CommandHandlerType commandHandlerType, string[] aliases, string examples, string help, ModuleType module)
+    protected Command(CommandHandlerType commandHandlerType, string[] aliases, string examples, string help, ModuleType module, bool requiresSymbol = true)
     {
       this.CommandHandlerType = commandHandlerType;
       this.Aliases = aliases;
       this.Examples = examples;
       this.Help = help;
       this.Module = module;
+      this.RequiresSymbol = requiresSymbol;
     }
 
     /// <summary> Array of aliases this command accepts. </summary>
@@ -42,6 +43,9 @@ namespace SlateBot.Commands
 
     /// <summary> The command's module. </summary>
     public ModuleType Module { get; }
+
+    /// <summary> Does the command require a command symbol to execute? (Default true) </summary>
+    public bool RequiresSymbol { get; }
 
     /// <summary>
     /// Handle an incoming command and return response object(s) as a result.

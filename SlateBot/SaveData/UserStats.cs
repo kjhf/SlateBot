@@ -88,7 +88,7 @@ namespace SlateBot.SaveData
         {
           if (a.DoesTrigger(changedProperty, oldValue, newValue))
           {
-            Task.Factory.FromAsync((asyncCallback, @object) => AchievementUnlocked.BeginInvoke(this, new AchievementUnlockedEventsArgs(a, context), asyncCallback, @object), AchievementUnlocked.EndInvoke, null);
+            Task.Run(() => AchievementUnlocked.Invoke(this, new AchievementUnlockedEventsArgs(a, context)));
           }
         }
       }

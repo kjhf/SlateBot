@@ -54,7 +54,7 @@ namespace SlateBot.Commands.PullImage
         Response asyncResponse = new Response
         {
           ResponseType = ResponseType.Default,
-          Embed = (file == null) ? null : (EmbedUtility.UrlToEmbed(file, null)),
+          Embed = (file == null) ? null : (EmbedUtility.ImageUrlToEmbed(file, null)),
           Message = message
         };
 

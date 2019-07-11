@@ -8,7 +8,6 @@ namespace SlateBot.Commands.ResponseMessageList
 {
   public class ResponseMessageListCommand : Command
   {
-    public readonly bool requiresSymbol;
     protected readonly string choiceFormat;
     protected readonly string[][] choices;
     private readonly ResponseType responseType = ResponseType.Default;
@@ -19,13 +18,12 @@ namespace SlateBot.Commands.ResponseMessageList
     /// <param name="aliases"></param>
     /// <param name="choices"></param>
     /// <param name="help"></param>
-    public ResponseMessageListCommand(IEnumerable<string> aliases, string[][] choices, string choiceFormat, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol = true)
-      : base(CommandHandlerType.ResponseMessageList, aliases?.ToArray(), examples, help, module)
+    public ResponseMessageListCommand(IEnumerable<string> aliases, string[][] choices, string choiceFormat, string examples, string help, ModuleType module, ResponseType responseType, bool requiresSymbol)
+      : base(CommandHandlerType.ResponseMessageList, aliases?.ToArray(), examples, help, module, requiresSymbol)
     {
       this.choices = choices;
       this.choiceFormat = choiceFormat;
       this.responseType = responseType;
-      this.requiresSymbol = requiresSymbol;
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
@@ -56,9 +54,6 @@ namespace SlateBot.Commands.ResponseMessageList
       {
         // Extra data is ResponseType
         { "ResponseType", responseType.ToString() },
-
-        // And RequiresSymbol
-        { "RequiresSymbol", requiresSymbol.ToString() },
 
         // And ChoiceFormat
         { "ChoiceFormat", choiceFormat }

@@ -185,7 +185,7 @@ namespace SlateBot
     {
       ServerSettings consoleServerSettings = serverSettingsHandler.GetOrCreateServerSettings(Constants.ConsoleId);
       UserSettings consoleUserSettings = userSettingsHandler.GetOrCreateUserSettings(Constants.ConsoleId);
-      HandleCommandReceived(new SenderSettings(consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line));
+      HandleCommandReceived(new SenderSettings(consoleServerSettings, consoleUserSettings), new ConsoleMessageDetail(line, SlateBotProgram.ConsoleIsPrivate));
     }
 
     internal void HandleMessageReceived(SocketMessageWrapper socketMessage)

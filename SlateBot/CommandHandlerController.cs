@@ -128,16 +128,16 @@ namespace SlateBot
       List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
 
+      Languages currentLanguage = senderDetail.ServerSettings.Language;
+
+      // If we're running default, assume English.
+      if (currentLanguage == Languages.Default)
+      {
+        currentLanguage = Languages.English;
+      }
+
       if (helper.IsCommand || messageDetail.IsPrivate)
       {
-        Languages currentLanguage = senderDetail.ServerSettings.Language;
-
-        // If we're running default, assume English.
-        if (currentLanguage == Languages.Default)
-        {
-          currentLanguage = Languages.English;
-        }
-
         // Check language specific commands.
         foreach (Command command in commands[currentLanguage])
         {
@@ -149,6 +149,27 @@ namespace SlateBot
 
         // Then check defaults.
         foreach (Command command in commands[Languages.Default])
+        {
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          {
+            responses.AddRange(command.Execute(senderDetail, messageDetail));
+          }
+        }
+      }
+      else
+      {
+        // Check only commands that do not require a command symbol.
+        // Check language specific commands.
+        foreach (Command command in commands[currentLanguage].Where(c => !c.RequiresSymbol))
+        {
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          {
+            responses.AddRange(command.Execute(senderDetail, messageDetail));
+          }
+        }
+
+        // Then check defaults.
+        foreach (Command command in commands[Languages.Default].Where(c => !c.RequiresSymbol))
         {
           if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
           {

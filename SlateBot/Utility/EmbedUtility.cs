@@ -34,7 +34,7 @@ namespace SlateBot.Utility
       return builder;
     }
 
-    public static EmbedBuilder UrlToEmbed(string imageUrl, Color? color, string title = null)
+    public static EmbedBuilder ImageUrlToEmbed(string imageUrl, Color? color = null, string title = null)
     {
       var builder = new EmbedBuilder()
         .WithImageUrl(imageUrl);
@@ -53,5 +53,30 @@ namespace SlateBot.Utility
       }
       return builder;
     }
+    public static EmbedBuilder UrlToEmbed(string urlStr, string description = null, Color? color = null, string title = null)
+    {
+      var builder = new EmbedBuilder()
+        .WithUrl(urlStr);
+
+      if (description != null)
+      {
+        builder = builder.WithDescription(description);
+      }
+
+      if (color != null)
+      {
+        builder = builder.WithColor((Color)color);
+      }
+
+      if (title != null)
+      {
+        builder = builder.WithAuthor(author =>
+        {
+          author.WithName(title);
+        });
+      }
+      return builder;
+    }
+
   }
 }
