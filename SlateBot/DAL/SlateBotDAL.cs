@@ -16,19 +16,34 @@ namespace SlateBot.DAL
   public class SlateBotDAL : IController
   {
     internal readonly ErrorLogger errorLogger;
+    internal readonly string receivedFilesFolder;
+    internal readonly string saveDataFolder;
+    internal readonly string programFolder;
+    internal readonly string commandsParentFolder;
     private readonly Dictionary<Languages, CommandFileDAL> commandFileDALs;
     private readonly LanguagesFileDAL languagesFileDAL;
     private readonly ServerSettingsFileDAL serverSettingsDAL;
     private readonly UserSettingsFileDAL userSettingsDAL;
-    private readonly string saveDataFolder;
-    private readonly string commandsParentFolder;
 
     public SlateBotDAL()
     {
       string currentFolder = Directory.GetCurrentDirectory();
-      currentFolder = currentFolder.Substring(0, currentFolder.LastIndexOf(nameof(SlateBot)) + nameof(SlateBot).Length);
-      this.saveDataFolder = Path.Combine(currentFolder, "SaveData");
+      int indexOfDir = currentFolder.LastIndexOf(nameof(SlateBot));
+      if (indexOfDir == -1)
+      {
+        programFolder = Path.Combine(currentFolder, nameof(SlateBot));
+      }
+      else
+      {
+        programFolder = currentFolder.Substring(0, indexOfDir + nameof(SlateBot).Length);
+      }
+
+      this.saveDataFolder = Path.Combine(programFolder, "SaveData");
+      Directory.CreateDirectory(saveDataFolder);
+      this.receivedFilesFolder = Path.Combine(saveDataFolder, "Received");
+      Directory.CreateDirectory(receivedFilesFolder);
       this.commandsParentFolder = Path.Combine(saveDataFolder, "Commands");
+      Directory.CreateDirectory(commandsParentFolder);
 
       this.errorLogger = new ErrorLogger(Path.Combine(saveDataFolder, "Logs"));
       this.languagesFileDAL = new LanguagesFileDAL(errorLogger, Path.Combine(saveDataFolder, "Languages"));

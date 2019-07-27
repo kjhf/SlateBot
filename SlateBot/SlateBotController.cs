@@ -9,7 +9,10 @@ using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
 using SlateBot.Scheduler;
 using SlateBot.Utility;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -25,6 +28,7 @@ namespace SlateBot
     internal readonly LanguageHandler languageHandler;
     internal readonly ScheduleHandler scheduleHandler;
     internal readonly ServerSettingsHandler serverSettingsHandler;
+    private readonly UpdateController updateController;
     internal readonly PleaseWaitHandler waitHandler;
     private readonly SlateBotControllerLifecycle lifecycle;
     private readonly UserSettingsHandler userSettingsHandler;
@@ -43,6 +47,7 @@ namespace SlateBot
       this.scheduleHandler = new ScheduleHandler();
       this.commandHandlerController = new CommandController(this);
       this.serverSettingsHandler = new ServerSettingsHandler(ErrorLogger, dal);
+      this.updateController = new UpdateController(this);
       this.userSettingsHandler = new UserSettingsHandler(this);
       this.waitHandler = new PleaseWaitHandler(serverSettingsHandler, languageHandler);
 
@@ -74,6 +79,7 @@ namespace SlateBot
       this.languageHandler.Initialise();
       this.commandHandlerController.Initialise();
       this.serverSettingsHandler.Initialise();
+      this.updateController.Initialise();
       this.userSettingsHandler.Initialise();
       this.scheduleHandler.LoadScheduledTasks(serverSettingsHandler.ServerSettings, serverSettingsHandler, this);
       this.waitHandler.Initialise();
@@ -209,6 +215,37 @@ namespace SlateBot
 
       // Handle the command
       HandleCommandReceived(new SenderSettings(serverSettings, userSettings), socketMessage);
+
+      // If the message has a file and was sent to us in private, save that file.
+      if (socketMessage.IsPrivate)
+      {
+        if (socketMessage.socketMessage.Attachments.Any() || socketMessage.socketMessage.Embeds.Any())
+        {
+          Task.Run(async () =>
+          {
+            foreach (var attachment in socketMessage.socketMessage.Attachments)
+            {
+              var result = await HTTPHelper.DownloadFile(attachment.Url);
+              if (result != null && result.Item2 != null)
+              {
+                await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, attachment.Filename), result.Item2);
+              }
+            }
+            foreach (var embed in socketMessage.socketMessage.Embeds)
+            {
+              if (embed.Image.HasValue)
+              {
+                var image = (EmbedImage)embed.Image;
+                var result = await HTTPHelper.DownloadFile(image.Url);
+                if (result != null && result.Item2 != null)
+                {
+                  await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")), result.Item2);
+                }
+              }
+            }
+          });
+        }
+      }
     }
 
     internal void SendMessage(Response message, ulong channelId)
