@@ -80,7 +80,7 @@ namespace SlateBot.Commands.Schedule
                 default:
                 {
                   // More than one, require an id.
-                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention} {command.CommandLower} remove _id_");
+                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention_Nick} {command.CommandLower} remove _id_");
                   output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
                   break;
                 }
@@ -108,7 +108,7 @@ namespace SlateBot.Commands.Schedule
                 default:
                 {
                   // More than one, require an id.
-                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention} {command.CommandLower} enable _id_");
+                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention_Nick} {command.CommandLower} enable _id_");
                   output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
                   break;
                 }
@@ -136,7 +136,7 @@ namespace SlateBot.Commands.Schedule
                 default:
                 {
                   // More than one, require an id.
-                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention} {command.CommandLower} enable _id_");
+                  output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {Constants.BotMention_Nick} {command.CommandLower} enable _id_");
                   output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
                   break;
                 }
@@ -156,7 +156,7 @@ namespace SlateBot.Commands.Schedule
             }
             else if (commandParams[1].Equals("set", StringComparison.OrdinalIgnoreCase))
             {
-              output.AppendLine($"{Constants.BotMention} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> <_value_>");
+              output.AppendLine($"{Constants.BotMention_Nick} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> <_value_>");
               output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
             }
             else if (commandParams[1].Equals("new", StringComparison.OrdinalIgnoreCase))
@@ -168,7 +168,7 @@ namespace SlateBot.Commands.Schedule
                 ++id;
               }
               serverSettings.ScheduledMessages.Insert(id - 1, new ScheduledMessageData(args.ChannelId, id));
-              output.AppendLine($"{Constants.BotMention} {command.CommandLower} set **{id}** <Due|Repeating|Message|Enabled> <_value_>");
+              output.AppendLine($"{Constants.BotMention_Nick} {command.CommandLower} set **{id}** <Due|Repeating|Message|Enabled> <_value_>");
               output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
             }
 
@@ -193,7 +193,7 @@ namespace SlateBot.Commands.Schedule
               {
                 if (commandParams[1].Equals("set", StringComparison.OrdinalIgnoreCase))
                 {
-                  output.AppendLine($"{Constants.BotMention} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> <value>");
+                  output.AppendLine($"{Constants.BotMention_Nick} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> <value>");
                   output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
                 }
                 else if (commandParams[1].Equals("enable", StringComparison.OrdinalIgnoreCase))
@@ -349,7 +349,7 @@ namespace SlateBot.Commands.Schedule
                   else
                   {
                     output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}: {commandParams[3]}");
-                    output.AppendLine($"{Constants.BotMention} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> [value]");
+                    output.AppendLine($"{Constants.BotMention_Nick} {command.CommandLower} set _id_ <Due|Repeating|Message|Enabled> [value]");
                   }
                 }
               }

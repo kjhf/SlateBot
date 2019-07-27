@@ -24,8 +24,9 @@ namespace SlateBot
     public const ulong ConsoleId = ulong.MaxValue - 1;
 
     public const int MessageLimit = 1990;
-    public const string BotMention = "<@401799984741089281>"; // bot id
-    public const string OwnerMention = "<@97288493029416960>"; // owner id
+    public const string BotMention_NoNick = "<@401799984741089281>"; // bot id
+    public const string BotMention_Nick = "<@!401799984741089281>"; // bot id
+    public const string OwnerMention = "<@!97288493029416960>"; // owner id
 
     public const string HelpPageTitle = @"Blog:KJ_Bot/Commands";
     public const string HelpPageENURL = @"https://splatoonwiki.org/wiki/" + HelpPageTitle;

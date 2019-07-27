@@ -20,7 +20,7 @@ namespace SlateBot.Commands
     /// <summary>
     /// Get if this message is actually a command.
     /// </summary>
-    public bool IsCommand => message.StartsWith(Constants.BotMention) || message.StartsWith(Constants.AtUsername) || message.StartsWith(CommandSymbol);
+    public bool IsCommand => message.StartsWith(Constants.BotMention_Nick) || message.StartsWith(Constants.BotMention_NoNick) || message.StartsWith(Constants.AtUsername) || message.StartsWith(CommandSymbol);
 
     /// <summary> The full command as parameters delimited by space. The command is on [0]. </summary>
     public string[] CommandParams => FullCommandExcludingCommandPrefix.Split(' ');
@@ -50,11 +50,15 @@ namespace SlateBot.Commands
       // Remove the BotMention
       this.FullCommandExcludingCommandPrefix = message;
 
-      if (FullCommandExcludingCommandPrefix.StartsWith(Constants.BotMention))
+      if (FullCommandExcludingCommandPrefix.StartsWith(Constants.BotMention_NoNick))
       {
-        FullCommandExcludingCommandPrefix = FullCommandExcludingCommandPrefix.Substring(Constants.BotMention.Length).Trim();
+        FullCommandExcludingCommandPrefix = FullCommandExcludingCommandPrefix.Substring(Constants.BotMention_NoNick.Length).Trim();
       }
-      
+      if (FullCommandExcludingCommandPrefix.StartsWith(Constants.BotMention_Nick))
+      {
+        FullCommandExcludingCommandPrefix = FullCommandExcludingCommandPrefix.Substring(Constants.BotMention_Nick.Length).Trim();
+      }
+
       // Remove the BotMention
       if (FullCommandExcludingCommandPrefix.StartsWith(Constants.AtUsername))
       {
