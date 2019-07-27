@@ -69,7 +69,7 @@ namespace SlateBot
       switch (lastExitCode)
       {
         case ExitCodes.SuccessReconnect:
-        case ExitCodes.RestartErrorReconnect:
+        case ExitCodes.RestartRequestedWithReconnect:
         {
           controller.Connect();
           break;
@@ -122,7 +122,14 @@ namespace SlateBot
 
               case 'r':
               {
-                Restart(ExitCodes.RestartRequested);
+                if (controller.Connected)
+                {
+                  Restart(ExitCodes.RestartRequestedWithReconnect);
+                }
+                else
+                {
+                  Restart(ExitCodes.RestartRequestedNoReconnect);
+                }
                 break;
               }
 

@@ -30,6 +30,11 @@ namespace SlateBot
     private readonly UserSettingsHandler userSettingsHandler;
     private bool dumpDebug;
 
+    /// <summary>
+    /// Get if the Bot is connected.
+    /// </summary>
+    public bool Connected => lifecycle.Connected;
+
     public SlateBotController()
     {
       this.dal = new SlateBotDAL();

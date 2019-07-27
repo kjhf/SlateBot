@@ -14,6 +14,11 @@ namespace SlateBot.Lifecycle
     internal DiscordSocketClient Client => controller.client;
 
     /// <summary>
+    /// Get if the lifecycle is in one of its connected states.
+    /// </summary>
+    internal bool Connected => CurrentStateId == SlateBotControllerLifecycleStates.ConnectedReceivingOnly || CurrentStateId == SlateBotControllerLifecycleStates.ConnectedTransceiving;
+
+    /// <summary>
     /// The states of the lifecycle.
     /// </summary>
     /// <remarks>

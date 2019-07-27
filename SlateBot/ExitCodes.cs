@@ -10,8 +10,7 @@ namespace SlateBot
   {
     Success,
     SuccessReconnect,
-    RestartRequested,
-    RestartErrorNoReconnect,
-    RestartErrorReconnect,
+    RestartRequestedWithReconnect,
+    RestartRequestedNoReconnect,
   }
 }
