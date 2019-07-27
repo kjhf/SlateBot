@@ -1,5 +1,6 @@
 ﻿using SlateBot.Language;
 using SlateBot.Utility;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -72,9 +73,17 @@ namespace SlateBot.Commands.Random
         max = min;
         min = temp;
       }
+
       long num = rand.NextLong(min, max + 1);
       output.AppendLine((min) + " -> " + (max) + ": " + num);
-      var responseColor = new Discord.Color((uint)Imaging.ImageManipulator.FromAHSB(255, (float)min / max, 1.0f, 1.0f).ToArgb());
+
+      long range = max - min;
+      if (range == 0) range = 1;
+
+      long normNum = num - min;      
+      float percentage = (((float)normNum) / range) * 360;
+      var drawingColour = Imaging.ImageManipulator.FromAHSB(255, percentage, 0.8f, 0.5f);
+      var responseColor = new Discord.Color(drawingColour.R, drawingColour.G, drawingColour.B);
 
       string retVal = output.ToString();
       Response response = new Response

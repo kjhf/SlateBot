@@ -19,9 +19,9 @@ namespace SlateBot.Imaging
     /// Creates a Color from alpha, hue, saturation and brightness.
     /// </summary>
     /// <param name="alpha">The alpha channel value.</param>
-    /// <param name="hue">The hue value.</param>
-    /// <param name="saturation">The saturation value.</param>
-    /// <param name="brightness">The brightness value.</param>
+    /// <param name="hue">The hue value. Note hue is from 0-360 degrees.</param>
+    /// <param name="saturation">The saturation value from 0-1.</param>
+    /// <param name="brightness">The brightness value from 0-1.</param>
     /// <returns>A Color with the given values.</returns>
     public static Color FromAHSB(byte alpha, float hue, float saturation, float brightness)
     {
@@ -354,6 +354,16 @@ namespace SlateBot.Imaging
     public static int FunctionARGB(byte a, byte r, byte g, byte b)
     {
       return a << 24 | 255 - Math.Max(Math.Max(r, g), b) << 16 | 255 - Math.Max(Math.Max(r, g), b) << 8 | 255 - Math.Max(Math.Max(r, g), b);
+    }
+
+    //https://stackoverflow.com/questions/1988833/converting-color-to-consolecolor
+    public static ConsoleColor ToConsoleColor(this System.Drawing.Color c)
+    {
+      int index = (c.R > 128 | c.G > 128 | c.B > 128) ? 8 : 0; // Bright bit
+      index |= (c.R > 64) ? 4 : 0; // Red bit
+      index |= (c.G > 64) ? 2 : 0; // Green bit
+      index |= (c.B > 64) ? 1 : 0; // Blue bit
+      return (ConsoleColor)index;
     }
   }
 }

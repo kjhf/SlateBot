@@ -138,7 +138,18 @@ namespace SlateBot.Errors
       errorsToLog.Enqueue(error);
       if (error.errorCode == ErrorCode.ConsoleMessage)
       {
-        OutputToConsole(error.extraData, error.severity);
+        if (error.extraData is string)
+        {
+          OutputToConsole((string)error.extraData, error.severity);
+        }
+        else if (error.extraData is Tuple<string, ConsoleColor> tuple)
+        {
+          OutputToConsole(tuple.Item1, error.severity, tuple.Item2);
+        }
+        else
+        {
+          OutputToConsole(error.extraData.ToString(), error.severity);
+        }
       }
       else
       {
@@ -162,32 +173,41 @@ namespace SlateBot.Errors
     /// </summary>
     /// <param name="message"></param>
     /// <param name="severity"></param>
-    private void OutputToConsole(string message, ErrorSeverity severity = ErrorSeverity.Debug)
+    private void OutputToConsole(string message, ErrorSeverity severity = ErrorSeverity.Debug, ConsoleColor? customColor = null)
     {
-      switch (severity)
+      // Don't output debug to console.
+      if (severity == ErrorSeverity.Debug)
       {
-        case ErrorSeverity.Debug:
-          // Don't output this to console.
-          return;
-
-        default:
-        case ErrorSeverity.Information:
-          Console.ForegroundColor = defaultConsoleColor;
-          break;
-
-        case ErrorSeverity.Warning:
-          Console.ForegroundColor = ConsoleColor.DarkYellow;
-          break;
-
-        case ErrorSeverity.Error:
-          Console.ForegroundColor = ConsoleColor.DarkRed;
-          break;
-
-        case ErrorSeverity.Fatal:
-          Console.ForegroundColor = ConsoleColor.Red;
-          break;
+        return;
       }
 
+      // Otherwise ...
+      if (customColor != null)
+      {
+        Console.ForegroundColor = (ConsoleColor)customColor;
+      }
+      else
+      {
+        switch (severity)
+        {
+          default:
+          case ErrorSeverity.Information:
+            Console.ForegroundColor = defaultConsoleColor;
+            break;
+
+          case ErrorSeverity.Warning:
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            break;
+
+          case ErrorSeverity.Error:
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            break;
+
+          case ErrorSeverity.Fatal:
+            Console.ForegroundColor = ConsoleColor.Red;
+            break;
+        }
+      }
       message = DateTime.Now.ToString("[HH:mm:ss.fff] ") + message;
       Console.WriteLine(message);
       Console.ForegroundColor = defaultConsoleColor;

@@ -4,6 +4,7 @@ using SlateBot.Commands;
 using SlateBot.DAL;
 using SlateBot.Errors;
 using SlateBot.Events;
+using SlateBot.Imaging;
 using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
@@ -105,7 +106,16 @@ namespace SlateBot
         {
           str += "\n" + response.FilePath;
         }
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, str));  
+        if (response.Embed != null && response.Embed.Color != null)
+        {
+
+          ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));
+          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, new Tuple<string, ConsoleColor>(str, cc)));
+        }
+        else
+        {
+          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, str));
+        }
       }
       else if (response.ResponseType == ResponseType.None)
       {
@@ -136,7 +146,15 @@ namespace SlateBot
     {
       if (channelId == Constants.ConsoleId)
       {
-        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.Message));
+        if (response.Embed != null && response.Embed.Color != null)
+        {
+          ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));
+          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, new Tuple<string, ConsoleColor>(response.Message, cc)));
+        }
+        else
+        {
+          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.Message));
+        }
       }
       else
       {

@@ -4,14 +4,14 @@
   {
     public readonly ErrorCode errorCode;
     public readonly ErrorSeverity severity;
-    public readonly string extraData;
+    public readonly object extraData;
 
     /// <summary>
     /// Construct an <see cref="Error"/> with its details.
     /// </summary>
     /// <param name="errorCode"></param>
     /// <param name="severity"></param>
-    public Error(ErrorCode errorCode, ErrorSeverity severity, string extraData = null)
+    public Error(ErrorCode errorCode, ErrorSeverity severity, object extraData = null)
     {
       this.errorCode = errorCode;
       this.severity = severity;
