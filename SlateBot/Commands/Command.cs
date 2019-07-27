@@ -16,7 +16,7 @@ namespace SlateBot.Commands
     /// <param name="aliases"></param>
     /// <param name="examples"></param>
     /// <param name="help"></param>
-    protected Command(CommandHandlerType commandHandlerType, string[] aliases, string examples, string help, ModuleType module, bool requiresSymbol = true)
+    protected Command(CommandHandlerType commandHandlerType, string[] aliases, string examples, string help, ModuleType module, bool requiresSymbol = true, bool noSetAlias = false)
     {
       this.CommandHandlerType = commandHandlerType;
       this.Aliases = aliases;
@@ -24,6 +24,7 @@ namespace SlateBot.Commands
       this.Help = help;
       this.Module = module;
       this.RequiresSymbol = requiresSymbol;
+      this.NoSetAlias = noSetAlias;
     }
 
     /// <summary> Array of aliases this command accepts. </summary>
@@ -46,6 +47,9 @@ namespace SlateBot.Commands
 
     /// <summary> Does the command require a command symbol to execute? (Default true) </summary>
     public bool RequiresSymbol { get; }
+
+    /// <summary> Is the command run with ALL messages? Probably RequiresSymbol should stay true to avoid processing and spam overheads. Defaults false. </summary>
+    public bool NoSetAlias { get; }
 
     /// <summary>
     /// Handle an incoming command and return response object(s) as a result.

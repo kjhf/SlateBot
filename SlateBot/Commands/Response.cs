@@ -5,6 +5,11 @@ namespace SlateBot.Commands
   public class Response
   {
     /// <summary>
+    /// No response.
+    /// </summary>
+    public static Response None = new Response { ResponseType = ResponseType.None, Message = "" };
+
+    /// <summary>
     /// The <see cref="EmbedBuilder"/> response message.
     /// </summary>
     public EmbedBuilder Embed { get; set; }

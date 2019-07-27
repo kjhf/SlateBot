@@ -60,13 +60,9 @@ namespace SlateBot.Commands.PullImage
 
         await asyncResponder.SendResponseAsync(args, asyncResponse);
       });
-      
+
       // Return out the lifecycle with no response.
-      Response noSynchResponse = new Response
-      {
-        ResponseType = ResponseType.None
-      };
-      return new[] { noSynchResponse };
+      return new[] { Response.None };
     }
 
     protected override List<KeyValuePair<string, string>> ConstructExtraData()

@@ -241,11 +241,7 @@ namespace SlateBot.Commands.Minecraft
       });
       
       // Return out the lifecycle with no response.
-      Response noSynchResponse = new Response
-      {
-        ResponseType = ResponseType.None
-      };
-      return new[] { noSynchResponse };
+      return new[] { Response.None };
     }
 
     private static string TidyRecipeParameter(string param)

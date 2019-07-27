@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Dice</CommandType>
+  <Aliases>dé, de, lancer</Aliases>
+  <Help>Lance un dé</Help>
+  <Examples>@SlateBot dé
+@SlateBot dé 2
+@SlateBot 2d100
+@SlateBot 2DF-1
+@SlateBot dé 4 +5</Examples>
+</Root>

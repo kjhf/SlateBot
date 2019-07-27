@@ -98,7 +98,11 @@ namespace SlateBot
       bool isFromConsole = message is ConsoleMessageDetail;
       bool isFromSocket = message is SocketMessageWrapper;
 
-      if (isFromConsole || response.ResponseType == ResponseType.LogOnly)
+      if (response.ResponseType == ResponseType.None)
+      {
+        // Nothing to do.
+      }
+      else if (isFromConsole || response.ResponseType == ResponseType.LogOnly)
       {
         // Log the result.
         string str = response.Message;
@@ -116,10 +120,6 @@ namespace SlateBot
         {
           ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, str));
         }
-      }
-      else if (response.ResponseType == ResponseType.None)
-      {
-        // Nothing to do.
       }
       else
       {

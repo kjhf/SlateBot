@@ -141,7 +141,7 @@ namespace SlateBot
         // Check language specific commands.
         foreach (Command command in commands[currentLanguage])
         {
-          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase) || command.NoSetAlias)
           {
             responses.AddRange(command.Execute(senderDetail, messageDetail));
           }
@@ -150,7 +150,7 @@ namespace SlateBot
         // Then check defaults.
         foreach (Command command in commands[Languages.Default])
         {
-          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase) || command.NoSetAlias)
           {
             responses.AddRange(command.Execute(senderDetail, messageDetail));
           }
@@ -162,7 +162,7 @@ namespace SlateBot
         // Check language specific commands.
         foreach (Command command in commands[currentLanguage].Where(c => !c.RequiresSymbol))
         {
-          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase) || command.NoSetAlias)
           {
             responses.AddRange(command.Execute(senderDetail, messageDetail));
           }
@@ -171,7 +171,7 @@ namespace SlateBot
         // Then check defaults.
         foreach (Command command in commands[Languages.Default].Where(c => !c.RequiresSymbol))
         {
-          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase))
+          if (command.Aliases.Contains(helper.CommandLower, StringComparer.OrdinalIgnoreCase) || command.NoSetAlias)
           {
             responses.AddRange(command.Execute(senderDetail, messageDetail));
           }

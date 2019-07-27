@@ -52,6 +52,7 @@ namespace SlateBot.Commands
     Servers,
     Avatar,
     PullImage,
-    Help, 
+    Help,
+    Dice,
   }
 }
