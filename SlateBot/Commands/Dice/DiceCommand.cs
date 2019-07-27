@@ -25,7 +25,6 @@ namespace SlateBot.Commands.Dice
       StringBuilder output = new StringBuilder();
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
-      string[] commandParams = command.CommandParams;
 
       bool handled = false;
       string toParse = command.CommandLower;
@@ -75,7 +74,7 @@ namespace SlateBot.Commands.Dice
       else
       {
         // Parse the whole thing
-        toParse = args.Message;
+        toParse += " " + commandDetail;
       }
 
       if (Regex.IsMatch(toParse, D_REGEX, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled))
