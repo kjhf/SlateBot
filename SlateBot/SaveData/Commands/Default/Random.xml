@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Random</CommandType>
+  <Aliases>rand,random</Aliases>
+  <Help>Random number generator</Help>
+  <Examples>@SlateBot random
+@SlateBot random [max]
+@SlateBot random [min] [max]</Examples>
+</Root>

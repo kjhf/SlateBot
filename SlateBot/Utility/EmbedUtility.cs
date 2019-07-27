@@ -62,6 +62,10 @@ namespace SlateBot.Utility
       {
         builder = builder.WithDescription(description);
       }
+      else
+      {
+        builder = builder.WithDescription(urlStr);
+      }
 
       if (color != null)
       {

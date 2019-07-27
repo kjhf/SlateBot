@@ -24,7 +24,6 @@ namespace SlateBot.Commands
     TF2Craft,
     BaseChange,
     Replace,
-    Square,
     Translate,
     Info,
     ChangeAvatar,

@@ -69,7 +69,6 @@ namespace SlateBot.Commands.YouTube
 
             Task.Run(async () =>
             {
-              bool success = false;
               string asyncRetVal;
               string query = $"https://www.googleapis.com/youtube/v3/search?" +
                                       $"part=snippet&maxResults=8" +
@@ -102,17 +101,14 @@ namespace SlateBot.Commands.YouTube
                   {
                     case YouTubeCommandType.YouTube:
                       asyncRetVal = youTubeURL;
-                      success = true;
                       break;
 
                     case YouTubeCommandType.SaveFrom:
                       asyncRetVal = ("http://en.savefrom.net/#url=" + youTubeURL);
-                      success = true;
                       break;
 
                     case YouTubeCommandType.Repeat:
                       asyncRetVal = ("http://www.youtubeonrepeat.com/watch?v=" + videoId);
-                      success = true;
                       break;
 
                     default:
@@ -128,7 +124,7 @@ namespace SlateBot.Commands.YouTube
 
               Response asyncResponse = new Response
               {
-                Embed = (success ? EmbedUtility.UrlToEmbed(asyncRetVal) : EmbedUtility.StringToEmbed(asyncRetVal)),
+                Embed = (EmbedUtility.StringToEmbed(asyncRetVal)),
                 Message = asyncRetVal,
                 ResponseType = ResponseType.Default
               };

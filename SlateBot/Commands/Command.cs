@@ -6,7 +6,7 @@ namespace SlateBot.Commands
   public abstract class Command
   {
     /// <summary> Random generator </summary>
-    protected static readonly Random rand = new Random();
+    protected static readonly System.Random rand = new System.Random();
 
     /// <summary>
     /// Base constructor - construct the common features across all commands.
