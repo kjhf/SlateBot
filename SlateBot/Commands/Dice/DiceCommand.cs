@@ -197,8 +197,8 @@ namespace SlateBot.Commands.Dice
           total = results.Select((rolled, index) => (index + 1) * rolled).Sum();
           double average = (double)total / rolls;
           resultsStr = string.Join("", results.Select((rolled, index) => (rolled > 0 ? ($"`{(index + 1)}: {rolled}x` ") : ("")))).Trim();
-          output.Append(resultsStr);
-          output.Append($", {languageHandler.GetPhrase(language, "Average")}: {average.ToString("N2", languageHandler.GetCultureInfo(language))}, {languageHandler.GetPhrase(language, "Total")}: {total}");
+          output.AppendLine(resultsStr);
+          output.Append($"{languageHandler.GetPhrase(language, "Average")}: {average.ToString("N2", languageHandler.GetCultureInfo(language))}, {languageHandler.GetPhrase(language, "Total")}: {total}");
         }
 
         if (adjustDice != 0)

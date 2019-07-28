@@ -53,8 +53,8 @@ namespace SlateBot.Commands.Calc
 
         // Tidy up some common operator symbols.
         commandDetail = commandDetail
+          .Replace("fix", "floor") // before the x replacement
           .Replace("x", "*")
-          .Replace("fi*", "floor") // urgh
           .Replace("modulo", "mod")
           .Replace("mod", "%")
           .Replace("¬", "~")
@@ -68,7 +68,8 @@ namespace SlateBot.Commands.Calc
           .Replace("π", "[pi]")
           .Replace("∞", "[infinity]")
           .Replace("pi ", "[pi] ")
-          .Replace("infinity", "[infinity]");
+          .Replace("infinity", "[infinity]")
+          .Replace("inf", "[infinity]");
 
         // Use ; to split statements. : can be used for more powerful functionality
         // such as [Convert]::ToString(1234, 16)

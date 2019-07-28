@@ -18,7 +18,7 @@ namespace SlateBot.Utility
         throw new ArgumentOutOfRangeException("max", "max must be > min!");
 
       // Defer to the int implementation if we don't need to handle longs.
-      if (min < int.MaxValue && max < int.MaxValue)
+      if (min > int.MinValue && max < int.MaxValue)
       {
         return random.Next((int)min, (int)max);
       }

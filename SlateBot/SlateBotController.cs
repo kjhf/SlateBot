@@ -11,6 +11,7 @@ using SlateBot.SavedSettings;
 using SlateBot.Scheduler;
 using SlateBot.Utility;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -57,6 +58,7 @@ namespace SlateBot
       client.LoggedOut += Client_LoggedOut;
       client.MessageReceived += Client_MessageReceived;
       client.MessageUpdated += Client_MessageUpdated;
+
       OnCommandReceived += SlateBotController_OnCommandReceived;
     }
 
@@ -169,7 +171,21 @@ namespace SlateBot
     /// </summary>
     internal void HandleCommandReceived(SenderSettings senderSettings, IMessageDetail message)
     {
-      var responses = commandHandlerController.ExecuteCommand(senderSettings, message);
+      bool success;
+      List<Response> responses;
+      try
+      {
+        responses = commandHandlerController.ExecuteCommand(senderSettings, message);
+        success = true;
+      }
+      catch (Exception ex)
+      {
+        responses = new List<Response>
+        {
+          new Response { Message = $"{Emojis.ExclamationSymbol} {languageHandler.GetPhrase(senderSettings.ServerSettings.Language, "Error_Oops")}: {ex.Message}" }
+        };
+        success = false;
+      }
 
       if (dumpDebug)
       {
@@ -201,7 +217,7 @@ namespace SlateBot
           }
 
           // React to the message handled.
-          sum.AddReactionAsync(new Emoji(Emojis.CheckUnicode));
+          sum.AddReactionAsync(new Emoji(success ? Emojis.CheckUnicode : Emojis.CrossSymbol)).ConfigureAwait(false);
         }
       }
       else if (message is ConsoleMessageDetail) // If from the console
@@ -311,7 +327,7 @@ namespace SlateBot
 
     private async void SlateBotController_OnCommandReceived(object sender, CommandReceivedEventArgs args)
     {
-      await SendResponseAsync(args.message, args.response);
+      await SendResponseAsync(args.message, args.response).ConfigureAwait(false);
     }
   }
 }
