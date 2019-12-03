@@ -62,7 +62,7 @@ namespace SlateBot.Commands.PullImage
       });
 
       // Return out the lifecycle with no response.
-      return new[] { Response.None };
+      return new[] { Response.WaitForAsync };
     }
 
     protected override List<KeyValuePair<string, string>> ConstructExtraData()

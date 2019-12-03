@@ -1,13 +1,19 @@
 ﻿using Discord;
+using System.Collections.Generic;
 
 namespace SlateBot.Commands
 {
   public class Response
   {
     /// <summary>
-    /// No response.
+    /// The command was recognised but the response is coming asynchronously.
     /// </summary>
-    public static Response None = new Response { ResponseType = ResponseType.None, Message = "" };
+    public static Response WaitForAsync = new Response { ResponseType = ResponseType.None, Message = "" };
+
+    /// <summary>
+    /// The command was unrecognised or no response is coming.
+    /// </summary>
+    public static IList<Response> NoResponse = new Response[0];
 
     /// <summary>
     /// The <see cref="EmbedBuilder"/> response message.

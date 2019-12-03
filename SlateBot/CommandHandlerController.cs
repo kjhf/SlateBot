@@ -123,7 +123,7 @@ namespace SlateBot
       return handler;
     }
 
-    internal List<Response> ExecuteCommand(SenderSettings senderDetail, IMessageDetail messageDetail)
+    internal IList<Response> ExecuteCommand(SenderSettings senderDetail, IMessageDetail messageDetail)
     {
       List<Response> responses = new List<Response>();
       CommandMessageHelper helper = new CommandMessageHelper(senderDetail.ServerSettings.CommandSymbol, messageDetail.Message);
@@ -177,6 +177,7 @@ namespace SlateBot
           }
         }
       }
+
       return responses;
     }
   }

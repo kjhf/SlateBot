@@ -172,7 +172,7 @@ namespace SlateBot
     internal void HandleCommandReceived(SenderSettings senderSettings, IMessageDetail message)
     {
       bool success;
-      List<Response> responses;
+      IList<Response> responses;
       try
       {
         responses = commandHandlerController.ExecuteCommand(senderSettings, message);

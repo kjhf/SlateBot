@@ -151,7 +151,8 @@ namespace SlateBot.Commands.Dice
       }
       else
       {
-        return new[] { Response.None };
+        // Not handled.
+        return Response.NoResponse;
       }
     }
 

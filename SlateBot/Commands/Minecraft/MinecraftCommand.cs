@@ -241,7 +241,7 @@ namespace SlateBot.Commands.Minecraft
       });
       
       // Return out the lifecycle with no response.
-      return new[] { Response.None };
+      return new[] { Response.WaitForAsync };
     }
 
     private static string TidyRecipeParameter(string param)
