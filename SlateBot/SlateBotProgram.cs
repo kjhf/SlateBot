@@ -37,6 +37,7 @@ namespace SlateBot
 
     public SlateBotProgram(string[] args)
     {
+      AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
       controller = new SlateBotController();
 
       lastExitCode = ExitCodes.Success;
@@ -45,7 +46,20 @@ namespace SlateBot
         Enum.TryParse<ExitCodes>(args[1], out lastExitCode);
       }
     }
-    
+
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+      // De-register the handler
+      AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+
+      // Die after pause
+      Console.WriteLine("Uncaught exception: the program will terminate after the pause:");
+      Console.WriteLine(e.ExceptionObject);
+      Console.WriteLine();
+      Console.WriteLine("Press any key to continue ...");
+      Console.ReadKey();
+    }
+
     /// <summary>
     /// The Main Loop of the console. Waits for input to execute commands.
     /// </summary>

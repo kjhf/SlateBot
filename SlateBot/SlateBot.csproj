@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyTitle>SlateBot</AssemblyTitle>
     <Product>SlateBot</Product>
     <NeutralLanguage>en</NeutralLanguage>
@@ -17,13 +17,13 @@
     <None Remove="SaveData\Commands\French\Aide.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Net" Version="2.1.1" />
-    <PackageReference Include="Discord.Net.Commands" Version="2.1.1" />
-    <PackageReference Include="Discord.Net.Core" Version="2.1.1" />
-    <PackageReference Include="Discord.Net.Rest" Version="2.1.1" />
+    <PackageReference Include="Discord.Net" Version="2.2.0-dev-20191130.5" />
+    <PackageReference Include="Discord.Net.Commands" Version="2.2.0-dev-20191130.5" />
+    <PackageReference Include="Discord.Net.Core" Version="2.2.0-dev-20191130.5" />
+    <PackageReference Include="Discord.Net.Rest" Version="2.2.0-dev-20191130.5" />
     <PackageReference Include="Discord.Net.Rpc" Version="1.0.2" />
-    <PackageReference Include="Discord.Net.Webhook" Version="2.1.1" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="2.1.1" />
+    <PackageReference Include="Discord.Net.Webhook" Version="2.2.0-dev-20191130.5" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="2.2.0-dev-20191130.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.1.0" />
