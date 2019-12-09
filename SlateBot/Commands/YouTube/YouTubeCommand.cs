@@ -1,17 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using CsHelper;
+using Newtonsoft.Json;
 using SlateBot.Errors;
-using SlateBot.Imaging;
 using SlateBot.Language;
 using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
-using System.DrawingCore;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 

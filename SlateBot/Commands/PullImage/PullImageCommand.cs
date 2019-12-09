@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CsHelper;
+using Newtonsoft.Json.Linq;
 using SlateBot.Language;
 using SlateBot.Utility;
 using System;

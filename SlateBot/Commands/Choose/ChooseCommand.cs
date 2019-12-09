@@ -1,8 +1,7 @@
-﻿using SlateBot.Language;
+﻿using CsHelper;
+using SlateBot.Language;
 using SlateBot.Utility;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 

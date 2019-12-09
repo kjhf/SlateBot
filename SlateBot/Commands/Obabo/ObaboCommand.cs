@@ -1,4 +1,5 @@
-﻿using SlateBot.Errors;
+﻿using CsHelper;
+using SlateBot.Errors;
 using SlateBot.Imaging;
 using SlateBot.Language;
 using SlateBot.Utility;
@@ -81,10 +82,10 @@ namespace SlateBot.Commands.Obabo
         try
         {
           // Check if the url is a file
-          if (HTTPHelper.IsImageUrl(url))
+          if (WebHelper.IsImageUrl(url))
           {
             // It is, download and perform obabo
-            var tuple = await HTTPHelper.DownloadFile(url);
+            var tuple = await WebHelper.DownloadFile(url);
             if (tuple.Item2 != null)
             {
               response = DoBuildObaboImage(language, tuple.Item2);

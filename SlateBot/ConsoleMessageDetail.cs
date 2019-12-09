@@ -1,4 +1,5 @@
-﻿using SlateBot.Utility;
+﻿using CsHelper;
+using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace SlateBot
       this.IsPrivate = isPrivate;
       this.Message = message;
       List<string> urls = new List<string>();
-      var urlMatches = HTTPHelper.URL_REGEX.Matches(message);
+      var urlMatches = WebHelper.URL_REGEX.Matches(message);
       foreach (Match m in urlMatches)
       {
         if (m.Success)

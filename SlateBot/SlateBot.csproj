@@ -187,4 +187,8 @@
     <Content Include="SaveData\Languages\kjbot_English.xml" />
     <Content Include="SaveData\Languages\kjbot_French.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CsHelper\CsHelper.csproj" />
+    <ProjectReference Include="..\PokemonLibrary\PokemonLibrary.csproj" />
+  </ItemGroup>
 </Project>

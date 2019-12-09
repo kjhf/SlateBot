@@ -1,17 +1,15 @@
-﻿using System;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.DAL.CommandFile;
-using SlateBot.Utility;
 
 namespace SlateBot.Commands.Replace
 {
-  class ReplaceCommandHandler : ICommandHandler
+  internal class ReplaceCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Replace;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
@@ -19,7 +17,7 @@ namespace SlateBot.Commands.Replace
       {
         module = ModuleType.General;
       }
-      
+
       var dictionary = file.ExtraData;
       bool ignoreCase = true;
       bool reverse = false;
@@ -51,7 +49,7 @@ namespace SlateBot.Commands.Replace
           }
         }
       }
-      
+
       return (new ReplaceCommand(file.Aliases, file.Examples, file.Help, module, replacements, ignoreCase, reverse));
     }
   }

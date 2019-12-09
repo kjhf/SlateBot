@@ -1,5 +1,4 @@
-﻿using SlateBot.Language;
-using SlateBot.Utility;
+﻿using CsHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +62,7 @@ namespace SlateBot.Commands.Replace
         }
         sb.Append(letter);
       }
-      
+
       Response response = new Response
       {
         Embed = null,

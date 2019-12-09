@@ -1,8 +1,8 @@
-﻿using SlateBot.Commands;
+﻿using CsHelper;
+using SlateBot.Commands;
 using SlateBot.DAL.CommandFile;
 using SlateBot.Errors;
 using SlateBot.Language;
-using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

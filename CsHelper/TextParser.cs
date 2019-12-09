@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SlateBot.Utility
+namespace CsHelper
 {
   public class TextParser
   {
@@ -21,6 +21,10 @@ namespace SlateBot.Utility
     /// <summary> Indicates if the current position is at the end. </summary>
     public bool IsEnd { get { return Position >= Text.Length; } }
 
+    /// <summary>
+    /// Constructor of <see cref="TextParser"/>
+    /// </summary>
+    /// <param name="text"></param>
     public TextParser(string text = null)
     {
       Initialise(text);
@@ -45,8 +49,7 @@ namespace SlateBot.Utility
     public char Peek(int ahead = 0)
     {
       int pos = Position + ahead;
-      char retVal = pos < Text.Length ? Text[pos] : '\0';
-      return retVal;
+      return pos < Text.Length ? Text[pos] : '\0';
     }
 
     /// <summary>

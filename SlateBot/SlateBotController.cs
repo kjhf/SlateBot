@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using CsHelper;
+using Discord;
 using Discord.WebSocket;
 using SlateBot.Commands;
 using SlateBot.DAL;
@@ -259,7 +260,7 @@ namespace SlateBot
           {
             foreach (var attachment in socketMessage.socketMessage.Attachments)
             {
-              var result = await HTTPHelper.DownloadFile(attachment.Url);
+              var result = await WebHelper.DownloadFile(attachment.Url);
               if (result != null && result.Item2 != null)
               {
                 await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, attachment.Filename), result.Item2);
@@ -270,7 +271,7 @@ namespace SlateBot
               if (embed.Image.HasValue)
               {
                 var image = (EmbedImage)embed.Image;
-                var result = await HTTPHelper.DownloadFile(image.Url);
+                var result = await WebHelper.DownloadFile(image.Url);
                 if (result != null && result.Item2 != null)
                 {
                   await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")), result.Item2);

@@ -1,6 +1,6 @@
-﻿using SlateBot.Language;
+﻿using CsHelper;
+using SlateBot.Language;
 using SlateBot.SavedSettings;
-using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -39,7 +39,7 @@ namespace SlateBot.Commands.Schedule
 
         switch (commandParams.Length)
         {
-          case 0: 
+          case 0:
             // Should not occur.
             output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_Oops")}");
             break;
@@ -171,7 +171,6 @@ namespace SlateBot.Commands.Schedule
               output.AppendLine($"{Constants.BotMention_Nick} {command.CommandLower} set **{id}** <Due|Repeating|Message|Enabled> <_value_>");
               output.AppendLine(BuildScheduledMessageInformation(scheduledData, languageHandler.GetCultureInfo(serverSettings.Language), serverSettings.Language));
             }
-
 
             break;
           }
@@ -369,14 +368,14 @@ namespace SlateBot.Commands.Schedule
       {
         output.AppendLine($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_ServerOwnerOnly")}");
       }
-      
+
       return new[] { new Response
       {
         Message = output.ToString(),
         ResponseType = ResponseType.Default
       }};
     }
-    
+
     private void AttemptEnable(ServerSettings s, ScheduledMessageData m, StringBuilder output, Languages language)
     {
       if (string.IsNullOrWhiteSpace(m.message))

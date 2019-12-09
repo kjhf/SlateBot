@@ -1,17 +1,15 @@
-﻿using System;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.DAL.CommandFile;
-using SlateBot.Utility;
 
 namespace SlateBot.Commands.BaseChange
 {
-  class BaseChangeCommandHandler : ICommandHandler
+  internal class BaseChangeCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.BaseChange;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
@@ -19,7 +17,7 @@ namespace SlateBot.Commands.BaseChange
       {
         module = ModuleType.General;
       }
-      
+
       var dictionary = file.ExtraData;
       int fromBase = 0;
       int toBase = 0;

@@ -1,8 +1,7 @@
-﻿using SlateBot.Errors;
-using SlateBot.Utility;
+﻿using CsHelper;
+using SlateBot.Errors;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Xml;
 
@@ -58,7 +57,7 @@ namespace SlateBot.DAL.CommandFile
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(xml);
         XmlNode root = doc.LastChild; // FirstChild is decl
-        
+
         Aliases = root["Aliases"].InnerText.Split(',').Select(s => s.Trim()).ToArray();
         CommandType = root["CommandType"].InnerText;
         Examples = root["Examples"]?.InnerText ?? (Aliases.Length > 0 ? (Constants.BotMention_Nick + " " + Aliases[0]) : "");

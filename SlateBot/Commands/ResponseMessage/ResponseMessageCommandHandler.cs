@@ -1,17 +1,15 @@
-﻿using System;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.DAL.CommandFile;
-using SlateBot.Utility;
 
 namespace SlateBot.Commands.ResponseMessage
 {
-  class ResponseMessageCommandHandler : ICommandHandler
+  internal class ResponseMessageCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.ResponseMessage;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
@@ -44,7 +42,7 @@ namespace SlateBot.Commands.ResponseMessage
       {
         choices = new string[0];
       }
-      
+
       return (new ResponseMessageCommand(file.Aliases, choices, file.Examples, file.Help, module, responseType, requiresSymbol));
     }
   }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CsHelper;
 using SlateBot.Errors;
 using SlateBot.Language;
 using SlateBot.Utility;
@@ -47,7 +47,7 @@ namespace SlateBot.Commands.Minecraft
           // Resolve redirects
           do
           {
-            json = await JSONHelper.GetTextAsync($"http://minecraft.gamepedia.com/api.php?format=json&action=query&titles={query}&prop=revisions&rvprop=content&callback=?");
+            json = await WebHelper.GetTextAsync($"http://minecraft.gamepedia.com/api.php?format=json&action=query&titles={query}&prop=revisions&rvprop=content&callback=?");
 
             if (json.Contains(RedirectString))
             {

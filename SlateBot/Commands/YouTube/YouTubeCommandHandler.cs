@@ -1,18 +1,15 @@
-﻿using System;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.DAL.CommandFile;
-using SlateBot.Imaging;
-using SlateBot.Utility;
 
 namespace SlateBot.Commands.YouTube
 {
-  class YouTubeCommandHandler : ICommandHandler
+  internal class YouTubeCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.YouTube;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
@@ -20,7 +17,7 @@ namespace SlateBot.Commands.YouTube
       {
         module = ModuleType.General;
       }
-      
+
       var dictionary = file.ExtraData;
       YouTubeCommandType youTubeCommandType = YouTubeCommandType.YouTube;
 

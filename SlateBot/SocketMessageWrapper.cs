@@ -1,20 +1,17 @@
-﻿using Discord.WebSocket;
-using SlateBot.Utility;
-using System;
+﻿using CsHelper;
+using Discord.WebSocket;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SlateBot
 {
-  class SocketMessageWrapper : IMessageDetail
+  internal class SocketMessageWrapper : IMessageDetail
   {
     /// <summary>
     /// The <see cref="SocketMessage"/> used to construct this wrapper.
     /// </summary>
     public readonly SocketMessage socketMessage;
+
     public SocketUser User => socketMessage.Author;
     public SocketChannel Channel => socketMessage.Channel as SocketChannel;
     public SocketGuild Guild => (Channel as SocketGuildChannel)?.Guild;
@@ -68,7 +65,7 @@ namespace SlateBot
           if (!string.IsNullOrEmpty(a.Url))
           {
             urls.Add(a.Url);
-          }          
+          }
         }
       }
 
@@ -83,7 +80,7 @@ namespace SlateBot
         }
       }
 
-      var urlMatches = HTTPHelper.URL_REGEX.Matches(msg.Content);
+      var urlMatches = WebHelper.URL_REGEX.Matches(msg.Content);
       foreach (Match m in urlMatches)
       {
         if (m.Success)

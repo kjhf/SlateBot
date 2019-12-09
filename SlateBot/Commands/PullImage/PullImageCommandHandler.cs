@@ -1,5 +1,5 @@
-﻿using SlateBot.DAL.CommandFile;
-using SlateBot.Utility;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +52,6 @@ namespace SlateBot.Commands.PullImage
         {
           jsonProperty = null;
         }
-
       }
       else
       {

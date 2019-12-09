@@ -16,6 +16,36 @@ namespace SlateBot.Commands
     public static IList<Response> NoResponse = new Response[0];
 
     /// <summary>
+    /// Create a Response object from a message to return using default parameters.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="responseColor"></param>
+    /// <returns></returns>
+    public static Response CreateFromString(string message, Color? responseColor = null)
+    {
+      return new Response
+      {
+        Embed = Utility.EmbedUtility.StringToEmbed(message, responseColor),
+        Message = message,
+        ResponseType = ResponseType.Default
+      };
+    }
+
+    /// <summary>
+    /// Create a Response object as an array from a message to return using default parameters.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="responseColor"></param>
+    /// <returns></returns>
+    public static Response[] CreateArrayFromString(string message, Color? responseColor = null)
+    {
+      return new[]
+      {
+        CreateFromString(message, responseColor)
+      };
+    }
+
+    /// <summary>
     /// The <see cref="EmbedBuilder"/> response message.
     /// </summary>
     public EmbedBuilder Embed { get; set; }

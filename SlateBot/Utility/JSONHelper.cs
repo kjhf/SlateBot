@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CsHelper;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Text;
@@ -10,35 +11,15 @@ namespace SlateBot.Utility
   {
     public static async Task<object> GetJsonAsync(string website, string cookies = null)
     {
-      using (WebClient client = new WebClient { Encoding = Encoding.UTF8 })
+      using WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+      if (cookies != null)
       {
-        if (cookies != null)
-        {
-          client.Headers.Add(HttpRequestHeader.Cookie, cookies);
-        }
-
-        Uri uri = new Uri(website);
-        string value = await client.DownloadStringTaskAsync(uri);
-        return JsonConvert.DeserializeObject(value);
+        client.Headers.Add(HttpRequestHeader.Cookie, cookies);
       }
-    }
 
-    public static string GetText(string website)
-    {
-      using (WebClient client = new WebClient { Encoding = Encoding.UTF8 })
-      {
-        Uri uri = new Uri(website);
-        return client.DownloadString(uri);
-      }
-    }
-
-    public static async Task<string> GetTextAsync(string website)
-    {
-      using (WebClient client = new WebClient { Encoding = Encoding.UTF8 })
-      {
-        Uri uri = new Uri(website);
-        return await client.DownloadStringTaskAsync(uri);
-      }
+      Uri uri = new Uri(website);
+      string value = await client.DownloadStringTaskAsync(uri).ConfigureAwait(false);
+      return JsonConvert.DeserializeObject(value);
     }
 
     /// <summary>
@@ -48,7 +29,7 @@ namespace SlateBot.Utility
     /// <returns></returns>
     public static async Task<object> LoadJSONFromFile(string filePath)
     {
-      string value = await FileAsync.ReadAllTextAsync(filePath);
+      string value = await FileAsync.ReadAllTextAsync(filePath).ConfigureAwait(false);
       return JsonConvert.DeserializeObject(value);
     }
   }

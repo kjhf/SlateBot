@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CsHelper;
 using SlateBot.DAL.CommandFile;
 using SlateBot.Imaging;
-using SlateBot.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SlateBot.Commands.Obabo
 {
-  class ObaboCommandHandler : ICommandHandler
+  internal class ObaboCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Obabo;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
@@ -20,7 +18,7 @@ namespace SlateBot.Commands.Obabo
       {
         module = ModuleType.General;
       }
-      
+
       var dictionary = file.ExtraData;
       MirrorType mirrorType = MirrorType.LeftOntoRight;
 
