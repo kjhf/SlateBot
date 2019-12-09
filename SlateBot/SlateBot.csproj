@@ -11,9 +11,11 @@
     <None Remove="SaveData\Commands\Default\ASCII.xml" />
     <None Remove="SaveData\Commands\Default\Help.xml" />
     <None Remove="SaveData\Commands\Default\Obabo.xml" />
+    <None Remove="SaveData\Commands\Default\Servers.xml" />
     <None Remove="SaveData\Commands\Default\YouTube.xml" />
     <None Remove="SaveData\Commands\Default\YouTubeRepeat.xml" />
     <None Remove="SaveData\Commands\Default\YouTubeSaveFrom.xml" />
+    <None Remove="SaveData\Commands\Default\Zalgo.xml" />
     <None Remove="SaveData\Commands\French\Aide.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +85,8 @@
     <Content Include="SaveData\Commands\Default\642D.xml" />
     <Content Include="SaveData\Commands\Default\Achievement.xml" />
     <Content Include="SaveData\Commands\Default\ARMS.xml" />
+    <Content Include="SaveData\Commands\Default\Servers.xml" />
+    <Content Include="SaveData\Commands\Default\Zalgo.xml" />
     <Content Include="SaveData\Commands\Default\YouTubeSaveFrom.xml" />
     <Content Include="SaveData\Commands\Default\YouTubeRepeat.xml" />
     <Content Include="SaveData\Commands\Default\YouTube.xml" />

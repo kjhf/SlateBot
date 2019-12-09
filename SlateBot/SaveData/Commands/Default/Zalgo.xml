@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Zalgo</CommandType>
+  <Aliases>Zalgo</Aliases>
+  <Help>Hẽ ͕c͞oͥm̡eṡ</Help>
+  <Module>Text Commands</Module>
+  <Examples>@Slate zalgo He comes</Examples>
+</Root>

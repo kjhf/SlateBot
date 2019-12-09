@@ -1,12 +1,10 @@
 ﻿using CsHelper;
 using SlateBot.Language;
-using SlateBot.Utility;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace SlateBot.Commands.Random
+namespace SlateBot.Commands.RandomCommand
 {
   public class RandomCommand : Command
   {
@@ -100,7 +98,7 @@ namespace SlateBot.Commands.Random
       ulong range = (ulong)(max - min);
       if (range == 0) range = 1;
 
-      long normNum = (num - min);      
+      long normNum = (num - min);
       float percentage = (((float)normNum) / range) * 360;
       if (percentage > 360) { percentage = 360; }
       var drawingColour = Imaging.ImageManipulator.FromAHSB(255, percentage, 0.8f, 0.5f);

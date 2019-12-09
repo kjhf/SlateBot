@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using SlateBot.DAL.CommandFile;
 
-namespace SlateBot.Commands.Random
+namespace SlateBot.Commands.Servers
 {
-  class RandomCommandHandler : ICommandHandler
+  class ServersCommandHandler : ICommandHandler
   {
-    public CommandHandlerType CommandHandlerType => CommandHandlerType.Random;
+    public CommandHandlerType CommandHandlerType => CommandHandlerType.Servers;
     
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
       {
-        module = ModuleType.General;
+        module = ModuleType.BotAdmin;
       }
 
-      return (new RandomCommand(controller.languageHandler, file.Aliases, file.Examples, file.Help, module));
+      return (new ServersCommand(controller.client, controller.serverSettingsHandler, controller.languageHandler, file.Aliases, file.Examples, file.Help, module));
     }
   }
 }
