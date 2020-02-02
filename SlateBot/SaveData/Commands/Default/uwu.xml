@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Replace</CommandType>
+  <Aliases>uwu</Aliases>
+  <Help>Replaces l and r with w</Help>
+  <Module>Text Commands</Module>
+  <Examples>@SlateBot uwu Example</Examples>
+  <ExtraData>
+    <IgnoreCase>false</IgnoreCase>
+    <Old>l</Old>
+    <New>w</New>
+    <Old>L</Old>
+    <New>W</New>
+    <Old>r</Old>
+    <New>w</New>
+    <Old>R</Old>
+    <New>W</New>
+  </ExtraData>
+</Root>
