@@ -20,7 +20,7 @@ namespace SlateBot.Commands.Help
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
-      string retVal = "";
+      StringBuilder retVal = new StringBuilder();
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
       string[] commandParams = command.CommandParams;
@@ -29,7 +29,15 @@ namespace SlateBot.Commands.Help
 
       if (string.IsNullOrWhiteSpace(command.CommandDetail))
       {
-        retVal = string.Join(", ", commands.Select(c => c.Aliases.First()));
+        var commandsByModule = commands.GroupBy(x => x.Module).ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+        foreach (var pair in commandsByModule)
+        {
+          retVal.Append("**");
+          retVal.Append(pair.Key.ToString());
+          retVal.AppendLine("**");
+          retVal.AppendLine(string.Join(", ", pair.Value.Select(c => c.Aliases[0])));
+          retVal.AppendLine();
+        }
       }
       else
       {
@@ -37,19 +45,20 @@ namespace SlateBot.Commands.Help
         Command found = commands.FirstOrDefault(c => c.Aliases.Contains(search, StringComparer.OrdinalIgnoreCase));
         if (found != null)
         {
-          retVal = found.Help + "\r\n" + found.Examples;
+          retVal.AppendLine(found.Help + "\r\n" + found.Examples);
         }
         else
         {
-          retVal = ($"{Emojis.QuestionSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}");
+          retVal.AppendLine($"{Emojis.QuestionSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_IncorrectParameter")}");
           responseColor = Discord.Color.Red;
         }
       }
 
+      string message = retVal.ToString();
       Response response = new Response
       {
-        Embed = Utility.EmbedUtility.StringToEmbed(retVal, responseColor),
-        Message = retVal,
+        Embed = Utility.EmbedUtility.StringToEmbed(message, responseColor),
+        Message = message,
         ResponseType = ResponseType.Default
       };
       return new[] { response };

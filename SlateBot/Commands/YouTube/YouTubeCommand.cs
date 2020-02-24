@@ -118,7 +118,6 @@ namespace SlateBot.Commands.YouTube
 
               Response asyncResponse = new Response
               {
-                Embed = (EmbedUtility.StringToEmbed(asyncRetVal)),
                 Message = asyncRetVal,
                 ResponseType = ResponseType.Default
               };
