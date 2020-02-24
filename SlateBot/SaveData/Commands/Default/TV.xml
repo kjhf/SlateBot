@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>TV</Aliases>
+  <Help>Generates a TV meme from an attached image or url.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!tv http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <Template>TVTemplate.png</Template>
+    <TopLeft>0,95</TopLeft>
+    <TopRight>545,54</TopRight>
+    <BottomLeft>68,379</BottomLeft>
+  </ExtraData>
+</Root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>Blush</Aliases>
+  <Help>Generates a Blush meme from an image.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!Blush http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <Template>BlushTemplate.png</Template>
+  </ExtraData>
+</Root>

@@ -20,6 +20,7 @@ namespace SlateBot.DAL
     internal readonly string saveDataFolder;
     internal readonly string programFolder;
     internal readonly string commandsParentFolder;
+    internal readonly string memeFolder;
     private readonly Dictionary<Languages, CommandFileDAL> commandFileDALs;
     private readonly LanguagesFileDAL languagesFileDAL;
     private readonly ServerSettingsFileDAL serverSettingsDAL;
@@ -44,6 +45,8 @@ namespace SlateBot.DAL
       Directory.CreateDirectory(receivedFilesFolder);
       this.commandsParentFolder = Path.Combine(saveDataFolder, "Commands");
       Directory.CreateDirectory(commandsParentFolder);
+      this.memeFolder = Path.Combine(saveDataFolder, "Memes");
+      Directory.CreateDirectory(memeFolder);
 
       this.errorLogger = new ErrorLogger(Path.Combine(saveDataFolder, "Logs"));
       this.languagesFileDAL = new LanguagesFileDAL(errorLogger, Path.Combine(saveDataFolder, "Languages"));

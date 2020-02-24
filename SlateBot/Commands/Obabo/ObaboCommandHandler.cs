@@ -16,7 +16,7 @@ namespace SlateBot.Commands.Obabo
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);
       if (!moduleParsed)
       {
-        module = ModuleType.General;
+        module = ModuleType.Image;
       }
 
       var dictionary = file.ExtraData;

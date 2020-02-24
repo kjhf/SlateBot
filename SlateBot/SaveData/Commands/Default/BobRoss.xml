@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>bobross</Aliases>
+  <Help>Generates a Bob Ross meme from an attached image or url.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!bobross http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <Template>BobRossTemplate.png</Template>
+  </ExtraData>
+</Root>

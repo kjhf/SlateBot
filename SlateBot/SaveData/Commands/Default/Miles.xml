@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>Miles</Aliases>
+  <Help>Generates a Miles meme from an image.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!Miles http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <Template>MilesTemplate.png</Template>
+    <TopLeft>476,254</TopLeft>
+    <TopRight>972,271</TopRight>
+    <BottomLeft>476,843</BottomLeft>
+  </ExtraData>
+</Root>

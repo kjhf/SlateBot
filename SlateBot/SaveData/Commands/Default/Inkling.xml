@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>Inkling,sma5h</Aliases>
+  <Help>Generates a Inkling meme from an image.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!Inkling http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <TopLeft>494,208</TopLeft>
+    <TopRight>681,208</TopRight>
+    <BottomLeft>494,400</BottomLeft>
+    <Template>InklingTemplate.png</Template>
+  </ExtraData>
+</Root>

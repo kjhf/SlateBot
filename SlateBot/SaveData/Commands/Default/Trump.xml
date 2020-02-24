@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>Trump</Aliases>
+  <Help>Generates a Trump meme from an attached image or url.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!trump http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <Template>DonaldTrumpSpeechTemplate.png</Template>
+  </ExtraData>
+</Root>

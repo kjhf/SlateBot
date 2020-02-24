@@ -15,5 +15,9 @@
     <New>w</New>
     <Old>R</Old>
     <New>W</New>
+    <Old>u</Old>
+    <New>wu</New>
+    <Old>U</Old>
+    <New>WU</New>
   </ExtraData>
 </Root>

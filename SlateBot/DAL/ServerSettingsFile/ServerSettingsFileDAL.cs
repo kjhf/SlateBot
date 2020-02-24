@@ -13,11 +13,11 @@ namespace SlateBot.DAL.ServerSettingsFile
   /// <summary>
   /// Command File Abstraction Layer handles the loading of the command XML files.
   /// </summary>
-  class ServerSettingsFileDAL
+  internal class ServerSettingsFileDAL
   {
     private readonly IErrorLogger errorLogger;
     private readonly string saveDirectory;
-    private SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
+    private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
 
     public ServerSettingsFileDAL(IErrorLogger errorLogger, string saveDirectory)
     {

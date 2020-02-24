@@ -90,7 +90,7 @@ namespace SlateBot.Imaging
           return Color.FromArgb(alpha, iMax, iMid, iMin);
       }
     }
-    
+
     public static void ChangeHue(Bitmap image, int hueChange)
     {
       for (int x = 0; x < image.Width; x++)
@@ -234,6 +234,47 @@ namespace SlateBot.Imaging
           break;
         }
       }
+    }
+
+    /// <summary>
+    /// Performs a meme and returns the file path.
+    /// </summary>
+    public static string PerformMeme(Bitmap overlay, string templatePath, Point[] destinationPoints)
+    {
+      string filePath;
+      using (Image i = Image.FromFile(templatePath))
+      {
+        using (Bitmap template = new Bitmap(i))
+        {
+          using (Bitmap result = new Bitmap(template.Width, template.Height))
+          {
+            result.MakeTransparent(Color.White);
+            
+            using (Graphics g = Graphics.FromImage(result))
+            {
+              g.DrawImage(overlay, destinationPoints);
+              g.DrawImage(template, 0, 0);
+
+              for (int x = 0; x < overlay.Width; x++)
+              {
+                for (int y = 0; y < overlay.Height; y++)
+                {
+                  if (overlay.GetPixel(x, y).A == 0)
+                  {
+                    overlay.SetPixel(x, y, Color.White);
+                  }
+                }
+              }
+
+              g.Save();
+            }
+
+            filePath = Path.GetTempFileName() + ".png";
+            result.Save(filePath);
+          }
+        }
+      }
+      return filePath;
     }
 
     /// <summary>

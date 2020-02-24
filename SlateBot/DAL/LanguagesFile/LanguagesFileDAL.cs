@@ -12,7 +12,7 @@ namespace SlateBot.DAL.LanguagesFile
   /// <summary>
   /// Languages File Data Abstraction Layer handles the loading of the language XML files.
   /// </summary>
-  class LanguagesFileDAL
+  internal class LanguagesFileDAL
   {
     private readonly LanguagesFile file;
     private readonly IErrorLogger errorLogger;

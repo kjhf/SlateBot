@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Meme</CommandType>
+  <Aliases>LePen2</Aliases>
+  <Help>Generates a LePen meme from an attached image or url.</Help>
+  <Module>Image Commands</Module>
+  <Examples>!LePen2 http://cdn.wikimg.net/splatoonwiki/images/e/e3/NIWA_logo.png</Examples>
+  <ExtraData>
+    <TopLeft>341,231</TopLeft>
+    <TopRight>674,227</TopRight>
+    <BottomLeft>323,472</BottomLeft>
+    <Template>LePen2Template.png</Template>
+  </ExtraData>
+</Root>
