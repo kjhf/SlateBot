@@ -109,6 +109,10 @@ namespace SlateBot
       {
         // Log the result.
         string str = response.Message;
+        if (response.ResponseType == ResponseType.Default_TTS)
+        {
+          str = "[TTS] " + str;
+        }
         if (response.FilePath != null)
         {
           str += "\n" + response.FilePath;

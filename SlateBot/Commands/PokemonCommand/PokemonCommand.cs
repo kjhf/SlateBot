@@ -1,12 +1,19 @@
 ﻿using CsHelper;
 using PokemonLibrary;
+using SlateBot.DAL;
+using SlateBot.Errors;
 using SlateBot.Language;
+using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
+using System.DrawingCore;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SlateBot.Commands.PokemonCommand
 {
@@ -14,21 +21,58 @@ namespace SlateBot.Commands.PokemonCommand
   {
     private const string RedirectString = "#REDIRECT";
     private readonly LanguageHandler languageHandler;
+    private readonly PleaseWaitHandler waitHandler;
+    private readonly IAsyncResponder asyncResponder;
+    private readonly IErrorLogger errorLogger;
+    private readonly SlateBotDAL dal;
+    // private readonly List<CorrelationData> pokemonStdDevs;
 
-    internal PokemonCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
+    internal PokemonCommand(SlateBotController controller, string[] aliases, string examples, string help, ModuleType module)
       : base(CommandHandlerType.PokemonType, aliases, examples, help, module)
     {
-      this.languageHandler = languageHandler;
-    }
+      this.languageHandler = controller.languageHandler;
+      this.waitHandler = controller.waitHandler;
+      this.asyncResponder = controller;
+      this.dal = controller.dal;
+      this.errorLogger = dal.errorLogger;
+
+      // Build the database
+      // this.pokemonStdDevs = dal.PokemonSDevs;
+  }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CultureInfo cultureInfo = languageHandler.GetCultureInfo(serverSettings.Language);
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
+
       Discord.Color responseColor = Discord.Color.Green;
       // First, check the cache if we already have this pokémon.
       string query = command.CommandDetail;
+      if (args.URLs.Length > 0)
+      {
+        var response = new[] { waitHandler.CreatePleaseWaitResponse(senderDetail.ServerSettings.Language) };
+
+        Task.Run(async () =>
+        {
+          Response asyncResponse = await CorrelatePokemonAsync(senderDetail.ServerSettings.Language, args);
+          if (asyncResponse == null)
+          {
+            string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_NoImageMessages")}");
+            asyncResponse = new Response
+            {
+              Embed = EmbedUtility.StringToEmbed(err),
+              Message = err,
+              ResponseType = ResponseType.Default
+            };
+          }
+          await asyncResponder.SendResponseAsync(args, asyncResponse);
+          waitHandler.PopPleaseWaitMessage();
+        });
+
+        return response;
+      }
+
       query = query.Replace("(Pokemon)", "").Replace("(Pokémon)", "").Trim();
       query = query.Replace("(move)", "").Trim();
 
@@ -50,8 +94,8 @@ namespace SlateBot.Commands.PokemonCommand
 
         if (pokemon != null)
         {
-          string p = pokemon.Name + "_(Pokémon)";
-          output.AppendLine("https://bulbapedia.bulbagarden.net/wiki/" + p)
+          string p = pokemon.Name + "_(Pokémon)#"; // # is for mobile where () is not correctly parsed in the URL parser
+          output.Append("https://bulbapedia.bulbagarden.net/wiki/").AppendLine(p)
                 .AppendLine(MakeAPokemonString(pokemon, cultureInfo, serverSettings.Language));
         }
         else
@@ -178,6 +222,115 @@ namespace SlateBot.Commands.PokemonCommand
       sb.AppendLine("```");
       return sb.ToString();
     }
+
+    private async Task<Response> CorrelatePokemonAsync(Languages language, IMessageDetail m)
+    {
+      string[] urls = m.URLs;
+      Response response = null;
+      for (int i = 0; i < urls.Length; i++)
+      {
+        string url = urls[i];
+        try
+        {
+          // Check if the url is a file
+          if (WebHelper.IsImageUrl(url))
+          {
+            // It is, download and perform the correlation
+            var tuple = await WebHelper.DownloadFile(url).ConfigureAwait(false);
+            if (tuple.Item2 != null)
+            {
+              response = Response.CreateFromString("URLs not yet supported.");
+              //response = DoCorrelatePokemonAsync(language, tuple.Item2);
+            }
+            else
+            {
+              // We failed, return a response indicating the failure.
+              string err = Emojis.NoEntrySign + " " + tuple.Item1.ReasonPhrase;
+              response = new Response
+              {
+                Embed = EmbedUtility.StringToEmbed(err),
+                Message = err,
+                ResponseType = ResponseType.Default
+              };
+            }
+            break;
+          }
+        }
+        catch (HttpRequestException ex)
+        {
+          errorLogger.LogDebug($"HttpRequestException exception downloading file: {url}. Assuming file too big.", true);
+          errorLogger.LogException(ex, ErrorSeverity.Information);
+          string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(language, "Error_NotAFile")}");
+          response = new Response
+          {
+            Embed = EmbedUtility.StringToEmbed(err),
+            Message = err,
+            ResponseType = ResponseType.Default
+          };
+          break;
+        }
+        catch (Exception ex)
+        {
+          errorLogger.LogDebug($"Exception downloading or handling Pokemon file: {url}", true);
+          errorLogger.LogException(ex, ErrorSeverity.Information);
+          // try other urls
+        }
+      }
+      return response;
+    }
+
+    /*
+    private Response DoCorrelatePokemonAsync(Languages language, byte[] file)
+    {
+      Response response = new Response
+      {
+        ResponseType = ResponseType.Default
+      };
+
+      try
+      {
+        var fileCorr = new CorrelationData(file, true);
+
+        string minimum = "", maximum = "";
+        double minimumScore = double.MaxValue, maximumScore = double.MinValue;
+
+        foreach (var otherCorrData in pokemonStdDevs)
+        {
+          double corr = fileCorr.GetCorrelation(otherCorrData);
+          if (corr < minimumScore)
+          {
+            minimum = (string)otherCorrData.Tag;
+            minimumScore = corr;
+          }
+          if (corr > maximumScore)
+          {
+            maximum = (string)otherCorrData.Tag;
+            maximumScore = corr;
+          }
+        }
+
+        response.Message = ($"{Emojis.TickSymbol} Best result: {minimum} scored {minimumScore}. Worst result: {maximum} scored {maximumScore}.");
+      }
+      catch (OutOfMemoryException)
+      {
+        response.Message = ($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(language, "Error_NotAFile")}");
+      }
+      catch (IOException iox)
+      {
+        // e.g. path error
+        response.Message = ($"{Emojis.ExclamationSymbol} {iox.Message}");
+        errorLogger.LogException(iox, ErrorSeverity.Information);
+      }
+      catch (Exception sysEx)
+      {
+        // everything else
+        response.Message = ($"{Emojis.ExclamationSymbol} {sysEx.Message}");
+        errorLogger.LogException(sysEx, ErrorSeverity.Error);
+      }
+
+      return response;
+    }
+    */
 
     private static string GetProgressBar(int value, int capacity)
     {

@@ -25,6 +25,11 @@
     /// <summary> 
     /// This is a Please Wait message.
     /// </summary>
-    PleaseWaitMessage
+    PleaseWaitMessage,
+
+    /// <summary> 
+    /// Use the default response handling (same channel context) as a TTS message.
+    /// </summary>
+    Default_TTS
   }
 }

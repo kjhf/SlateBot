@@ -9,8 +9,7 @@ namespace SlateBot.Commands.Replace
   public class ReplaceCommand : Command
   {
     private readonly IDictionary<string, string> replaceTable;
-    private readonly bool ignoreCase;
-    private readonly bool reverse;
+    private readonly bool ignoreCase, reverse, doTTS;
 
     /// <summary>
     /// Replace the message with the supplied characters.
@@ -18,12 +17,13 @@ namespace SlateBot.Commands.Replace
     /// <param name="aliases"></param>
     /// <param name="choices"></param>
     /// <param name="help"></param>
-    public ReplaceCommand(IEnumerable<string> aliases, string examples, string help, ModuleType module, IDictionary<string, string> replacements, bool ignoreCase, bool reverse = false)
+    public ReplaceCommand(IEnumerable<string> aliases, string examples, string help, ModuleType module, IDictionary<string, string> replacements, bool ignoreCase, bool reverse = false, bool doTTS = false)
       : base(CommandHandlerType.Replace, aliases?.ToArray(), examples, help, module)
     {
       this.replaceTable = replacements;
       this.ignoreCase = ignoreCase;
       this.reverse = reverse;
+      this.doTTS = doTTS;
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
@@ -63,25 +63,44 @@ namespace SlateBot.Commands.Replace
         sb.Append(letter);
       }
 
-      Response response = new Response
+      string output = reverse ? new string(sb.ToString().Reverse().ToArray()) : sb.ToString();
+      List<Response> responses = new List<Response>
       {
-        Embed = null,
-        Message = reverse ? new string(sb.ToString().Reverse().ToArray()) : sb.ToString(),
-        ResponseType = ResponseType.Default
+        new Response
+        {
+          Embed = null,
+          Message = output,
+          ResponseType = ResponseType.Default
+        }
       };
-      return new[] { response };
+
+      if (doTTS)
+      {
+        responses.Add(
+          new Response
+          {
+            Embed = null,
+            Message = output,
+            ResponseType = ResponseType.Default_TTS
+          }
+        );
+      }
+      return responses.ToArray();
     }
 
     protected override List<KeyValuePair<string, string>> ConstructExtraData()
     {
       var retVal = new List<KeyValuePair<string, string>>(1 + (replaceTable.Count * 2))
       {
-        // Extra data is IgnoreCase and Reverse
+        // Extra data is IgnoreCase, Reverse, DoTTS
         {
           "IgnoreCase", ignoreCase.ToString()
         },
         {
           "Reverse", reverse.ToString()
+        },
+        {
+          "DoTTS", doTTS.ToString()
         }
       };
 

@@ -1,4 +1,5 @@
-﻿using SlateBot.DAL.CommandFile;
+﻿using CsHelper;
+using SlateBot.DAL.CommandFile;
 using SlateBot.DAL.LanguagesFile;
 using SlateBot.DAL.ServerSettingsFile;
 using SlateBot.DAL.UserSettingsFile;
@@ -7,6 +8,7 @@ using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace SlateBot.DAL
 {
@@ -21,6 +23,7 @@ namespace SlateBot.DAL
     internal readonly string programFolder;
     internal readonly string commandsParentFolder;
     internal readonly string memeFolder;
+    internal readonly string pokemonFolder;
     private readonly Dictionary<Languages, CommandFileDAL> commandFileDALs;
     private readonly LanguagesFileDAL languagesFileDAL;
     private readonly ServerSettingsFileDAL serverSettingsDAL;
@@ -47,6 +50,8 @@ namespace SlateBot.DAL
       Directory.CreateDirectory(commandsParentFolder);
       this.memeFolder = Path.Combine(saveDataFolder, "Memes");
       Directory.CreateDirectory(memeFolder);
+      this.pokemonFolder = Path.Combine(saveDataFolder, "Pokemon");
+      Directory.CreateDirectory(pokemonFolder);
 
       this.errorLogger = new ErrorLogger(Path.Combine(saveDataFolder, "Logs"));
       this.languagesFileDAL = new LanguagesFileDAL(errorLogger, Path.Combine(saveDataFolder, "Languages"));

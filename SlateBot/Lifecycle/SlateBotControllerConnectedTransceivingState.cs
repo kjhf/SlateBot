@@ -94,6 +94,10 @@ namespace SlateBot.Lifecycle
           }
         });
       }
+      else if (message.ResponseType == Commands.ResponseType.Default_TTS)
+      {
+        destination.SendMessageAsync(message.Message, true);
+      }
       else
       {
         // This can be fired and forgotten.

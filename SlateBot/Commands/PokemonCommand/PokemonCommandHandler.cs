@@ -15,7 +15,7 @@ namespace SlateBot.Commands.PokemonCommand
         module = ModuleType.General;
       }
 
-      return (new PokemonCommand(controller.languageHandler, file.Aliases, file.Examples, file.Help, module));
+      return (new PokemonCommand(controller, file.Aliases, file.Examples, file.Help, module));
     }
   }
 }

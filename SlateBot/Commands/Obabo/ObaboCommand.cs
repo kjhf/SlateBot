@@ -6,11 +6,8 @@ using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.DrawingCore;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SlateBot.Commands.Obabo
@@ -136,7 +133,6 @@ namespace SlateBot.Commands.Obabo
 
       try
       {
-
         using (Image original = Image.FromStream(new MemoryStream(file)))
         {
           using (Bitmap bmp = new Bitmap(original))

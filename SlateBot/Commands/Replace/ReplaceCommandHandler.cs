@@ -21,6 +21,7 @@ namespace SlateBot.Commands.Replace
       var dictionary = file.ExtraData;
       bool ignoreCase = true;
       bool reverse = false;
+      bool doTTS = false;
       string[] old;
       string[] @new;
       Dictionary<string, string> replacements = new Dictionary<string, string>();
@@ -38,6 +39,12 @@ namespace SlateBot.Commands.Replace
           reverse = bool.Parse(reverseStr.First());
         }
 
+        bool hasDoTTS = file.ExtraData.TryGetValue("DoTTS", out IEnumerable<string> doTTSStr) > 0;
+        if (hasDoTTS)
+        {
+          doTTS = bool.Parse(doTTSStr.First());
+        }
+
         old = file.ExtraData.Where(pair => pair.Key.Equals("Old")).Select(pair => pair.Value).ToArray();
         @new = file.ExtraData.Where(pair => pair.Key.Equals("New")).Select(pair => pair.Value).ToArray();
 
@@ -50,7 +57,7 @@ namespace SlateBot.Commands.Replace
         }
       }
 
-      return (new ReplaceCommand(file.Aliases, file.Examples, file.Help, module, replacements, ignoreCase, reverse));
+      return (new ReplaceCommand(file.Aliases, file.Examples, file.Help, module, replacements, ignoreCase, reverse, doTTS));
     }
   }
 }
