@@ -26,7 +26,6 @@ namespace SlateBot.Commands.ResponseMessage
     {
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
-      string[] commandParams = command.CommandParams;
 
       string choice = choices[rand.Next(choices.Length)];
       string result = VariableStrings.Replace(choice, args.Username, args.UserId.ToString(), args.GuildName, command.CommandDetail);

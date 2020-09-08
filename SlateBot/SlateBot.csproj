@@ -195,4 +195,12 @@
     <ProjectReference Include="..\CsHelper\CsHelper.csproj" />
     <ProjectReference Include="..\PokemonLibrary\PokemonLibrary.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SplatTagCore">
+      <HintPath>..\..\SplatTag\SplatTagCore\bin\Release\netstandard2.0\SplatTagCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SplatTagDatabase">
+      <HintPath>..\..\SplatTag\SplatTagDatabase\bin\Release\netstandard2.0\SplatTagDatabase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

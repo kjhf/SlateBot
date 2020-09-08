@@ -53,5 +53,7 @@ namespace SlateBot.Commands
     PullImage,
     Help,
     Dice,
+    Slapp,
+    SplatBuilds
   }
 }

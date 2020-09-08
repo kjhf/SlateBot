@@ -42,6 +42,8 @@ namespace SlateBot
 
     public const string CheckUnicode = "✅";
     public const string MessageUnicode = "✉️";
+    public const string DiscUnicode = "💾";
+
 
     // Server emojis
     public const string Splatoon_SplatZones = "<:Splatoon_Mode_Splat_Zones:346072719911026689>";

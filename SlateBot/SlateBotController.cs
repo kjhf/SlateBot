@@ -256,33 +256,38 @@ namespace SlateBot
       HandleCommandReceived(new SenderSettings(serverSettings, userSettings), socketMessage);
 
       // If the message has a file and was sent to us in private, save that file.
-      if (socketMessage.IsPrivate)
+      if (Constants.IsBotOwner(userSettings.UserId))
       {
-        if (socketMessage.socketMessage.Attachments.Any() || socketMessage.socketMessage.Embeds.Any())
+        if (socketMessage.IsPrivate && socketMessage.socketMessage is SocketUserMessage socketUserMessage)
         {
-          Task.Run(async () =>
+          if (socketUserMessage.Attachments.Count > 0 || socketUserMessage.Embeds.Count > 0)
           {
-            foreach (var attachment in socketMessage.socketMessage.Attachments)
+            Task.Run(async () =>
             {
-              var result = await WebHelper.DownloadFile(attachment.Url);
-              if (result != null && result.Item2 != null)
+              foreach (var attachment in socketUserMessage.Attachments)
               {
-                await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, attachment.Filename), result.Item2);
-              }
-            }
-            foreach (var embed in socketMessage.socketMessage.Embeds)
-            {
-              if (embed.Image.HasValue)
-              {
-                var image = (EmbedImage)embed.Image;
-                var result = await WebHelper.DownloadFile(image.Url);
-                if (result != null && result.Item2 != null)
+                var result = await WebHelper.DownloadFile(attachment.Url).ConfigureAwait(false);
+                if (result?.Item2 != null)
                 {
-                  await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")), result.Item2);
+                  await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, attachment.Filename), result.Item2).ConfigureAwait(false);
+                  await socketUserMessage.AddReactionAsync(new Emoji(Emojis.DiscUnicode)).ConfigureAwait(false);
                 }
               }
-            }
-          });
+              foreach (var embed in socketUserMessage.Embeds)
+              {
+                if (embed.Image.HasValue)
+                {
+                  var image = (EmbedImage)embed.Image;
+                  var result = await WebHelper.DownloadFile(image.Url).ConfigureAwait(false);
+                  if (result?.Item2 != null)
+                  {
+                    await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")), result.Item2).ConfigureAwait(false);
+                    await socketUserMessage.AddReactionAsync(new Emoji(Emojis.DiscUnicode)).ConfigureAwait(false);
+                  }
+                }
+              }
+            });
+          }
         }
       }
     }

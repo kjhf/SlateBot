@@ -4,7 +4,6 @@ using SlateBot.Language;
 using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SlateBot.Commands.PullImage

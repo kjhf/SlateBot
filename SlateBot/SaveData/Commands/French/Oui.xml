@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <CommandType>ResponseMessage</CommandType>
-  <Aliases>,?</Aliases>
+  <Aliases>hey</Aliases>
   <Help>Yes?</Help>
-  <Examples>!?</Examples>
+  <Examples>!hey</Examples>
   <ExtraData>
     <C>Oui?</C>
     <C>Voulez-vous quelque chose?</C>
