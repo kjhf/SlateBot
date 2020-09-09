@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SlateBot.Commands.Slapp
@@ -127,14 +126,14 @@ namespace SlateBot.Commands.Slapp
           new EmbedFieldBuilder()
             .WithIsInline(true)
             .WithName("Players")
-            .WithValue(string.Join('\n', playerStrings))
+            .WithValue(string.Join("\n\n", playerStrings))
           : null;
 
         var teamsField =
           new EmbedFieldBuilder()
             .WithIsInline(true)
             .WithName("Teams")
-            .WithValue(string.Join('\n', teamStrings))
+            .WithValue(string.Join("\n\n", teamStrings))
           ;
 
         var builder = new EmbedBuilder()

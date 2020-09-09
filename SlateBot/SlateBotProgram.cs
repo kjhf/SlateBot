@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot
 {
-  class SlateBotProgram
+  internal class SlateBotProgram
   {
     #region Static and Main
+
     private static SlateBotProgram instance;
     public static bool ConsoleIsPrivate = true;
 
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
       Console.Title = nameof(SlateBot);
       instance = new SlateBotProgram(args);
 
       try
       {
+        Debug.WriteLine("RUNNING IN DEBUG.");
+        if (Debugger.IsAttached)
+        {
+          Console.WriteLine("DEBUGGER IS ATTACHED.");
+        }
         instance.MainLoop();
       }
       catch (Exception ex)
@@ -30,7 +32,8 @@ namespace SlateBot
 
       Console.ReadLine();
     }
-    #endregion
+
+    #endregion Static and Main
 
     private readonly SlateBotController controller;
     private readonly ExitCodes lastExitCode;
