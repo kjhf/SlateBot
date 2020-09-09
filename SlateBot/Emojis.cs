@@ -26,6 +26,7 @@ namespace SlateBot
     public const string Warning = ":warning:";
     public const string Dice = ":game_die:";
     public const string Star = ":star:";
+    public const string Sloth = ":sloth:";
 
     public const string CorrectMastermindPin = ":large_blue_circle:";
     public const string MisplacedMastermindPin = ":white_circle:";

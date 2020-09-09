@@ -30,6 +30,11 @@
     /// <summary> 
     /// Use the default response handling (same channel context) as a TTS message.
     /// </summary>
-    Default_TTS
+    Default_TTS,
+
+    /// <summary>
+    /// Use the default response handling (same channel context) as a reaction (the message is converted into reacts).
+    /// </summary>
+    Default_React
   }
 }

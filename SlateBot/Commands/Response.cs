@@ -32,6 +32,18 @@ namespace SlateBot.Commands
     }
 
     /// <summary>
+    /// Create a Response object to react to the last message with the given emoji.
+    /// </summary>
+    public static Response CreateFromReact(params string[] emojis)
+    {
+      return new Response
+      {
+        Message = string.Join("|", emojis),
+        ResponseType = ResponseType.Default_React
+      };
+    }
+
+    /// <summary>
     /// Create a Response object as an array from a message to return using default parameters.
     /// </summary>
     /// <param name="message"></param>

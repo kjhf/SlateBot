@@ -56,6 +56,7 @@ namespace SlateBot.Lifecycle
 
     public SlateBotControllerLifecycleStates OnMessageReadyToSend(Commands.Response message, Discord.IMessageChannel destination)
     {
+      bool tts = message.ResponseType == ResponseType.Default_TTS;
       if (message.ResponseType == Commands.ResponseType.PleaseWaitMessage)
       {
         // We need to run this asynchronously.
@@ -94,10 +95,6 @@ namespace SlateBot.Lifecycle
           }
         });
       }
-      else if (message.ResponseType == Commands.ResponseType.Default_TTS)
-      {
-        destination.SendMessageAsync(message.Message, true);
-      }
       else
       {
         // This can be fired and forgotten.
@@ -105,22 +102,22 @@ namespace SlateBot.Lifecycle
         {
           if (message.FilePath == null)
           {
-            destination.SendMessageAsync(message.Message);
+            destination.SendMessageAsync(message.Message, tts);
           }
           else
           {
-            destination.SendFileAsync(message.FilePath, message.Message);
+            destination.SendFileAsync(message.FilePath, message.Message, tts);
           }
         }
         else
         {
           if (message.FilePath == null)
           {
-            destination.SendMessageAsync("", false, message.Embed.Build());
+            destination.SendMessageAsync("", tts, message.Embed.Build());
           }
           else
           {
-            destination.SendFileAsync(message.FilePath, "", false, message.Embed.Build());
+            destination.SendFileAsync(message.FilePath, "", tts, message.Embed.Build());
           }
         }
       }

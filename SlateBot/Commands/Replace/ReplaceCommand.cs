@@ -30,7 +30,6 @@ namespace SlateBot.Commands.Replace
     {
       ServerSettings serverSettings = senderDetail.ServerSettings;
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
-      string[] commandParams = command.CommandParams;
 
       // First, substitute the variables.
       string message = VariableStrings.Replace(command.CommandDetail, args.Username, args.UserId.ToString(), args.GuildName, command.CommandDetail);

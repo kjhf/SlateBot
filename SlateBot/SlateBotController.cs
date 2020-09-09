@@ -111,6 +111,7 @@ namespace SlateBot
         string str = response.Message;
         if (response.ResponseType == ResponseType.Default_TTS)
         {
+          Debug.Assert(isFromConsole);
           str = "[TTS] " + str;
         }
         if (response.FilePath != null)
@@ -140,7 +141,14 @@ namespace SlateBot
               (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
               (IMessageChannel)socketMessageWrapper.Channel;
 
-          SendMessage(response, responseChannel);
+          if (response.ResponseType != ResponseType.Default_React)
+          {
+            SendMessage(response, responseChannel);
+          }
+          else
+          {
+            await socketMessageWrapper.socketMessage.AddReactionAsync(new Emoji(response.Message)).ConfigureAwait(false);
+          }
         }
         else
         {

@@ -63,7 +63,7 @@
     <New>:grey_question: </New>
     <Old>!</Old>
     <New>:grey_exclamation: </New>
-    <Old> </Old>
-    <New>   </New>
+    <Old>\u0020</Old>
+    <New>\u0020\u0020\u0020</New>
   </ExtraData>
 </Root>

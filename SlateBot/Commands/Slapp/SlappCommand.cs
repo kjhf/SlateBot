@@ -14,6 +14,7 @@ namespace SlateBot.Commands.Slapp
   public class SlappCommand : Command
   {
     private readonly SplatTagController splatTagController;
+    private readonly Task initialiseTask;
     private readonly SplatTagJsonDatabase jsonDatabase;
     private readonly MultiDatabase splatTagDatabase;
     private readonly GenericFilesImporter multiSourceImporter;
@@ -39,8 +40,11 @@ namespace SlateBot.Commands.Slapp
         // Construct the controller.
         splatTagController = new SplatTagController(splatTagDatabase);
 
-        // Load the database
-        splatTagController.Initialise();
+        initialiseTask = Task.Run(() =>
+        {
+          // Load the database
+          splatTagController.Initialise();
+        });
       }
       catch (Exception ex)
       {
@@ -72,6 +76,7 @@ namespace SlateBot.Commands.Slapp
         }
         else
         {
+          Task.WaitAll(initialiseTask);
           matchedPlayers = splatTagController.MatchPlayer(query);
           matchedTeams = splatTagController.MatchTeam(query);
           message = $"Found {matchedPlayers.Length} players and {matchedTeams.Length} teams! ";
@@ -100,17 +105,9 @@ namespace SlateBot.Commands.Slapp
           new string[1] { "(None)" } :
           matchedPlayers.Select(p =>
           {
-            StringBuilder oldTeams = new StringBuilder();
             var teams = p.Teams.Select(id => splatTagController.GetTeamById(id));
+            string oldTeams = teams.GetOldTeamsStrings();
             var currentTeam = teams.FirstOrDefault();
-            teams = teams.Skip(1);
-            if (teams.Any())
-            {
-              oldTeams.Append("(Old teams: ");
-              oldTeams.Append(string.Join(", ", teams.Select(t => t.Tag + " " + t.Name)));
-              oldTeams.Append(")");
-            }
-
             return $"{p.Name} (Plays for {currentTeam} {oldTeams}";
           })
         ;
@@ -120,23 +117,9 @@ namespace SlateBot.Commands.Slapp
           new string[1] { "(None)" } :
           matchedTeams.Select(t =>
           {
-            (Player, bool)[] playersForTeam = splatTagController.GetPlayersForTeam(t);
-            IDivision highestDiv = t.Div;
-            foreach ((Player, bool) pair in playersForTeam)
-            {
-              if (pair.Item2 && pair.Item1.Teams.Count() > 1)
-              {
-                foreach (Team playerTeam in pair.Item1.Teams.Select(id => splatTagController.GetTeamById(id)))
-                {
-                  if (playerTeam.Div.Value < highestDiv.Value)
-                  {
-                    highestDiv = playerTeam.Div;
-                  }
-                }
-              }
-            }
-            var players = string.Join(", ", playersForTeam.Select(tuple => tuple.Item1.Name + " " + (tuple.Item2 ? "(Current)" : "(Ex)")));
-            return $"{t.Tag} {t.Name} ({t.Div}). Highest div'd player is {highestDiv}. Players: {players}";
+            string[] players = t.GetTeamPlayersStrings(splatTagController);
+            string divPhrase = t.GetBestTeamPlayerDivString(splatTagController);
+            return $"{t.Tag} {t.Name} ({t.Div}). {divPhrase} Players: {string.Join(", ", players)}";
           })
         ;
 
@@ -182,7 +165,15 @@ namespace SlateBot.Commands.Slapp
       });
 
       // Return out the lifecycle with no response.
-      return new[] { Response.WaitForAsync };
+      if (!initialiseTask.IsCompleted)
+      {
+        // Also react with a Sloth if the database hasn't loaded yet.
+        return new[] { Response.WaitForAsync, Response.CreateFromReact(Emojis.Sloth) };
+      }
+      else
+      {
+        return new[] { Response.WaitForAsync };
+      }
     }
   }
 }
