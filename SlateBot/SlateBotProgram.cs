@@ -74,10 +74,9 @@ namespace SlateBot
       Console.WriteLine("#: Connection options");
       Console.WriteLine("L: Load app settings");
       Console.WriteLine("r: Restart");
-      Console.WriteLine("t: Change title");
       Console.WriteLine("x: Close");
       Console.WriteLine("\\: Test code");
-      Console.WriteLine("!: Toggle console is private");
+      Console.WriteLine("P: Toggle console is private");
 
       // Load commands
       controller.Initialise();
@@ -150,14 +149,6 @@ namespace SlateBot
                 break;
               }
 
-              case 't':
-              {
-                Console.WriteLine("Enter a new title.");
-                Console.Title = (Console.ReadLine());
-                Console.WriteLine(Environment.NewLine);
-                break;
-              }
-
               case 'x':
               {
                 controller.Disconnect();
@@ -167,10 +158,17 @@ namespace SlateBot
                 break;
               }
 
-              case '!':
+              case 'P':
               {
                 ConsoleIsPrivate = !ConsoleIsPrivate;
                 Console.WriteLine("Console is private now: " + ConsoleIsPrivate);
+                break;
+              }
+
+              default:
+              {
+                // Treat as a command instead.
+                controller.HandleConsoleCommand(line);
                 break;
               }
             }

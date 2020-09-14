@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Avatar</CommandType>
+  <Aliases>avatar</Aliases>
+  <Help>Get a user or server's avatar</Help>
+  <Module>General</Module>
+  <Examples>@SlateBot avatar</Examples>
+</Root>

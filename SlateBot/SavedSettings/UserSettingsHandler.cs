@@ -58,7 +58,7 @@ namespace SlateBot.SavedSettings
       }
     }
 
-    private void UserStats_AchievementUnlocked(object sender, Events.AchievementUnlockedEventsArgs args)
+    private async void UserStats_AchievementUnlocked(object sender, Events.AchievementUnlockedEventsArgs args)
     {
       var lh = controller.languageHandler;
       Languages l = args.senderSettings.ServerSettings.Language;
@@ -76,7 +76,7 @@ namespace SlateBot.SavedSettings
           Message = achievementMessage,
           ResponseType = ResponseType.Default
         };
-        controller.SendMessage(response, args.senderSettings.UserSettings.UserStats.LastActiveChannelId);
+        await controller.SendResponseAsync(args.senderSettings.UserSettings.UserStats.LastActiveChannelId, response).ConfigureAwait(false);
       }
     }
 

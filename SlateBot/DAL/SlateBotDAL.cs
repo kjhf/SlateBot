@@ -70,6 +70,16 @@ namespace SlateBot.DAL
       errorLogger.Initialise();
     }
 
+    /// <summary>
+    /// Loads the specified file. If that file can be loaded, it is copied into the DAL's save space.
+    /// Returns the file loaded, or null if unsuccessful.
+    /// This does NOT add to the command handlers.
+    /// </summary>
+    internal CommandFile.CommandFile LoadCopySingleCommand(string fromPath, Languages language = Languages.Default)
+    {
+      return commandFileDALs[language].LoadCopySingleCommand(fromPath);
+    }
+
     internal Dictionary<Languages, List<CommandFile.CommandFile>> ReadCommandFiles()
     {
       Dictionary<Languages, List<CommandFile.CommandFile>> result = new Dictionary<Languages, List<CommandFile.CommandFile>>();

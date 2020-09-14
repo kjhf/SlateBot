@@ -10,12 +10,9 @@ using SlateBot.Language;
 using SlateBot.Lifecycle;
 using SlateBot.SavedSettings;
 using SlateBot.Scheduler;
-using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -108,26 +105,16 @@ namespace SlateBot
       else if (isFromConsole || response.ResponseType == ResponseType.LogOnly)
       {
         // Log the result.
-        string str = response.Message;
         if (response.ResponseType == ResponseType.Default_TTS)
         {
           Debug.Assert(isFromConsole);
-          str = "[TTS] " + str;
+          response.Message = "[TTS] " + response.Message;
         }
         if (response.FilePath != null)
         {
-          str += "\n" + response.FilePath;
+          response.Message += "\n" + response.FilePath;
         }
-        if (response.Embed != null && response.Embed.Color != null)
-        {
-
-          ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));
-          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, new Tuple<string, ConsoleColor>(str, cc)));
-        }
-        else
-        {
-          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, str));
-        }
+        SendMessageToConsole(response);
       }
       else
       {
@@ -157,24 +144,47 @@ namespace SlateBot
       }
     }
 
+    public bool SendResponse(ulong channelId, Response response)
+    {
+      if (channelId == Constants.ConsoleId)
+      {
+        SendMessageToConsole(response);
+      }
+      else
+      {
+        var channel = client.GetMessageChannel(channelId);
+        if (channel == null)
+        {
+          return false;
+        }
+        SendMessage(response, channel);
+      }
+      return true;
+    }
+
     public async Task SendResponseAsync(ulong channelId, Response response)
     {
       if (channelId == Constants.ConsoleId)
       {
-        if (response.Embed != null && response.Embed.Color != null)
-        {
-          ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));
-          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, new Tuple<string, ConsoleColor>(response.Message, cc)));
-        }
-        else
-        {
-          ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.Message));
-        }
+        SendMessageToConsole(response);
       }
       else
       {
-        var channel = await client.GetMessageChannelAsync(channelId);
+        var channel = await client.GetMessageChannelAsync(channelId).ConfigureAwait(false);
         SendMessage(response, channel);
+      }
+    }
+
+    private void SendMessageToConsole(Response response)
+    {
+      if (response.Embed?.Color != null)
+      {
+        ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, new Tuple<string, ConsoleColor>(response.Message, cc)));
+      }
+      else
+      {
+        ErrorLogger.LogError(new Error(ErrorCode.ConsoleMessage, ErrorSeverity.Information, response.Message));
       }
     }
 
@@ -262,50 +272,9 @@ namespace SlateBot
 
       // Handle the command
       HandleCommandReceived(new SenderSettings(serverSettings, userSettings), socketMessage);
-
-      // If the message has a file and was sent to us in private, save that file.
-      if (Constants.IsBotOwner(userSettings.UserId))
-      {
-        if (socketMessage.IsPrivate && socketMessage.socketMessage is SocketUserMessage socketUserMessage)
-        {
-          if (socketUserMessage.Attachments.Count > 0 || socketUserMessage.Embeds.Count > 0)
-          {
-            Task.Run(async () =>
-            {
-              foreach (var attachment in socketUserMessage.Attachments)
-              {
-                var result = await WebHelper.DownloadFile(attachment.Url).ConfigureAwait(false);
-                if (result?.Item2 != null)
-                {
-                  await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, attachment.Filename), result.Item2).ConfigureAwait(false);
-                  await socketUserMessage.AddReactionAsync(new Emoji(Emojis.DiscUnicode)).ConfigureAwait(false);
-                }
-              }
-              foreach (var embed in socketUserMessage.Embeds)
-              {
-                if (embed.Image.HasValue)
-                {
-                  var image = (EmbedImage)embed.Image;
-                  var result = await WebHelper.DownloadFile(image.Url).ConfigureAwait(false);
-                  if (result?.Item2 != null)
-                  {
-                    await File.WriteAllBytesAsync(Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")), result.Item2).ConfigureAwait(false);
-                    await socketUserMessage.AddReactionAsync(new Emoji(Emojis.DiscUnicode)).ConfigureAwait(false);
-                  }
-                }
-              }
-            });
-          }
-        }
-      }
     }
 
-    internal void SendMessage(Response message, ulong channelId)
-    {
-      lifecycle.OnMessageReadyToSend(message, (IMessageChannel)client.GetChannel(channelId));
-    }
-
-    internal void SendMessage(Response message, IMessageChannel channel)
+    private void SendMessage(Response message, IMessageChannel channel)
     {
       lifecycle.OnMessageReadyToSend(message, channel);
     }

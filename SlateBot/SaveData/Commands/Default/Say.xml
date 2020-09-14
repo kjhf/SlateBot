@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Say</CommandType>
+  <Aliases>Say</Aliases>
+  <Help>Send a message to a given id as the bot</Help>
+  <Module>BotAdmin</Module>
+  <Examples>@SlateBot say channel_id message</Examples>
+</Root>

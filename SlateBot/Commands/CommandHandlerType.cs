@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlateBot.Commands
+﻿namespace SlateBot.Commands
 {
   public enum CommandHandlerType
   {
@@ -44,7 +38,6 @@ namespace SlateBot.Commands
     Minecraft,
     ASCII,
     Colour,
-    CurrentDir,
     Random,
     Zalgo,
     SetName,
@@ -54,6 +47,7 @@ namespace SlateBot.Commands
     Help,
     Dice,
     Slapp,
-    SplatBuilds
+    SplatBuilds,
+    ReceiveFile,
   }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>SetName</CommandType>
+  <Aliases>setname,setnick,title</Aliases>
+  <Help>Sets the bot's nickname to the one specified</Help>
+  <Module>BotAdmin</Module>
+  <Examples>@SlateBot setname I'm baby</Examples>
+</Root>

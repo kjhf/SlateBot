@@ -25,6 +25,24 @@ namespace SlateBot.DAL.CommandFile
     }
 
     /// <summary>
+    /// Loads the specified file. If that file can be loaded, it is copied into the DAL's save space.
+    /// Returns the file loaded, or null if unsuccessful.
+    /// This does NOT add to the command handlers.
+    /// </summary>
+    internal CommandFile LoadCopySingleCommand(string fromPath, bool overwrite = true)
+    {
+      string contents = File.ReadAllText(fromPath);
+      CommandFile file = new CommandFile(errorLogger);
+      bool loaded = file.FromXML(contents);
+      if (loaded)
+      {
+        string newPath = Path.Combine(saveDirectory, Path.GetFileName(fromPath));
+        File.Copy(fromPath, newPath, overwrite);
+      }
+      return loaded ? file : null;
+    }
+
+    /// <summary>
     /// Loads command XML files present in the saveDirectory into <see cref="CommandFile"/>s
     /// </summary>
     /// <returns></returns>

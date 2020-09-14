@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace SlateBot
 {
@@ -15,18 +16,20 @@ namespace SlateBot
     private readonly Dictionary<CommandHandlerType, ICommandHandler> commandHandlers;
     private readonly Dictionary<Languages, List<Command>> commands;
     private readonly SlateBotController controller;
+    private readonly SynchronizationContext synchronizationContext;
 
     public CommandController(SlateBotController controller)
     {
       this.controller = controller ?? throw new ArgumentNullException(nameof(controller));
       this.commandHandlers = new Dictionary<CommandHandlerType, ICommandHandler>();
       this.commands = new Dictionary<Languages, List<Command>>();
+      this.synchronizationContext = SynchronizationContext.Current;
 
-      // Get all ICommandHandler in the assembly
-      var allCommandHandlerTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ICommandHandler)));
-
-      // Instantiate them
-      foreach (var commandHandlerType in allCommandHandlerTypes)
+      // Get all ICommandHandler in the assembly and instantiate them
+      foreach (var commandHandlerType in Assembly
+         .GetExecutingAssembly()
+         .GetTypes()
+         .Where(t => t.GetInterfaces().Contains(typeof(ICommandHandler))))
       {
         var handler = (ICommandHandler)Activator.CreateInstance(commandHandlerType);
 
@@ -54,7 +57,16 @@ namespace SlateBot
 
     public void Initialise()
     {
-      LoadCommands();
+      if (synchronizationContext != null)
+      {
+        // CheckAccess is performed in here.
+        synchronizationContext.Invoke(LoadCommands);
+      }
+      else
+      {
+        // If no sync context, just go ahead and load them.
+        LoadCommands();
+      }
     }
 
     public Command[] GetCommandsForLanguage(Languages language, bool includeDefault = true)
@@ -76,12 +88,10 @@ namespace SlateBot
     {
       commands.Clear();
 
-      var commandFiles = controller.dal.ReadCommandFiles();
-
-      foreach (var pair in commandFiles)
+      foreach (var pair in controller.dal.ReadCommandFiles())
       {
         var language = pair.Key;
-
+        
         // Translate each CommandFile into Commands.
         foreach (CommandFile file in pair.Value)
         {
