@@ -19,7 +19,6 @@
     Replace,
     Translate,
     Info,
-    ChangeAvatar,
     Clarifai,
     Convert,
     Manipulate,

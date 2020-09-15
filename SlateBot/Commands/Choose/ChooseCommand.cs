@@ -26,7 +26,6 @@ namespace SlateBot.Commands.Choose
       CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
 
       string commandDetail = command.CommandDetail;
-      Discord.Color? embedColour = null;
 
       // Split by or delimiter, not space.
       if (command.FullCommandExcludingCommandPrefix.ToLowerInvariant().Contains(delimiter))
@@ -57,15 +56,7 @@ namespace SlateBot.Commands.Choose
         }
       }
 
-      string output = sb.ToString();
-      Response response = new Response
-      {
-        Embed = EmbedUtility.StringToEmbed(output, embedColour),
-        Message = output,
-        ResponseType = ResponseType.Default
-      };
-
-      return new[] { response };
+      return Response.CreateArrayFromString(sb.ToString());
     }
 
     protected override List<KeyValuePair<string, string>> ConstructExtraData()

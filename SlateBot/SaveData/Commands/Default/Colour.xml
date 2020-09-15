@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>Colour</CommandType>
+  <Aliases>Colour,Color,hexcode</Aliases>
+  <Help>Evaluate a hex code for its colour</Help>
+  <Module>General</Module>
+  <Examples>@SlateBot colour AABBCC</Examples>
+</Root>

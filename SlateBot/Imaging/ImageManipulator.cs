@@ -368,6 +368,9 @@ namespace SlateBot.Imaging
       return b;
     }
 
+    /// <summary>
+    /// Get a drawing colour from a string code (rrggbb or aarrggbb). Optionally set to opaque.
+    /// </summary>
     public static Color FromHexCode(string code, bool setOpaque = true)
     {
       string colorcode = code;
@@ -376,8 +379,7 @@ namespace SlateBot.Imaging
       {
         argb |= 0xFF000000;
       }
-      Color c = Color.FromArgb((int)argb);
-      return c;
+      return Color.FromArgb((int)argb);
     }
 
     /// <summary>
@@ -387,7 +389,7 @@ namespace SlateBot.Imaging
     /// <returns></returns>
     public static bool FindHexColour(string input, out string match)
     {
-      const string HexCodeRegex = @"(\b#?([\da-fA-F]{6})\b)\b)";
+      const string HexCodeRegex = @"(\b#?([\da-fA-F]{6})\b)|(\b#?([\da-fA-F]{8})\b)";
       match = Regex.Match(input, HexCodeRegex, RegexOptions.Compiled)?.Value;
       return !string.IsNullOrEmpty(match);
     }
@@ -397,13 +399,23 @@ namespace SlateBot.Imaging
       return a << 24 | 255 - Math.Max(Math.Max(r, g), b) << 16 | 255 - Math.Max(Math.Max(r, g), b) << 8 | 255 - Math.Max(Math.Max(r, g), b);
     }
 
-    //https://stackoverflow.com/questions/1988833/converting-color-to-consolecolor
     public static ConsoleColor ToConsoleColor(this System.Drawing.Color c)
     {
-      int index = (c.R > 128 | c.G > 128 | c.B > 128) ? 8 : 0; // Bright bit
-      index |= (c.R > 64) ? 4 : 0; // Red bit
-      index |= (c.G > 64) ? 2 : 0; // Green bit
-      index |= (c.B > 64) ? 1 : 0; // Blue bit
+      return ToConsoleColor(c.R, c.G, c.B);
+    }
+
+    public static ConsoleColor ToConsoleColor(this Color c)
+    {
+      return ToConsoleColor(c.R, c.G, c.B);
+    }
+
+    //https://stackoverflow.com/questions/1988833/converting-color-to-consolecolor
+    public static ConsoleColor ToConsoleColor(byte r, byte g, byte b)
+    {
+      int index = (r > 128 | g > 128 | b > 128) ? 8 : 0; // Bright bit
+      index |= (r > 64) ? 4 : 0; // Red bit
+      index |= (g > 64) ? 2 : 0; // Green bit
+      index |= (b > 64) ? 1 : 0; // Blue bit
       return (ConsoleColor)index;
     }
   }

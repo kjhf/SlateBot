@@ -13,22 +13,19 @@ Slate Bot is a C# General Purpose / Splatoon-orientated Discord Bot built with [
 Slate Bot is provided as-is and this source code is meant as a reference. You may pick out bits for your own project, just don't pass off the whole project as your own, kay?
 
 ### TODO
-- Implement the following modules left over from KJ_Bot:
-    - ChangeServerSetting
-    - Clean
-    - TF2Craft
-    - Translate
-    - Info
-    - ChangeAvatar
-    - Clarifai
-    - Convert
-    - Manipulate
-    - Wave
-    - Cheerleader
-    - RemindMe
-    - Rate
-    - Users
-    - DecodeEncode
-    - Add
-    - Colour
+- Implement the following modules left over from KJ_Bot in priority order:
+    - Translate (General - Surprisingly still works on KJBot)
+    - TF2Craft (Lookup - TF2 Crafting)
+    - Convert (General - Converts given measurement into other units (whatever makes sense))
+    - Info (BotOwner - Displays information about a specified id or command)
+    - Rate (Admin - Toggles the channel as a Rate channel where the bot will react with a thumbsup & down)
+    - Clean (Admin - cleans n messages)
+    - DecodeEncode (Decode/Encode - Decodes/Encodes a string. A little work to tie into a pre-existing project.)
+    - Users (Admin - collates user id data and roles for all the users on the server)
+    - Wave (Image - Manipulate an image by shifting rows by a random amount.)
+    - ChangeServerSetting (Admin - changes server settings e.g. language. Large amount of work. Is needed to use French.)
+    - Manipulate (Image - Manipulate an image. This work is huge.)
+    - RemindMe (Scheduler - this was kinda working...ish. Needs a lot of thought.)
+    - Add (BotOwner - Add a game, meme, response, or other command to the bot. Not needed, is a nicety.)
 - Better detection for a dice command -- it currently conflicts with other commands e.g. b642d
+- Overhaul commands DAL into JSON -- this greatly simplifies the DAL layers and allows commands to extend ExtraData.
