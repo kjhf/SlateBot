@@ -26,7 +26,6 @@ namespace SlateBot
     public const string Warning = ":warning:";
     public const string Dice = ":game_die:";
     public const string Star = ":star:";
-    public const string Sloth = ":sloth:";
 
     public const string CorrectMastermindPin = ":large_blue_circle:";
     public const string MisplacedMastermindPin = ":white_circle:";
@@ -36,14 +35,14 @@ namespace SlateBot
     public const string RepeatSymbol = ":repeat:";
     public const string StopSymbol = ":stop_button:";
     public const string ShuffleSymbol = ":twisted_rightwards_arrows:";
-    public const string ArrowRightSymbol = ":arrow_right:";
-    
-    public const string ThumbsUp = ":thumbsup:";
+    public const string ArrowRightSymbol = ":arrow_right:";    
     public const string NoEntrySign = ":no_entry_sign:";
 
     public const string CheckUnicode = "✅";
     public const string MessageUnicode = "✉️";
     public const string DiscUnicode = "💾";
+    public const string SlothUnicode = "🦥";
+    public const string ThumbsUpUnicode = "👍";
 
 
     // Server emojis

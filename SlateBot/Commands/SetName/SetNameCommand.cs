@@ -39,7 +39,7 @@ namespace SlateBot.Commands.SetName
             Console.Title = name;
           }
         });
-        return new Response[] { Response.CreateFromReact(Emojis.ThumbsUp) };
+        return new Response[] { Response.CreateFromReact(Emojis.ThumbsUpUnicode) };
       }
       else
       {

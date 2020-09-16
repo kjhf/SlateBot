@@ -120,21 +120,29 @@ namespace SlateBot
       {
         if (isFromSocket)
         {
-          SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)message;
-
-          // If private response, get the DM channel to the user, otherwise use the current channel.
-          IMessageChannel responseChannel =
-            response.ResponseType == ResponseType.Private ?
-              (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
-              (IMessageChannel)socketMessageWrapper.Channel;
-
-          if (response.ResponseType != ResponseType.Default_React)
+          try
           {
-            SendMessage(response, responseChannel);
+            SocketMessageWrapper socketMessageWrapper = (SocketMessageWrapper)message;
+
+            // If private response, get the DM channel to the user, otherwise use the current channel.
+            IMessageChannel responseChannel =
+              response.ResponseType == ResponseType.Private ?
+                (await socketMessageWrapper.User.GetOrCreateDMChannelAsync()) :
+                (IMessageChannel)socketMessageWrapper.Channel;
+
+            if (response.ResponseType != ResponseType.Default_React)
+            {
+              SendMessage(response, responseChannel);
+            }
+            else
+            {
+              await socketMessageWrapper.socketMessage.AddReactionAsync(new Emoji(response.Message)).ConfigureAwait(false);
+            }
           }
-          else
+          catch (Exception ex)
           {
-            await socketMessageWrapper.socketMessage.AddReactionAsync(new Emoji(response.Message)).ConfigureAwait(false);
+            ErrorLogger.LogException(ex, ErrorSeverity.Error);
+            ErrorLogger.LogDebug($"Cannot reply to channel {message?.ChannelName} ({message?.ChannelId}) by user {message?.Username} ({message?.UserId}) with response {response?.Message}, Type {response?.ResponseType}, as the message sending threw an exception.");
           }
         }
         else
