@@ -15,7 +15,7 @@ namespace SlateBot.Commands.Dice
     private const string D_REGEX = @"((\d)*d[+\-\df\b]+|(\d)+d[+\-\d]*\b)";
 
     internal DiceCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
-      : base(CommandHandlerType.Dice, aliases, examples, help, module, true, true)
+      : base(CommandHandlerType.Dice, aliases, examples, help, module, requiresSymbol: true, noSetAlias: true)
     {
       this.languageHandler = languageHandler;
     }
