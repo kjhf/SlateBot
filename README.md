@@ -14,7 +14,6 @@ Slate Bot is provided as-is and this source code is meant as a reference. You ma
 
 ### TODO
 - Implement the following modules left over from KJ_Bot in priority order:
-    - TF2Craft (Lookup - TF2 Crafting)
     - Convert (General - Converts given measurement into other units (whatever makes sense))
     - Info (BotOwner - Displays information about a specified id or command)
     - Rate (Admin - Toggles the channel as a Rate channel where the bot will react with a thumbsup & down)

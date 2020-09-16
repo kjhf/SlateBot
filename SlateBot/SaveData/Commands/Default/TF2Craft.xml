@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <CommandType>TF2Craft</CommandType>
+  <Aliases>tfcraft,tf2craft</Aliases>
+  <Help>Search for a TF2 crafting recipe.</Help>
+  <Module>Lookup Commands</Module>
+  <Examples>!tfcraft Flying Guillotine</Examples>
+</Root>

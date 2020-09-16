@@ -76,7 +76,7 @@ namespace SlateBot.Commands.Minecraft
             string url = "http://minecraft.gamepedia.com/" + query;
 
             // Get the recipe.
-            if (!json.ContainsIgnore(CraftingString, StringComparison.OrdinalIgnoreCase, ' ', '\n', '\r'))
+            if (!json.ContainsIgnore(CraftingString, StringComparison.OrdinalIgnoreCase, " ", "\n", "\r"))
             {
               string error = Emojis.InfoSymbol + " " + languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_UnknownRecipe");
               output.AppendLine(error + " " + command.CommandDetail + ": " + url);

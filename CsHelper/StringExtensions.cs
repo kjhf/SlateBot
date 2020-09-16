@@ -37,12 +37,14 @@ namespace CsHelper
     /// </summary>
     /// <param name="s">Object string</param>
     /// <param name="other">Other string</param>
-    public static bool ContainsIgnore(this string s, string other, StringComparison comp = StringComparison.OrdinalIgnoreCase, params char[] charactersToIgnore)
+    /// <param name="comp">The comparison type</param>
+    /// <param name="stringsToIgnore">Characters/Strings that are ignored as part of the comparison</param>
+    public static bool ContainsIgnore(this string s, string other, StringComparison comp = StringComparison.OrdinalIgnoreCase, params string[] stringsToIgnore)
     {
-      foreach (char c in charactersToIgnore)
+      foreach (string c in stringsToIgnore)
       {
-        s = s.Replace(c.ToString(), "");
-        other = other.Replace(c.ToString(), "");
+        s = s.Replace(c, "");
+        other = other.Replace(c, "");
       }
       return s.Contains(other, comp);
     }
