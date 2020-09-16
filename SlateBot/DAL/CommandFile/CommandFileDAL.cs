@@ -31,13 +31,23 @@ namespace SlateBot.DAL.CommandFile
     /// </summary>
     internal CommandFile LoadCopySingleCommand(string fromPath, bool overwrite = true)
     {
-      string contents = File.ReadAllText(fromPath);
-      CommandFile file = new CommandFile(errorLogger);
-      bool loaded = file.FromXML(contents);
-      if (loaded)
+      bool loaded = false;
+      CommandFile file = null;
+
+      try
       {
-        string newPath = Path.Combine(saveDirectory, Path.GetFileName(fromPath));
-        File.Copy(fromPath, newPath, overwrite);
+        string contents = File.ReadAllText(fromPath);
+        file = new CommandFile(errorLogger);
+        loaded = file.FromXML(contents);
+        if (loaded)
+        {
+          string newPath = Path.Combine(saveDirectory, Path.GetFileName(fromPath));
+          File.Copy(fromPath, newPath, overwrite);
+        }
+      }
+      catch (Exception)
+      {
+        // That's fine, we can ignore.
       }
       return loaded ? file : null;
     }
