@@ -19,6 +19,7 @@ namespace SlateBot.DAL
     internal readonly string receivedFilesFolder;
     internal readonly string saveDataFolder;
     internal readonly string programFolder;
+    internal readonly string programFolderOld;
     internal readonly string commandsParentFolder;
     internal readonly string memeFolder;
     internal readonly string pokemonFolder;
@@ -40,16 +41,18 @@ namespace SlateBot.DAL
         programFolder = currentFolder.Substring(0, indexOfDir + nameof(SlateBot).Length);
       }
 
+      this.programFolderOld = Path.Combine(programFolder, "old");
+      Directory.CreateDirectory(programFolderOld);
       this.saveDataFolder = Path.Combine(programFolder, "SaveData");
       Directory.CreateDirectory(saveDataFolder);
       this.receivedFilesFolder = Path.Combine(saveDataFolder, "Received");
       Directory.CreateDirectory(receivedFilesFolder);
-      this.commandsParentFolder = Path.Combine(saveDataFolder, "Commands");
-      Directory.CreateDirectory(commandsParentFolder);
       this.memeFolder = Path.Combine(saveDataFolder, "Memes");
       Directory.CreateDirectory(memeFolder);
       this.pokemonFolder = Path.Combine(saveDataFolder, "Pokemon");
       Directory.CreateDirectory(pokemonFolder);
+      this.commandsParentFolder = Path.Combine(saveDataFolder, "Commands");
+      Directory.CreateDirectory(commandsParentFolder);
 
       this.errorLogger = new ErrorLogger(Path.Combine(saveDataFolder, "Logs"));
       this.languagesFileDAL = new LanguagesFileDAL(errorLogger, Path.Combine(saveDataFolder, "Languages"));
@@ -61,6 +64,16 @@ namespace SlateBot.DAL
       {
         commandFileDALs[language] = new CommandFileDAL(errorLogger, Path.Combine(commandsParentFolder, language.ToString()));
       }
+
+      errorLogger.LogDebug(
+        $"currentFolder: {currentFolder}\n" +
+        $"programFolder: {programFolder}\n" +
+        $"saveDataFolder: {saveDataFolder}\n" +
+        $"receivedFilesFolder: {receivedFilesFolder}\n" +
+        $"memeFolder: {memeFolder}\n" +
+        $"pokemonFolder: {pokemonFolder}\n" +
+        $"commandsParentFolder: {commandsParentFolder}\n" +
+        $"commandFileDALs[Default]: {Path.Combine(commandsParentFolder, Languages.Default.ToString())}\n", true);
     }
 
     public void Initialise()

@@ -28,9 +28,12 @@ namespace SlateBot
       catch (Exception ex)
       {
         instance.controller.ErrorLogger.LogException(ex, Errors.ErrorSeverity.Fatal);
+        instance.controller.ErrorLogger.LogDebug("Last exception left the main loop. The program will exit.", true);
       }
 
-      Console.ReadLine();
+      Console.WriteLine();
+      Console.WriteLine("Press any key to continue ...");
+      Console.ReadKey();
     }
 
     #endregion Static and Main
