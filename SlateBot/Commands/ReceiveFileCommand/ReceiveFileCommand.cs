@@ -68,7 +68,7 @@ namespace SlateBot.Commands.ReceiveFile
 
                 // Check if any of the files are new commands.
                 var commandFiles = receivedFiles.Select(file => dal.LoadCopySingleCommand(file));
-                if (commandFiles.Any())
+                if (commandFiles.Any(f => f != null))
                 {
                   // Reinitialise the command controller to ensure the new files are accepted.
                   commandController.Initialise();
