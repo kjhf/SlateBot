@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.Commands
 {
-  struct CommandMessageHelper
+  internal struct CommandMessageHelper
   {
     /// <summary> The message this helper represents. </summary>
     private readonly string message;
@@ -16,7 +14,7 @@ namespace SlateBot.Commands
 
     /// <summary> The command symbol(s) prefixing commands. </summary>
     public readonly string CommandSymbol;
-    
+
     /// <summary>
     /// Get if this message is actually a command.
     /// </summary>

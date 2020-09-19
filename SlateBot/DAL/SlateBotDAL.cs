@@ -1,5 +1,4 @@
-﻿using CsHelper;
-using SlateBot.DAL.CommandFile;
+﻿using SlateBot.DAL.CommandFile;
 using SlateBot.DAL.LanguagesFile;
 using SlateBot.DAL.ServerSettingsFile;
 using SlateBot.DAL.UserSettingsFile;
@@ -8,7 +7,6 @@ using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 
 namespace SlateBot.DAL
 {

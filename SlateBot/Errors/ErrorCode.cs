@@ -11,7 +11,7 @@
     /// This is a console message.
     /// </summary>
     ConsoleMessage,
-    
+
     /// <summary>
     /// The message was not sent because the bot is only listening for messages.
     /// </summary>
@@ -56,6 +56,5 @@
     /// A Command Handler could not load its command.
     /// </summary>
     CommandNotValid,
-
   }
 }

@@ -175,7 +175,7 @@ namespace SlateBot.Commands.BaseChange
       string output = sb.ToString();
       Response response = new Response
       {
-        Embed = EmbedUtility.StringToEmbed(output, embedColour),
+        Embed = EmbedUtility.ToEmbed(output, embedColour),
         Message = output,
         ResponseType = ResponseType.Default
       };

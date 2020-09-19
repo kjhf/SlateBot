@@ -1,5 +1,5 @@
-﻿using System;
-using SlateBot.DAL.CommandFile;
+﻿using SlateBot.DAL.CommandFile;
+using System;
 
 namespace SlateBot.Commands.Colour
 {

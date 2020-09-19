@@ -1,6 +1,5 @@
 ﻿using CsHelper;
 using SlateBot.DAL.CommandFile;
-using SlateBot.Imaging;
 using System;
 using System.Collections.Generic;
 using System.DrawingCore;

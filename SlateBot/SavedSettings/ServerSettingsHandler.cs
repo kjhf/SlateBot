@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.Commands;
+﻿using SlateBot.Commands;
 using SlateBot.Commands.Schedule;
-using SlateBot.DAL.ServerSettingsFile;
 using SlateBot.Errors;
 using SlateBot.Language;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SlateBot.SavedSettings
 {
@@ -61,7 +58,7 @@ namespace SlateBot.SavedSettings
         }
       }
     }
-    
+
     public ServerSettings GetOrCreateServerSettings(ulong key)
     {
       // If it does this returns.
@@ -78,6 +75,5 @@ namespace SlateBot.SavedSettings
     {
       dal.SaveServerSettingsFile(settingsToSave);
     }
-
   }
 }

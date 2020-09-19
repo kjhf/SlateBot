@@ -70,11 +70,11 @@ namespace SlateBot.Commands.Avatar
           IUser candidateUser = client.GetUser(requestedId);
           if (candidateUser != null)
           {
-            await asyncResponder.SendResponseAsync(args, Response.CreateFromString($"{candidateUser.GetAvatarUrl()}")).ConfigureAwait(false);
+            await asyncResponder.SendResponseAsync(args, Response.CreateFromString($"{candidateUser.GetAvatarUrl(ImageFormat.Auto, 2048)}")).ConfigureAwait(false);
           }
         });
       }
-      return Response.CreateArrayFromString($"{Emojis.CrossSymbol} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_NoResults")}: {requestedId}");
+      return new Response[] { Response.WaitForAsync };
     }
   }
 }

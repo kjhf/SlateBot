@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
 using SlateBot.Commands;
 using SlateBot.Errors;
+using System;
+using System.Collections.Generic;
 
 namespace SlateBot.Lifecycle
 {

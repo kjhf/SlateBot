@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonLibrary
 {
@@ -24,9 +21,9 @@ namespace PokemonLibrary
     {
       Pokémon.Add(pokemon.Name.ToLowerInvariant(), pokemon);
     }
-    
+
     /// <summary>
-    /// Returns a Pokémon from its name. 
+    /// Returns a Pokémon from its name.
     /// </summary>
     /// <param name="pokémonName">The pokémon's name.</param>
     /// <returns></returns>
@@ -40,7 +37,7 @@ namespace PokemonLibrary
     }
 
     /// <summary>
-    /// Returns a Pokémon from its name. 
+    /// Returns a Pokémon from its name.
     /// If not cached, this will search Bulbapedia for the Pokémon.
     /// Returns null if not found ...
     /// </summary>
@@ -71,7 +68,7 @@ namespace PokemonLibrary
     }
 
     /// <summary>
-    /// Returns a Pokémon from its name. 
+    /// Returns a Pokémon from its name.
     /// </summary>
     /// <param name="moveName">The pokémon move's name.</param>
     /// <returns></returns>

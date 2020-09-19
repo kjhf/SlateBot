@@ -59,7 +59,7 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// Channels that announce Splatoon 2 rotations
     /// </summary>
     public HashSet<string> Splatoon2RotationChannels { get; private set; } = new HashSet<string>();
-    
+
     //public IList<RSSChannelData> RSSFeedChannels { get; private set; } = new List<RSSChannelData>();
 
     /// <summary>

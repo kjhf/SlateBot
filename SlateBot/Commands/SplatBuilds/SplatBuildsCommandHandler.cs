@@ -1,8 +1,5 @@
-﻿using CsHelper;
-using SlateBot.DAL.CommandFile;
+﻿using SlateBot.DAL.CommandFile;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SlateBot.Commands.SplatBuilds
 {

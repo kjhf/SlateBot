@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.Language
 {
@@ -78,7 +75,7 @@ namespace SlateBot.Language
           if (language != Languages.Default)
           {
             retVal = GetPhrase(Languages.Default, key);
-          } 
+          }
         }
         else
         {

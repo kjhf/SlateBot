@@ -1,18 +1,14 @@
 ﻿using SlateBot.Errors;
-using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.DAL.CommandFile
 {
   /// <summary>
   /// Command File Abstraction Layer handles the loading of the command XML files.
   /// </summary>
-  class CommandFileDAL
+  internal class CommandFileDAL
   {
     private readonly IErrorLogger errorLogger;
     private readonly string saveDirectory;
@@ -70,7 +66,7 @@ namespace SlateBot.DAL.CommandFile
           result.Add(file);
         }
       }
-      
+
       return result;
     }
 

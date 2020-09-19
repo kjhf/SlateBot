@@ -15,7 +15,7 @@ namespace SlateBot.Commands.PullImage
     private readonly string url;
     private readonly string formattedResponseURL;
     private readonly string jsonProperty;
-    
+
     internal PullImageCommand(LanguageHandler languageHandler, IAsyncResponder asyncResponder, string[] aliases, string examples, string help, ModuleType module, string url, string formattedResponseURL, string jsonProperty)
       : base(CommandHandlerType.PullImage, aliases, examples, help, module)
     {
@@ -54,7 +54,7 @@ namespace SlateBot.Commands.PullImage
         Response asyncResponse = new Response
         {
           ResponseType = ResponseType.Default,
-          Embed = (file == null) ? null : (EmbedUtility.ImageUrlToEmbed(file, null)),
+          Embed = (file == null) ? null : EmbedUtility.ToEmbed(imageURL: file),
           Message = message
         };
 

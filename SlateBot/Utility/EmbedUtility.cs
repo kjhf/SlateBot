@@ -1,27 +1,48 @@
 ﻿using Discord;
+using System;
 
 namespace SlateBot.Utility
 {
   public static class EmbedUtility
   {
-    public static EmbedBuilder StringToEmbed(string str, string title = null)
+    /// <summary>
+    /// Convert string to embed with an optional title and rgb colour
+    /// </summary>
+    /// <remarks>Forwarding method</remarks>
+    public static EmbedBuilder ToEmbed(string str, int r, int g, int b, string title = null)
     {
-      return StringToEmbed(str, null, title);
+      return ToEmbed(str, new Color(r, g, b), title);
     }
 
-    public static EmbedBuilder StringToEmbed(string str, int r, int g, int b, string title = null)
+    /// <summary>
+    /// Convert string to embed with an optional title and colour
+    /// </summary>
+    public static EmbedBuilder ToEmbed(string str = null, Color? color = null, string title = null, string imageURL = null)
     {
-      return StringToEmbed(str, new Color(r, g, b), title);
-    }
+      if (str == null && imageURL == null)
+      {
+        throw new ArgumentNullException($"{nameof(str)} and {nameof(imageURL)} cannot both be null.");
+      }
 
-    public static EmbedBuilder StringToEmbed(string str, Color? color, string title = null)
-    {
-      var builder = new EmbedBuilder()
-        .WithDescription(str);
+      var builder = new EmbedBuilder();
+
+      if (str != null)
+      {
+        builder = builder.WithDescription(str);
+      }
+      else if (imageURL != null)
+      {
+        builder = builder.WithDescription(imageURL);
+      }
 
       if (color != null)
       {
         builder = builder.WithColor((Color)color);
+      }
+
+      if (imageURL != null)
+      {
+        builder = builder.WithImageUrl(imageURL);
       }
 
       if (title != null)
@@ -33,54 +54,5 @@ namespace SlateBot.Utility
       }
       return builder;
     }
-
-    public static EmbedBuilder ImageUrlToEmbed(string imageUrl, Color? color = null, string title = null)
-    {
-      var builder = new EmbedBuilder()
-        .WithImageUrl(imageUrl);
-
-      if (color != null)
-      {
-        builder = builder.WithColor((Color)color);
-      }
-
-      if (title != null)
-      {
-        builder = builder.WithAuthor(author =>
-        {
-          author.WithName(title);
-        });
-      }
-      return builder;
-    }
-    public static EmbedBuilder UrlToEmbed(string urlStr, string description = null, Color? color = null, string title = null)
-    {
-      var builder = new EmbedBuilder()
-        .WithUrl(urlStr);
-
-      if (description != null)
-      {
-        builder = builder.WithDescription(description);
-      }
-      else
-      {
-        builder = builder.WithDescription(urlStr);
-      }
-
-      if (color != null)
-      {
-        builder = builder.WithColor((Color)color);
-      }
-
-      if (title != null)
-      {
-        builder = builder.WithAuthor(author =>
-        {
-          author.WithName(title);
-        });
-      }
-      return builder;
-    }
-
   }
 }

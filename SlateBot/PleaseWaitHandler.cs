@@ -1,5 +1,4 @@
 ﻿using Discord;
-using SlateBot;
 using SlateBot.Commands;
 using SlateBot.Language;
 using SlateBot.SavedSettings;
@@ -65,7 +64,7 @@ namespace SlateBot
 
       Response pleaseWaitResponse = new Response
       {
-        Embed = EmbedUtility.StringToEmbed(output, Discord.Color.Gold),
+        Embed = EmbedUtility.ToEmbed(output, Discord.Color.Gold),
         Message = output,
         ResponseType = ResponseType.PleaseWaitMessage
       };

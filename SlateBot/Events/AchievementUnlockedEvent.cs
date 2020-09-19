@@ -1,5 +1,4 @@
 ﻿using SlateBot.Commands;
-using SlateBot.SaveData;
 using SlateBot.SaveData.Achievements;
 using System;
 

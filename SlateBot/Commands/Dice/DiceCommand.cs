@@ -1,5 +1,4 @@
 ﻿using SlateBot.Language;
-using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -155,7 +154,6 @@ namespace SlateBot.Commands.Dice
         return Response.NoResponse;
       }
     }
-
 
     /// <summary>
     /// Roll x dice of y sides. Translatable.

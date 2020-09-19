@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SlateBot.Splatoon
 {
@@ -154,7 +153,6 @@ namespace SlateBot.Splatoon
     /// Weapons but have undergone <see cref="TransformWeapon"/>.
     /// </summary>
     private static readonly string[] weaponsTransformed = weapons.Select(TransformWeapon).ToArray();
-
 
     /// <summary>
     /// Try and get a weapon from this query.

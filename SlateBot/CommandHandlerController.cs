@@ -91,7 +91,7 @@ namespace SlateBot
       foreach (var pair in controller.dal.ReadCommandFiles())
       {
         var language = pair.Key;
-        
+
         // Translate each CommandFile into Commands.
         foreach (CommandFile file in pair.Value)
         {

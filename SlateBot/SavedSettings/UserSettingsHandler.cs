@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.Commands;
+﻿using SlateBot.Commands;
 using SlateBot.Errors;
 using SlateBot.Language;
 using SlateBot.SaveData;
+using System;
+using System.Collections.Generic;
 
 namespace SlateBot.SavedSettings
 {
-  class UserSettingsHandler : IController
+  internal class UserSettingsHandler : IController
   {
     private IErrorLogger ErrorLogger => controller.ErrorLogger;
     private DAL.SlateBotDAL ControllerDAL => controller.dal;
@@ -92,6 +89,5 @@ namespace SlateBot.SavedSettings
       }
       return retVal;
     }
-
   }
 }

@@ -1,5 +1,4 @@
-﻿using CsHelper;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SlateBot.Language;
 using SlateBot.Utility;
@@ -40,7 +39,6 @@ namespace SlateBot.Commands.SplatBuilds
         string weapon = Splatoon.SplatoonDefs.TryFindWeapon(query);
         if (weapon != null)
         {
-
           try
           {
             string buildsQuery = $@"query {{
@@ -49,7 +47,7 @@ namespace SlateBot.Commands.SplatBuilds
     headgear
     clothing
     shoes
-  }}  
+  }}
 }}";
             string builtUrl = $"{url}?query={Uri.EscapeUriString(buildsQuery)}";
             json = (JContainer)JsonConvert.DeserializeObject(await RequestsHelper.CurlGetCommand(builtUrl, origin).ConfigureAwait(false));
@@ -113,7 +111,7 @@ namespace SlateBot.Commands.SplatBuilds
         Response asyncResponse = new Response
         {
           ResponseType = ResponseType.Default,
-          Embed = EmbedUtility.StringToEmbed(message, null),
+          Embed = EmbedUtility.ToEmbed(message, null),
           Message = message
         };
 

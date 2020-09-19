@@ -1,5 +1,4 @@
-﻿using CsHelper;
-using PokemonLibrary;
+﻿using PokemonLibrary;
 using SlateBot.Language;
 using System;
 using System.Collections.Generic;

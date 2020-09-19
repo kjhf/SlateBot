@@ -6,9 +6,7 @@ using SlateBot.Language;
 using SlateBot.Utility;
 using System;
 using System.Collections.Generic;
-using System.DrawingCore;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -38,7 +36,7 @@ namespace SlateBot.Commands.PokemonCommand
 
       // Build the database
       // this.pokemonStdDevs = dal.PokemonSDevs;
-  }
+    }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {

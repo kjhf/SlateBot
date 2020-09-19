@@ -37,9 +37,8 @@ namespace SlateBotUnitTests
       Assert.AreEqual("Zink Mini Splatling", SplatoonDefs.TryFindWeapon("zink mini", false));
       Assert.AreEqual("Heavy Splatling Remix", SplatoonDefs.TryFindWeapon("remix", false));
       Assert.AreEqual("Hero Splatling Replica", SplatoonDefs.TryFindWeapon("hero splatling", false));
-      Assert.AreEqual("Hero Shot Replica", SplatoonDefs.TryFindWeapon("hero shot", false));    
+      Assert.AreEqual("Hero Shot Replica", SplatoonDefs.TryFindWeapon("hero shot", false));
       Assert.AreEqual("Hero Roller Replica", SplatoonDefs.TryFindWeapon("hero roller", false));
-      
     }
   }
 }

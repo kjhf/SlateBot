@@ -42,7 +42,7 @@ namespace SlateBot.Commands.Colour
 
       Response response = new Response
       {
-        Embed = Utility.EmbedUtility.StringToEmbed(message, responseColor),
+        Embed = Utility.EmbedUtility.ToEmbed(message, responseColor),
         Message = message,
         ResponseType = ResponseType.Default
       };

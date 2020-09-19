@@ -1,9 +1,6 @@
 ﻿using CsHelper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokemonLibrary
 {
@@ -216,7 +213,7 @@ namespace PokemonLibrary
           {
             pokemon.HatchTime = new Range { Min = (dummyEggCycles * 257), Max = (dummyEggCycles * 257) + 256 };
           }
-          
+
           string generationString = TidyParameter(parser.ExtractBetween("generation", templateParams));
           byte dummyGeneration;
           if (byte.TryParse(generationString, out dummyGeneration))
@@ -322,7 +319,7 @@ namespace PokemonLibrary
             string spAttack = TidyParameter(statsParser.ExtractBetween("SpAtk", new[] { "\n", "|", "}" }));
             string spDefense = TidyParameter(statsParser.ExtractBetween("SpDef", new[] { "\n", "|", "}" }));
             string speed = TidyParameter(statsParser.ExtractBetween("Speed", new[] { "\n", "|", "}" }));
-            
+
             byte dummy;
             if (byte.TryParse(hpStr, out dummy))
             {
@@ -349,7 +346,6 @@ namespace PokemonLibrary
               stats.BaseStats.Add(Stat.Speed, dummy);
             }
           }
-          
 
           if (!string.IsNullOrEmpty(pokemon.Name))
           {

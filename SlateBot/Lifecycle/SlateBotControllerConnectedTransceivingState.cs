@@ -121,7 +121,7 @@ namespace SlateBot.Lifecycle
           }
         }
       }
-      
+
       return StateId;
     }
   }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace SlateBot
 {
@@ -11,6 +6,7 @@ namespace SlateBot
   {
     // Emojis
     public const string TickSymbol = ":white_check_mark:";
+
     public const string CrossSymbol = ":x:";
     public const string ExclamationSymbol = ":exclamation:";
     public const string RedoSymbol = ":arrow_right_hook:";
@@ -35,7 +31,7 @@ namespace SlateBot
     public const string RepeatSymbol = ":repeat:";
     public const string StopSymbol = ":stop_button:";
     public const string ShuffleSymbol = ":twisted_rightwards_arrows:";
-    public const string ArrowRightSymbol = ":arrow_right:";    
+    public const string ArrowRightSymbol = ":arrow_right:";
     public const string NoEntrySign = ":no_entry_sign:";
 
     public const string CheckUnicode = "✅";
@@ -44,9 +40,9 @@ namespace SlateBot
     public const string SlothUnicode = "🦥";
     public const string ThumbsUpUnicode = "👍";
 
-
     // Server emojis
     public const string Splatoon_SplatZones = "<:Splatoon_Mode_Splat_Zones:346072719911026689>";
+
     public const string Splatoon_Rainmaker = "<:Splatoon_Mode_Rainmaker:346072720112484375>";
     public const string Splatoon_TowerControl = "<:Splatoon_Mode_Tower_Control:346072721521770506>";
     public const string Splatoon_TurfWars = "<:Splatoon_Mode_Turf_Wars:346072720448159745>";
@@ -61,6 +57,5 @@ namespace SlateBot
     public static readonly ReadOnlyCollection<string> ScissorsSymbols = new ReadOnlyCollection<string>(new[] { ":v:", ":vulcan:", ":fingers_crossed:", ":scissors:" });
 
     public static readonly ReadOnlyCollection<string> CheerleaderSymbols = new ReadOnlyCollection<string>(new[] { ":ok_woman:", ":ok_woman::skin-tone-1:", ":ok_woman::skin-tone-2:", ":ok_woman::skin-tone-3:", ":ok_woman::skin-tone-4:", ":ok_woman::skin-tone-5:" });
-
   }
 }

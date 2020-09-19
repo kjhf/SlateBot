@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlateBot
+﻿namespace SlateBot
 {
-  enum ExitCodes
+  internal enum ExitCodes
   {
     Success,
     SuccessReconnect,

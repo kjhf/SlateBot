@@ -1,12 +1,12 @@
-﻿using System;
-using SlateBot.DAL.CommandFile;
+﻿using SlateBot.DAL.CommandFile;
+using System;
 
 namespace SlateBot.Commands.Slapp
 {
-  class SlappCommandHandler : ICommandHandler
+  internal class SlappCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Slapp;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);

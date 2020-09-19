@@ -233,13 +233,13 @@ namespace SlateBot.Commands.Minecraft
         Response asyncResponse = new Response
         {
           ResponseType = ResponseType.Default,
-          Embed = EmbedUtility.StringToEmbed(output.ToString(), null),
+          Embed = EmbedUtility.ToEmbed(output.ToString(), null),
           Message = output.ToString()
         };
 
         await asyncResponder.SendResponseAsync(args, asyncResponse);
       });
-      
+
       // Return out the lifecycle with no response.
       return new[] { Response.WaitForAsync };
     }

@@ -7,7 +7,7 @@ namespace SlateBot.SaveData
 {
   // TODO:
   // - Achievements:
-  //    - The remaning achievements from KJBot
+  //    - The remaining achievements from KJBot
   //    - Translatable descriptions for n commands achievements
   // - Game stats
   // - Friendship with the bot
@@ -33,7 +33,7 @@ namespace SlateBot.SaveData
       this.userId = userId;
       this.commandsIssued = commandsIssued;
     }
-    
+
     public event AchievementUnlockedEvent AchievementUnlocked;
 
     /// <summary>

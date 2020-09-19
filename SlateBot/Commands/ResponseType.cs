@@ -2,32 +2,32 @@
 {
   public enum ResponseType
   {
-    /// <summary> 
+    /// <summary>
     /// Use the default response handling (same channel context).
     /// </summary>
     Default,
 
-    /// <summary> 
+    /// <summary>
     /// Send the reply to the console and log only.
     /// </summary>
     LogOnly,
 
-    /// <summary> 
+    /// <summary>
     /// Reply to the user in private.
     /// </summary>
     Private,
-    
-    /// <summary> 
+
+    /// <summary>
     /// No synchronous response.
     /// </summary>
     None,
 
-    /// <summary> 
+    /// <summary>
     /// This is a Please Wait message.
     /// </summary>
     PleaseWaitMessage,
 
-    /// <summary> 
+    /// <summary>
     /// Use the default response handling (same channel context) as a TTS message.
     /// </summary>
     Default_TTS,

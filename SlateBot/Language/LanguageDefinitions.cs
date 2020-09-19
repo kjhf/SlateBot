@@ -5,10 +5,11 @@ namespace SlateBot.Language
   internal class LanguageDefinitions
   {
     /// <summary>
-    /// Dictionary of language phrases, 
+    /// Dictionary of language phrases,
     /// Keyed by phrase keys, values is the phrase.
     /// </summary>
     private readonly Dictionary<string, string> phrases;
+
     internal readonly Languages language;
 
     /// <summary>

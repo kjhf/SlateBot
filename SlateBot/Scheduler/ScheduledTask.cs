@@ -9,6 +9,7 @@ namespace SlateBot.Scheduler
     /// The function to execute when the job timer elapses
     /// </summary>
     public readonly Action executeAction;
+
     /// <summary>
     /// The job's schedule data
     /// </summary>

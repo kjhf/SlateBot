@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlateBot.DAL.CommandFile;
+﻿using SlateBot.DAL.CommandFile;
+using System;
 
 namespace SlateBot.Commands.Help
 {
-  class HelpCommandHandler : ICommandHandler
+  internal class HelpCommandHandler : ICommandHandler
   {
     public CommandHandlerType CommandHandlerType => CommandHandlerType.Help;
-    
+
     public Command CreateCommand(SlateBotController controller, CommandFile file)
     {
       bool moduleParsed = Enum.TryParse(file.Module, out ModuleType module);

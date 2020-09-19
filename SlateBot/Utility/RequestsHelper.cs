@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +27,7 @@ namespace SlateBot.Utility
       using StreamReader reader = new StreamReader(stream);
       return await reader.ReadToEndAsync().ConfigureAwait(false);
     }
+
     public static async Task<string> CurlPostCommand(string uri, string data, string origin = null)
     {
       HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);

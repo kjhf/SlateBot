@@ -33,6 +33,7 @@ namespace SlateBot.Commands.Zalgo
       '\u036a',   '\u036b',   '\u036c',   '\u036d',
       '\u036e',   '\u036f',   '\u033e',   '\u035b',
     };
+
     public static readonly IReadOnlyList<char> ZalgoDown = new char[]
     {
       '\u0316',   '\u0317',   '\u0318',   '\u0319',
@@ -46,6 +47,7 @@ namespace SlateBot.Commands.Zalgo
       '\u034e',   '\u0353',   '\u0354',   '\u0355',
       '\u0356',   '\u0359',   '\u035a',   '\u0323'
     };
+
     public static readonly IReadOnlyList<char> ZalgoMid = new char[]
     {
       '\u0315',   '\u031b',   '\u0340',   '\u0341',

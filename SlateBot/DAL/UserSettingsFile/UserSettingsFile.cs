@@ -1,8 +1,5 @@
 ﻿using SlateBot.Errors;
-using SlateBot.Language;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 
 namespace SlateBot.DAL.UserSettingsFile
@@ -13,13 +10,14 @@ namespace SlateBot.DAL.UserSettingsFile
   public class UserSettingsFile : ISaveData
   {
     private readonly IErrorLogger errorLogger;
-    
+
     /// <summary>
     /// The user id this file belongs to
     /// </summary>
     public string UserId { get; set; } = Constants.ErrorId.ToString();
+
     public string CommandsCount { get; private set; }
-    
+
     public UserSettingsFile(IErrorLogger errorLogger)
     {
       this.errorLogger = errorLogger;

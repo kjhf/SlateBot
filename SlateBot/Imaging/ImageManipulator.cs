@@ -1,15 +1,11 @@
-﻿using Microsoft.CSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.DrawingCore;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SlateBot.Imaging
 {
@@ -78,14 +74,19 @@ namespace SlateBot.Imaging
       {
         case 1:
           return Color.FromArgb(alpha, iMid, iMax, iMin);
+
         case 2:
           return Color.FromArgb(alpha, iMin, iMax, iMid);
+
         case 3:
           return Color.FromArgb(alpha, iMin, iMid, iMax);
+
         case 4:
           return Color.FromArgb(alpha, iMid, iMin, iMax);
+
         case 5:
           return Color.FromArgb(alpha, iMax, iMin, iMid);
+
         default:
           return Color.FromArgb(alpha, iMax, iMid, iMin);
       }
@@ -249,7 +250,7 @@ namespace SlateBot.Imaging
           using (Bitmap result = new Bitmap(template.Width, template.Height))
           {
             result.MakeTransparent(Color.White);
-            
+
             using (Graphics g = Graphics.FromImage(result))
             {
               g.DrawImage(overlay, destinationPoints);
@@ -278,7 +279,7 @@ namespace SlateBot.Imaging
     }
 
     /// <summary>
-    /// Generate an image based off of <paramref name="image"/> with 
+    /// Generate an image based off of <paramref name="image"/> with
     /// wavy rows.
     /// Neither Bitmaps are disposed.
     /// </summary>

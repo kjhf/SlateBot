@@ -3,9 +3,6 @@ using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot.DAL.LanguagesFile
 {
@@ -55,7 +52,7 @@ namespace SlateBot.DAL.LanguagesFile
           errorLogger.LogError(new Error(ErrorCode.MissingLanguageFile, ErrorSeverity.Warning, path));
         }
       }
-      
+
       return result;
     }
 

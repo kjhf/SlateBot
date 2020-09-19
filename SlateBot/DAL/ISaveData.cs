@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SlateBot.DAL
+﻿namespace SlateBot.DAL
 {
   /// <summary>
   /// An interface of data that can be loaded and saved to file.
   /// </summary>
-  interface ISaveData
+  internal interface ISaveData
   {
     /// <summary>
     /// Convert the data into serializable XML

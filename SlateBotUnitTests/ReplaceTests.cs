@@ -1,12 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SlateBot;
-using SlateBot.Commands;
-using SlateBot.Commands.Replace;
-using SlateBot.Errors;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace SlateBotUnitTests
 {

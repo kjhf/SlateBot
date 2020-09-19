@@ -1,13 +1,8 @@
-﻿using SlateBot.Commands;
-using SlateBot.DAL.CommandFile;
-using SlateBot.Errors;
-using SlateBot.Language;
-using SlateBot.Utility;
+﻿using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace SlateBot
 {
@@ -31,7 +26,6 @@ namespace SlateBot
     private readonly SlateBotController controller;
 
     private string updateDir;
-
 
     public UpdateController(SlateBotController controller)
     {

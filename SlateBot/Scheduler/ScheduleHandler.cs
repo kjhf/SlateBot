@@ -32,7 +32,7 @@ namespace SlateBot.Scheduler
         }
       }
     }
-    
+
     public bool StartJob(Commands.Schedule.ScheduledMessageData m, Action callback)
     {
       var job = new ScheduledTask(m, callback);

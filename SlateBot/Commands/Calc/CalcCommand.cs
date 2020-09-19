@@ -3,7 +3,6 @@ using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SlateBot.Commands.Calc
@@ -78,7 +77,7 @@ namespace SlateBot.Commands.Calc
           Expression e = new Expression(split, EvaluateOptions.NoCache | EvaluateOptions.IgnoreCase);
           e.Parameters["pi"] = Math.PI;
           e.Parameters["e"] = Math.E;
-          e.Parameters["infinity"] = double.MaxValue;          
+          e.Parameters["infinity"] = double.MaxValue;
           ans = e.Evaluate();
           if (ans == null)
           {
@@ -114,7 +113,7 @@ namespace SlateBot.Commands.Calc
 
       Response response = new Response
       {
-        Embed = Utility.EmbedUtility.StringToEmbed(output.ToString(), responseColor),
+        Embed = Utility.EmbedUtility.ToEmbed(output.ToString(), responseColor),
         Message = output.ToString(),
         ResponseType = ResponseType.Default
       };

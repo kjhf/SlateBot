@@ -1,11 +1,4 @@
-﻿using SlateBot.Commands;
-using SlateBot.Language;
-using SlateBot.SaveData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SlateBot.SaveData;
 
 namespace SlateBot
 {

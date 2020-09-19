@@ -1,9 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -11,14 +9,19 @@ namespace SlateBot
   public static class Extensions
   {
     public static async Task<IMessageChannel> GetMessageChannelAsync(this IDiscordClient client, ulong id) => client == null ? null : (await client.GetChannelAsync(id).ConfigureAwait(false) as IMessageChannel);
+
     public static async Task<IVoiceChannel> GetVoiceChannelAsync(this IDiscordClient client, ulong id) => client == null ? null : (await client.GetChannelAsync(id).ConfigureAwait(false) as IVoiceChannel);
-    
+
     public static ISocketMessageChannel GetMessageChannel(this DiscordSocketClient client, ulong id) => client?.GetChannel(id) as ISocketMessageChannel;
+
     public static ISocketPrivateChannel GetPrivateChannel(this DiscordSocketClient client, ulong id) => client?.GetChannel(id) as ISocketPrivateChannel;
+
     public static ISocketAudioChannel GetVoiceChannel(this DiscordSocketClient client, ulong id) => client?.GetChannel(id) as ISocketAudioChannel;
-    
+
     public static Task<ISocketMessageChannel> GetMessageChannelAsync(this DiscordSocketClient client, ulong id) => Task.FromResult(client?.GetMessageChannel(id));
+
     public static Task<ISocketPrivateChannel> GetPrivateChannelAsync(this DiscordSocketClient client, ulong id) => Task.FromResult(client?.GetPrivateChannel(id));
+
     public static Task<ISocketAudioChannel> GetVoiceChannelAsync(this DiscordSocketClient client, ulong id) => Task.FromResult(client?.GetVoiceChannel(id));
 
     public static Task<SocketGuild> GetGuildAsync(this DiscordSocketClient client, ulong id) => Task.FromResult(client?.GetGuild(id));
@@ -50,7 +53,7 @@ namespace SlateBot
       if (string.IsNullOrWhiteSpace(text)) { return (null); }
 
       var channel = await u.GetOrCreateDMChannelAsync();
-      return await channel.SendMessageAsync(text, isTTS, embed, options); 
+      return await channel.SendMessageAsync(text, isTTS, embed, options);
     }
 
     public static bool IsPrivate(this IChannel c)

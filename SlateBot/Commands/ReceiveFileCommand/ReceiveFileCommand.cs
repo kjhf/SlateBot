@@ -27,7 +27,7 @@ namespace SlateBot.Commands.ReceiveFile
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)
     {
       UserSettings userSettings = senderDetail.UserSettings;
-      
+
       // If the message has a file and was sent to us in private, save that file.
       if (Constants.IsBotOwner(userSettings.UserId) && string.IsNullOrWhiteSpace(args.Message))
       {

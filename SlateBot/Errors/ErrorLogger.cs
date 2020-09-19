@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SlateBot.Errors
 {
   /// <summary>
   /// The Error Logger handles errors and exceptions.
   /// </summary>
-  class ErrorLogger : IErrorLogger, IController
+  internal class ErrorLogger : IErrorLogger, IController
   {
     private static readonly ConsoleColor defaultConsoleColor = Console.ForegroundColor;
     private readonly BackgroundWorker backgroundWorker;

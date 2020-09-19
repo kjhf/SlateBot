@@ -1,11 +1,7 @@
 ﻿using SlateBot.Commands;
 using SlateBot.Commands.Schedule;
 using SlateBot.Language;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SlateBot
 {

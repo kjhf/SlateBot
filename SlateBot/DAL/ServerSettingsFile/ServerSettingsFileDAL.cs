@@ -1,12 +1,8 @@
 ﻿using SlateBot.Errors;
-using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SlateBot.DAL.ServerSettingsFile
 {
@@ -44,7 +40,7 @@ namespace SlateBot.DAL.ServerSettingsFile
           result.Add(file);
         }
       }
-      
+
       return result;
     }
 

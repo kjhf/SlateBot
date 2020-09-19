@@ -1,8 +1,5 @@
 ﻿using SlateBot.DAL.CommandFile;
-using SlateBot.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SlateBot.Commands.Minecraft
 {

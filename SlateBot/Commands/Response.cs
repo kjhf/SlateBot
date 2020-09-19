@@ -21,11 +21,11 @@ namespace SlateBot.Commands
     /// <param name="message"></param>
     /// <param name="responseColor"></param>
     /// <returns></returns>
-    public static Response CreateFromString(string message, Color? responseColor = null)
+    public static Response CreateFromString(string message, Color? responseColor = null, string imageUrl = null)
     {
       return new Response
       {
-        Embed = Utility.EmbedUtility.StringToEmbed(message, responseColor),
+        Embed = Utility.EmbedUtility.ToEmbed(message, responseColor),
         Message = message,
         ResponseType = ResponseType.Default
       };

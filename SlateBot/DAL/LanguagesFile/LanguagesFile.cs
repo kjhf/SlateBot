@@ -1,11 +1,7 @@
 ﻿using SlateBot.Errors;
-using SlateBot.Language;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace SlateBot.DAL.LanguagesFile
@@ -13,11 +9,11 @@ namespace SlateBot.DAL.LanguagesFile
   /// <summary>
   /// A languages XML file.
   /// </summary>
-  class LanguagesFile : ISaveData
+  internal class LanguagesFile : ISaveData
   {
     private readonly IErrorLogger errorLogger;
     internal Dictionary<string, string> Data { get; set; }
-    
+
     public LanguagesFile(IErrorLogger errorLogger)
     {
       this.errorLogger = errorLogger;
@@ -52,7 +48,7 @@ namespace SlateBot.DAL.LanguagesFile
         retVal = false;
         errorLogger.LogException(ex, ErrorSeverity.Error);
       }
-      
+
       return retVal;
     }
 

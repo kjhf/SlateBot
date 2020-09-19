@@ -1,5 +1,4 @@
-﻿using CsHelper;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SlateBot.Errors;
 using SlateBot.Language;
 using SlateBot.Utility;
@@ -133,7 +132,6 @@ namespace SlateBot.Commands.Translate
 
           Response asyncResponse = Response.CreateFromString(message);
           await asyncResponder.SendResponseAsync(args, asyncResponse).ConfigureAwait(false);
-
         });
 
         // Return out the lifecycle with no response.

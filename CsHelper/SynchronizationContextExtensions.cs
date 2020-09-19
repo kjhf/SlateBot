@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace System.Threading
+﻿namespace System.Threading
 {
   public static class SynchronisationContextExtensions
   {
