@@ -29,44 +29,48 @@ namespace SlateBot.Commands.ReceiveFile
       UserSettings userSettings = senderDetail.UserSettings;
 
       // If the message has a file and was sent to us in private, save that file.
-      if (Constants.IsBotOwner(userSettings.UserId) && string.IsNullOrWhiteSpace(args.Message))
+      if (Constants.IsBotOwner(userSettings.UserId)
+         && args is SocketMessageWrapper socketMessage
+         && socketMessage.IsPrivate
+         && socketMessage.socketMessage is SocketUserMessage socketUserMessage)
       {
-        if (args is SocketMessageWrapper socketMessage)
+        if (socketUserMessage.Attachments.Count > 0 || socketUserMessage.Embeds.Count > 0)
         {
-          if (socketMessage.IsPrivate && socketMessage.socketMessage is SocketUserMessage socketUserMessage)
+          Task.Run(async () =>
           {
-            if (socketUserMessage.Attachments.Count > 0 || socketUserMessage.Embeds.Count > 0)
+            List<string> receivedFiles = new List<string>();
+            foreach (var attachment in socketUserMessage.Attachments)
             {
-              Task.Run(async () =>
+              var result = await WebHelper.DownloadFile(attachment.Url).ConfigureAwait(false);
+              if (result?.Item2 != null)
               {
-                List<string> receivedFiles = new List<string>();
-                foreach (var attachment in socketUserMessage.Attachments)
-                {
-                  var result = await WebHelper.DownloadFile(attachment.Url).ConfigureAwait(false);
-                  if (result?.Item2 != null)
-                  {
-                    string path = Path.Combine(dal.receivedFilesFolder, attachment.Filename);
-                    await File.WriteAllBytesAsync(path, result.Item2).ConfigureAwait(false);
-                    receivedFiles.Add(path);
-                  }
-                }
+                string path = Path.Combine(dal.receivedFilesFolder, attachment.Filename);
+                await File.WriteAllBytesAsync(path, result.Item2).ConfigureAwait(false);
+                receivedFiles.Add(path);
+              }
+            }
 
-                foreach (var embed in socketUserMessage.Embeds)
+            foreach (var embed in socketUserMessage.Embeds)
+            {
+              if (embed.Image.HasValue)
+              {
+                var image = (EmbedImage)embed.Image;
+                var result = await WebHelper.DownloadFile(image.Url).ConfigureAwait(false);
+                if (result?.Item2 != null)
                 {
-                  if (embed.Image.HasValue)
-                  {
-                    var image = (EmbedImage)embed.Image;
-                    var result = await WebHelper.DownloadFile(image.Url).ConfigureAwait(false);
-                    if (result?.Item2 != null)
-                    {
-                      string path = Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff"));
-                      await File.WriteAllBytesAsync(path, result.Item2).ConfigureAwait(false);
-                      receivedFiles.Add(path);
-                    }
-                  }
+                  string path = Path.Combine(dal.receivedFilesFolder, DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff"));
+                  await File.WriteAllBytesAsync(path, result.Item2).ConfigureAwait(false);
+                  receivedFiles.Add(path);
                 }
+              }
+            }
 
-                // Check if any of the files are new commands.
+            try
+            {
+              // If sent with no command, scan the file if it's an xml
+              // to check if the file is a new command.
+              if (string.IsNullOrWhiteSpace(args.Message))
+              {
                 var commandFiles = receivedFiles.Select(file => dal.LoadCopySingleCommand(file));
                 if (commandFiles.Any(f => f != null))
                 {
@@ -74,12 +78,31 @@ namespace SlateBot.Commands.ReceiveFile
                   commandController.Initialise();
                   await asyncResponder.SendResponseAsync(args, Response.CreateFromString("Reinitialising the commands.")).ConfigureAwait(false);
                 }
-                await asyncResponder.SendResponseAsync(args, Response.CreateFromReact(Emojis.DiscUnicode));
-              });
-
-              return new Response[] { Response.WaitForAsync };
+                await asyncResponder.SendResponseAsync(args, Response.CreateFromReact(Emojis.DiscUnicode)).ConfigureAwait(false);
+              }
+              // Otherwise if sent with an update command, overwrite the program file
+              else if (args.Message.Equals("update", StringComparison.OrdinalIgnoreCase) || args.Message.Equals(Emojis.DiscUnicode))
+              {
+                foreach (var received in receivedFiles)
+                {
+                  string fileName = Path.GetFileName(received);
+                  string destination = Path.Combine(dal.programFolder, fileName);
+                  if (File.Exists(destination))
+                  {
+                    File.Move(destination, Path.Combine(dal.programFolderOld, fileName), true);
+                  }
+                  File.Copy(received, destination);
+                }
+              }
             }
-          }
+            catch (Exception ex)
+            {
+              dal.errorLogger.LogException(ex, Errors.ErrorSeverity.Error);
+              dal.errorLogger.LogDebug("Error occurred in receiving file for update/transfer.");
+            }
+          });
+
+          return new Response[] { Response.WaitForAsync };
         }
       }
       return Response.NoResponse;

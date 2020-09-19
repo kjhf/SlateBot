@@ -142,7 +142,7 @@ namespace SlateBot.Commands.Dice
         string retVal = output.ToString();
         Response response = new Response
         {
-          Embed = Utility.EmbedUtility.StringToEmbed(retVal),
+          Embed = Utility.EmbedUtility.ToEmbed(retVal),
           Message = retVal,
           ResponseType = ResponseType.Default
         };

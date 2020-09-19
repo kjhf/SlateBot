@@ -34,7 +34,7 @@ namespace SlateBot.Commands.Obabo
     {
       Response response = new Response
       {
-        Embed = EmbedUtility.StringToEmbed(Help),
+        Embed = EmbedUtility.ToEmbed(Help),
         Message = Help,
         ResponseType = ResponseType.Default
       };
@@ -56,7 +56,7 @@ namespace SlateBot.Commands.Obabo
             string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_NoImageMessages")}");
             asyncResponse = new Response
             {
-              Embed = EmbedUtility.StringToEmbed(err),
+              Embed = EmbedUtility.ToEmbed(err),
               Message = err,
               ResponseType = ResponseType.Default
             };
@@ -93,7 +93,7 @@ namespace SlateBot.Commands.Obabo
               string err = Emojis.NoEntrySign + " " + tuple.Item1.ReasonPhrase;
               response = new Response
               {
-                Embed = EmbedUtility.StringToEmbed(err),
+                Embed = EmbedUtility.ToEmbed(err),
                 Message = err,
                 ResponseType = ResponseType.Default
               };
@@ -108,7 +108,7 @@ namespace SlateBot.Commands.Obabo
           string err = ($"{Emojis.NoEntry} {languageHandler.GetPhrase(language, "Error_NotAFile")}");
           response = new Response
           {
-            Embed = EmbedUtility.StringToEmbed(err),
+            Embed = EmbedUtility.ToEmbed(err),
             Message = err,
             ResponseType = ResponseType.Default
           };

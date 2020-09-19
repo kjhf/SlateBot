@@ -129,7 +129,7 @@ namespace SlateBot.Commands.YouTube
         }
       }
 
-      response.Embed = EmbedUtility.StringToEmbed(response.Message);
+      response.Embed = EmbedUtility.ToEmbed(response.Message);
       return new[] { response };
     }
 
