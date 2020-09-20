@@ -11,7 +11,14 @@ namespace SlateBot.Commands.Dice
   public class DiceCommand : Command
   {
     private readonly LanguageHandler languageHandler;
-    private const string D_REGEX = @"((\d)*d[+\-\df\b]+|(\d)+d[+\-\d]*\b)";
+
+    /// <summary>
+    /// Regex for matching if it's a dice command in d syntax.
+    /// </summary>
+    /// <remarks>
+    /// https://regexr.com/5cdqe
+    /// </remarks>
+    internal const string D_REGEX = @"(\b[\d]*[d|D][ ]*((\d)+|(f|F))[ ]*[+\-\d]*\b)";
 
     internal DiceCommand(LanguageHandler languageHandler, string[] aliases, string examples, string help, ModuleType module)
       : base(CommandHandlerType.Dice, aliases, examples, help, module, requiresSymbol: true, noSetAlias: true)
@@ -31,7 +38,7 @@ namespace SlateBot.Commands.Dice
 
       if (Aliases.Contains(toParse))
       {
-        if (Regex.IsMatch(commandDetail, D_REGEX, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled))
+        if (Regex.IsMatch(commandDetail, D_REGEX, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.Multiline))
         {
           // Ignore the command entered because the full command is in the detail.
           toParse = commandDetail;
@@ -40,7 +47,6 @@ namespace SlateBot.Commands.Dice
         {
           // Convert the command into a d6 command.
           string timesToRollStr = "1";
-          string diceTypeStr = "6";
           string adjustmentStr = "+0";
 
           // If number of times to roll is specified.
@@ -67,7 +73,7 @@ namespace SlateBot.Commands.Dice
             }
           }
 
-          toParse = $"{timesToRollStr}d{diceTypeStr}{adjustmentStr}";
+          toParse = $"{timesToRollStr}d6{adjustmentStr}";
         }
       }
       else
@@ -76,7 +82,7 @@ namespace SlateBot.Commands.Dice
         toParse += " " + commandDetail;
       }
 
-      if (Regex.IsMatch(toParse, D_REGEX, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled))
+      if (Regex.IsMatch(toParse, D_REGEX, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.Multiline))
       {
         handled = true;
 

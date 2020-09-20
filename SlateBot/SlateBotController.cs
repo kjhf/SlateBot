@@ -22,6 +22,7 @@ namespace SlateBot
   /// </summary>
   internal class SlateBotController : IController, IAsyncResponder
   {
+    internal const string NO_RESPONSE_CONSOLE_MESSAGE = "I got nothin'. ";
     internal readonly DiscordSocketClient client;
     internal readonly CommandController commandHandlerController;
     internal readonly SlateBotDAL dal;
@@ -253,7 +254,7 @@ namespace SlateBot
       }
       else if (message is ConsoleMessageDetail) // If from the console
       {
-        ErrorLogger.LogDebug("I got nothin'. (" + message.Message + ")", true);
+        ErrorLogger.LogDebug(NO_RESPONSE_CONSOLE_MESSAGE + "(" + message.Message + ")", true);
       }
     }
 

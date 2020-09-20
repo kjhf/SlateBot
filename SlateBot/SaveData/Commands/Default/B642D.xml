@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <CommandType>BaseChange</CommandType>
-  <Aliases>b642d,b642dec,642d,642dec,base642dec</Aliases>
+  <Aliases>b642d,b642dec,642dec,base642dec</Aliases>
   <Help>Changes a base 64 number into a decimal.</Help>
   <Module>Number Base Commands</Module>
-  <Examples> !642d ZAAAAAAAAAA=</Examples>
+  <Examples>!b642d ZAAAAAAAAAA=</Examples>
   <ExtraData>
     <FromBase>64</FromBase>
     <ToBase>10</ToBase>
