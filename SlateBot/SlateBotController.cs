@@ -257,6 +257,8 @@ namespace SlateBot
       }
       catch (Exception ex)
       {
+        ErrorLogger.LogException(ex, ErrorSeverity.Error);
+        ErrorLogger.LogDebug($"Exception while handling: {message}", false);
         responses = new List<Response>
         {
           new Response { Message = $"{Emojis.ExclamationSymbol} {languageHandler.GetPhrase(senderSettings.ServerSettings.Language, "Error_Oops")}: {ex.Message}" }

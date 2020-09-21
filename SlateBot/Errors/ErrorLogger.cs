@@ -108,7 +108,10 @@ namespace SlateBot.Errors
     public void Initialise()
     {
       Directory.CreateDirectory(parentDirectory);
-      backgroundWorker.RunWorkerAsync();
+      if (!backgroundWorker.IsBusy)
+      {
+        backgroundWorker.RunWorkerAsync();
+      }
     }
 
     /// <summary>

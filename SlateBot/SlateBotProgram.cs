@@ -75,7 +75,7 @@ namespace SlateBot
       Console.WriteLine("d: Dump debug");
       Console.WriteLine("D: Disconnect");
       Console.WriteLine("#: Connection options");
-      Console.WriteLine("L: Load app settings");
+      Console.WriteLine("L: Reinitialise (Load)");
       Console.WriteLine("r: Restart");
       Console.WriteLine("x: Close");
       Console.WriteLine("\\: Test code");

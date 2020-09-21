@@ -12,22 +12,18 @@ namespace SlateBot.Commands.Slapp
 {
   public class SlappCommand : Command
   {
-    private readonly SplatTagController splatTagController;
-    private readonly Task initialiseTask;
-    private readonly SplatTagJsonDatabase jsonDatabase;
-    private readonly MultiDatabase splatTagDatabase;
-    private readonly GenericFilesImporter multiSourceImporter;
-    private readonly string saveFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SplatTag");
+    private static readonly SplatTagController splatTagController;
+    private static readonly SplatTagJsonDatabase jsonDatabase;
+    private static readonly MultiDatabase splatTagDatabase;
+    private static readonly GenericFilesImporter multiSourceImporter;
+    private static readonly string saveFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SplatTag");
+    private static readonly Task initialiseTask;
 
     private readonly LanguageHandler languageHandler;
     private readonly IAsyncResponder asyncResponder;
 
-    internal SlappCommand(LanguageHandler languageHandler, IAsyncResponder asyncResponder, string[] aliases, string examples, string help, ModuleType module)
-      : base(CommandHandlerType.Slapp, aliases, examples, help, module)
+    static SlappCommand()
     {
-      this.languageHandler = languageHandler;
-      this.asyncResponder = asyncResponder;
-
       // Initialise Slapp
       try
       {
@@ -49,6 +45,13 @@ namespace SlateBot.Commands.Slapp
       {
         throw new InvalidOperationException("Exception: " + ex.ToString());
       }
+    }
+
+    internal SlappCommand(LanguageHandler languageHandler, IAsyncResponder asyncResponder, string[] aliases, string examples, string help, ModuleType module)
+      : base(CommandHandlerType.Slapp, aliases, examples, help, module)
+    {
+      this.languageHandler = languageHandler;
+      this.asyncResponder = asyncResponder;
     }
 
     public override IList<Response> Execute(SenderSettings senderDetail, IMessageDetail args)

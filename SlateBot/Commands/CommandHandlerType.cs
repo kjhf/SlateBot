@@ -48,5 +48,6 @@
     Slapp,
     SplatBuilds,
     ReceiveFile,
+    Reload,
   }
 }
