@@ -13,6 +13,7 @@ using SlateBot.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SlateBot
@@ -105,16 +106,6 @@ namespace SlateBot
       }
       else if (isFromConsole || response.ResponseType == ResponseType.LogOnly)
       {
-        // Log the result.
-        if (response.ResponseType == ResponseType.Default_TTS)
-        {
-          Debug.Assert(isFromConsole);
-          response.Message = "[TTS] " + response.Message;
-        }
-        if (response.FilePath != null)
-        {
-          response.Message += "\n" + response.FilePath;
-        }
         SendMessageToConsole(response);
       }
       else
@@ -186,6 +177,60 @@ namespace SlateBot
 
     private void SendMessageToConsole(Response response)
     {
+      if (response.Embed != null)
+      {
+        StringBuilder sb = new StringBuilder();
+        if (response.Embed.Title != null)
+        {
+          sb.AppendLine(response.Embed.Title);
+          sb.AppendLine("----------");
+        }
+        if (response.Embed.Description != null)
+        {
+          sb.AppendLine(response.Embed.Description);
+          sb.AppendLine("----------");
+        }
+        if (response.Embed.ImageUrl != null)
+        {
+          sb.Append("Image: ").AppendLine(response.Embed.ImageUrl);
+        }
+        if (response.Embed.Url != null)
+        {
+          sb.Append("Url: ").AppendLine(response.Embed.Url);
+        }
+        foreach (var field in response.Embed.Fields ?? new List<EmbedFieldBuilder>())
+        {
+          if (field.IsInline)
+          {
+            sb.Append(field.Name).Append("\t").Append(field.Value);
+          }
+          else
+          {
+            sb.AppendLine(field.Name).Append(field.Value).AppendLine().AppendLine();
+          }
+        }
+        if (response.Embed.Footer != null)
+        {
+          sb.Append(response.Embed.Footer.Text ?? "(footer)").AppendLine(response.Embed.Footer.IconUrl);
+        }
+        if (response.Embed.Timestamp != null)
+        {
+          sb.Append("Timestamp: ").AppendLine(response.Embed.Timestamp.Value.ToString());
+        }
+
+        response.Message = "[EMBED] " + sb.ToString();
+      }
+
+      if (response.ResponseType == ResponseType.Default_TTS)
+      {
+        response.Message = "[TTS] " + response.Message;
+      }
+
+      if (response.FilePath != null)
+      {
+        response.Message = "[ATTACH] " + response.FilePath + "\n" + response.Message;
+      }
+
       if (response.Embed?.Color != null)
       {
         ConsoleColor cc = ImageManipulator.ToConsoleColor(System.Drawing.Color.FromArgb(response.Embed.Color.Value.R, response.Embed.Color.Value.G, response.Embed.Color.Value.B));

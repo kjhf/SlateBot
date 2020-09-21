@@ -1,4 +1,5 @@
 ﻿using CsHelper;
+using Newtonsoft.Json.Linq;
 using PokemonLibrary;
 using SlateBot.DAL;
 using SlateBot.Errors;
@@ -11,18 +12,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SlateBot.Commands.PokemonCommand
 {
   public class PokemonCommand : Command
   {
-    private const string RedirectString = "#REDIRECT";
     private readonly LanguageHandler languageHandler;
     private readonly PleaseWaitHandler waitHandler;
     private readonly IAsyncResponder asyncResponder;
     private readonly IErrorLogger errorLogger;
     private readonly SlateBotDAL dal;
+    private static readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
     // private readonly List<CorrelationData> pokemonStdDevs;
 
     internal PokemonCommand(SlateBotController controller, string[] aliases, string examples, string help, ModuleType module)
@@ -76,6 +78,7 @@ namespace SlateBot.Commands.PokemonCommand
 
       StringBuilder output = new StringBuilder();
       Pokemon pokemon = KnowledgeBase.GetPokémon(query);
+      string imageUrl = null;
       bool isCached = (pokemon != null);
 
       try
@@ -92,9 +95,37 @@ namespace SlateBot.Commands.PokemonCommand
 
         if (pokemon != null)
         {
-          string p = pokemon.Name + "_(Pokémon)#"; // # is for mobile where () is not correctly parsed in the URL parser
-          output.Append("https://bulbapedia.bulbagarden.net/wiki/").AppendLine(p)
-                .AppendLine(MakeAPokemonString(pokemon, cultureInfo, serverSettings.Language));
+          string p = pokemon.Name + "_(Pokémon)";
+          dynamic imageJson = null;
+          output
+            .Append("https://bulbapedia.bulbagarden.net/wiki/")
+            .Append(p)
+            .AppendLine("#") // # is for mobile where () is not correctly parsed in the URL parser
+            .AppendLine(MakeAPokemonString(pokemon, cultureInfo, serverSettings.Language));
+
+          try
+          {
+            cancellationTokenSource.CancelAfter(300000);
+            Task.Run(async () =>
+            {
+              imageJson = await JSONHelper.GetJsonAsync(Uri.EscapeUriString("https://bulbapedia.bulbagarden.net/w/api.php?action=query&format=json&prop=pageimages&titles=" + p)).ConfigureAwait(false);
+            }, cancellationTokenSource.Token).Wait();
+            JToken token = imageJson["query"]["pages"];
+            token = token.First.First;
+            imageUrl = token["thumbnail"]["source"]?.ToString();
+          }
+          catch (TaskCanceledException tcex)
+          {
+            errorLogger.LogDebug("Did not query Bulbapedia in time to retrieve the Pokemon image.", true);
+            errorLogger.LogException(tcex, ErrorSeverity.Warning);
+          }
+          catch (Exception ex)
+          {
+            errorLogger.LogDebug($"Exception occurred retrieving the Pokemon image for {pokemon?.Name}.\n" +
+              $"imageUrl: {imageUrl}\n" +
+              $"imageJson: {imageJson}", true);
+            errorLogger.LogException(ex, ErrorSeverity.Error);
+          }
         }
         else
         {
@@ -110,7 +141,7 @@ namespace SlateBot.Commands.PokemonCommand
         output.AppendLine($"{languageHandler.GetPhrase(senderDetail.ServerSettings.Language, "Error_Oops")}: {ex.Message}");
       }
 
-      return Response.CreateArrayFromString(output.ToString(), responseColor);
+      return Response.CreateArrayFromString(output.ToString(), responseColor, pokemon.Name, imageUrl);
     }
 
     private string MakeAPokemonString(Pokemon pokemon, CultureInfo culture, Languages language)

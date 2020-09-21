@@ -21,11 +21,11 @@ namespace SlateBot.Commands
     /// <param name="message"></param>
     /// <param name="responseColor"></param>
     /// <returns></returns>
-    public static Response CreateFromString(string message, Color? responseColor = null, string imageUrl = null)
+    public static Response CreateFromString(string message, Color? responseColor = null, string title = null, string imageUrl = null)
     {
       return new Response
       {
-        Embed = Utility.EmbedUtility.ToEmbed(message, responseColor),
+        Embed = Utility.EmbedUtility.ToEmbed(message, responseColor, title, imageUrl),
         Message = message,
         ResponseType = ResponseType.Default
       };
@@ -49,11 +49,11 @@ namespace SlateBot.Commands
     /// <param name="message"></param>
     /// <param name="responseColor"></param>
     /// <returns></returns>
-    public static Response[] CreateArrayFromString(string message, Color? responseColor = null)
+    public static Response[] CreateArrayFromString(string message, Color? responseColor = null, string title = null, string imageUrl = null)
     {
       return new[]
       {
-        CreateFromString(message, responseColor)
+        CreateFromString(message, responseColor, title, imageUrl)
       };
     }
 
