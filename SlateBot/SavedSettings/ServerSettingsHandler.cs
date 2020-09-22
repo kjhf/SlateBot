@@ -1,8 +1,4 @@
-﻿using SlateBot.Commands;
-using SlateBot.Commands.Schedule;
-using SlateBot.Errors;
-using SlateBot.Language;
-using System;
+﻿using SlateBot.Errors;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,34 +25,7 @@ namespace SlateBot.SavedSettings
     /// </summary>
     public void Initialise()
     {
-      serverSettings = new Dictionary<ulong, ServerSettings>();
-      var serverSettingsFiles = dal.ReadServerSettingsFiles();
-      foreach (var file in serverSettingsFiles)
-      {
-        try
-        {
-          ulong serverId = ulong.Parse(file.ServerId);
-          ServerSettings fromFile = new ServerSettings(serverId)
-          {
-            BlockedModules = new HashSet<ModuleType>(file.BlockedModules.Select(m => (ModuleType)Enum.Parse(typeof(ModuleType), m))),
-            CommandSymbol = file.CommandSymbol,
-            JoinQuitChannelId = ulong.Parse(file.JoinQuitChannelId),
-            JoinServerMessages = file.JoinServerMessages,
-            Language = (Languages)Enum.Parse(typeof(Languages), file.Language),
-            QuitServerMessages = file.QuitServerMessages,
-            RateChannels = new HashSet<ulong>(file.RateChannels.Select(c => ulong.Parse(c))),
-            ScheduledMessages = new List<ScheduledMessageData>(file.ScheduledMessages),
-            ServerId = serverId,
-            Splatoon2RotationChannels = new HashSet<ulong>(file.Splatoon2RotationChannels.Select(c => ulong.Parse(c))),
-            TrackDeletedMessages = file.TrackDeletedMessages
-          };
-          serverSettings[fromFile.ServerId] = fromFile;
-        }
-        catch (Exception ex)
-        {
-          errorLogger.LogException(ex, ErrorSeverity.Error);
-        }
-      }
+      serverSettings = dal.ReadServerSettingsFiles().ToDictionary(file => file.ServerId, file => file);
     }
 
     public ServerSettings GetOrCreateServerSettings(ulong key)
@@ -66,7 +35,9 @@ namespace SlateBot.SavedSettings
       {
         retVal = new ServerSettings(key);
         serverSettings.Add(key, retVal);
-        WriteServerSettings(retVal);
+
+        // Don't write a server file until we need to save custom settings.
+        // WriteServerSettings(retVal);
       }
       return retVal;
     }

@@ -72,6 +72,11 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// </summary>
     public bool TrackDeletedMessages { get; set; } = false;
 
+    /// <summary>
+    /// Get/Set if the settings have been converted from XML to JSON.
+    /// </summary>
+    public bool ConvertedFromXML { get; internal set; } = false;
+
     public ServerSettingsFile(IErrorLogger errorLogger)
     {
       this.errorLogger = errorLogger;

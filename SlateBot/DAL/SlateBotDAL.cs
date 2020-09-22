@@ -106,7 +106,7 @@ namespace SlateBot.DAL
       return languagesFileDAL.LoadFiles();
     }
 
-    internal List<ServerSettingsFile.ServerSettingsFile> ReadServerSettingsFiles()
+    internal List<ServerSettings> ReadServerSettingsFiles()
     {
       return serverSettingsDAL.LoadFiles();
     }

@@ -1,7 +1,12 @@
-﻿using SlateBot.Errors;
+﻿using Newtonsoft.Json;
+using SlateBot.Commands;
+using SlateBot.Commands.Schedule;
+using SlateBot.Errors;
+using SlateBot.Language;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace SlateBot.DAL.ServerSettingsFile
@@ -25,19 +30,91 @@ namespace SlateBot.DAL.ServerSettingsFile
     /// <summary>
     /// Loads command XML files present in the saveDirectory into <see cref="CommandFile"/>s
     /// </summary>
-    /// <returns></returns>
-    public List<ServerSettingsFile> LoadFiles()
+    public List<ServerSettings> LoadFiles()
     {
-      List<ServerSettingsFile> result = new List<ServerSettingsFile>();
+      List<ServerSettings> result = new List<ServerSettings>();
+      List<string> pathsToDelete = new List<string>();
+
+      string oldSaveDir = Path.Combine(saveDirectory, "old");
+      Directory.CreateDirectory(oldSaveDir);
 
       foreach (var path in Directory.EnumerateFiles(saveDirectory))
       {
+        ServerSettings loadedSettings = null;
         string contents = File.ReadAllText(path);
-        ServerSettingsFile file = new ServerSettingsFile(errorLogger);
-        bool loaded = file.FromXML(contents);
-        if (loaded)
+        if (Path.GetExtension(path).Equals(".json", StringComparison.OrdinalIgnoreCase))
         {
-          result.Add(file);
+          loadedSettings = JsonConvert.DeserializeObject<ServerSettings>(contents);
+          if (loadedSettings != null)
+          {
+            result.Add(loadedSettings);
+          }
+        }
+        else
+        {
+          // Deprecated XML handling
+          ServerSettingsFile file = new ServerSettingsFile(errorLogger);
+          if (file.FromXML(contents))
+          {
+            try
+            {
+              ulong serverId = ulong.Parse(file.ServerId);
+              loadedSettings = new ServerSettings(serverId)
+              {
+                BlockedModules = new HashSet<ModuleType>(file.BlockedModules.Select(m => (ModuleType)Enum.Parse(typeof(ModuleType), m))),
+                CommandSymbol = file.CommandSymbol,
+                JoinQuitChannelId = ulong.Parse(file.JoinQuitChannelId),
+                JoinServerMessages = file.JoinServerMessages,
+                Language = (Languages)Enum.Parse(typeof(Languages), file.Language),
+                QuitServerMessages = file.QuitServerMessages,
+                RateChannels = new HashSet<ulong>(file.RateChannels.Select(c => ulong.Parse(c))),
+                ScheduledMessages = new List<ScheduledMessageData>(file.ScheduledMessages),
+                Splatoon2RotationChannels = new HashSet<ulong>(file.Splatoon2RotationChannels.Select(c => ulong.Parse(c))),
+                TrackDeletedMessages = file.TrackDeletedMessages
+              };
+
+              File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonConvert.SerializeObject(loadedSettings));
+              result.Add(loadedSettings);
+            }
+            catch (Exception ex)
+            {
+              errorLogger.LogException(ex, ErrorSeverity.Error);
+            }
+          }
+        }
+
+        // If the server settings are defaults, then delete the file
+        if (loadedSettings != null
+          && (loadedSettings.BlockedModules.Count == 0)
+          && (loadedSettings.CommandSymbol == "!")
+          && (loadedSettings.JoinQuitChannelId == null || loadedSettings.JoinQuitChannelId == Constants.ErrorId)
+          && (loadedSettings.JoinServerMessages.Count == 0)
+          && (loadedSettings.Language == Languages.English)
+          && (loadedSettings.QuitServerMessages.Count == 0)
+          && (loadedSettings.RateChannels.Count == 0)
+          && (loadedSettings.ScheduledMessages.Count == 0)
+          && (loadedSettings.Splatoon2RotationChannels.Count == 0)
+          && (!loadedSettings.TrackDeletedMessages)
+          && (loadedSettings.ServerId != Constants.ConsoleId))
+        {
+          pathsToDelete.Add(path);
+        }
+        else if (!Path.GetExtension(path).Equals(".json", StringComparison.OrdinalIgnoreCase))
+        {
+          File.Move(path, Path.Combine(oldSaveDir, Path.GetFileName(path)));
+        }
+      }
+
+      if (pathsToDelete.Count > 0)
+      {
+        try
+        {
+          errorLogger.LogDebug($"Deleting {pathsToDelete.Count} server files that are defaults.", true);
+          pathsToDelete.ForEach(File.Delete);
+        }
+        catch (IOException ex)
+        {
+          errorLogger.LogException(ex, ErrorSeverity.Error);
         }
       }
 
@@ -46,21 +123,11 @@ namespace SlateBot.DAL.ServerSettingsFile
 
     public async void SaveFileAsync(ServerSettings settingsToSave, string filename)
     {
-      await semaphore.WaitAsync();
+      await semaphore.WaitAsync().ConfigureAwait(false);
 
       try
       {
-        ServerSettingsFile file = new ServerSettingsFile(errorLogger);
-        file.Initialise(settingsToSave);
-        string contents = file.ToXML();
-        if (contents != null)
-        {
-          if (!filename.EndsWith(".xml"))
-          {
-            filename += ".xml";
-          }
-          File.WriteAllText(Path.Combine(saveDirectory, filename), contents);
-        }
+        File.WriteAllText(Path.ChangeExtension(filename, ".json"), JsonConvert.SerializeObject(settingsToSave));
       }
       catch (Exception ex)
       {

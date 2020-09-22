@@ -1,5 +1,8 @@
-﻿namespace SlateBot.Language
+﻿using System;
+
+namespace SlateBot.Language
 {
+  [Serializable]
   public enum Languages
   {
     Default,

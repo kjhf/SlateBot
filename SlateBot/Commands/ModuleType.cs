@@ -1,5 +1,8 @@
-﻿namespace SlateBot.Commands
+﻿using System;
+
+namespace SlateBot.Commands
 {
+  [Serializable]
   public enum ModuleType
   {
     /// <summary>
