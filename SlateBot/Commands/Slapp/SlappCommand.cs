@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using CsHelper;
+using Discord;
 using SlateBot.Language;
 using SplatTagCore;
 using SplatTagDatabase;
@@ -59,108 +60,87 @@ namespace SlateBot.Commands.Slapp
       // Responds asynchronously.
       Task.Run(async () =>
       {
-        string message = "";
+        var now = DateTime.UtcNow;
         ServerSettings serverSettings = senderDetail.ServerSettings;
         CommandMessageHelper command = new CommandMessageHelper(serverSettings.CommandSymbol, args.Message);
         string query = command.CommandDetail;
-        Color color = Color.Green;
 
         Player[] matchedPlayers;
         Team[] matchedTeams;
+        string title;
 
         // Call the Slapp
         if (string.IsNullOrWhiteSpace(query))
         {
-          message = "Nothing to search!";
-          color = Color.Red;
           matchedPlayers = new Player[0];
           matchedTeams = new Team[0];
+          title = "Nothing to search!";
         }
         else
         {
           Task.WaitAll(initialiseTask);
           matchedPlayers = splatTagController.MatchPlayer(query);
           matchedTeams = splatTagController.MatchTeam(query);
-          message = $"Found {matchedPlayers.Length} players and {matchedTeams.Length} teams! ";
-
-          bool appended = false;
-          if (matchedPlayers.Length > 3)
-          {
-            matchedPlayers = matchedPlayers.Take(3).ToArray();
-            message += "First three results shown.";
-            appended = true;
-          }
-
-          if (matchedTeams.Length > 3)
-          {
-            matchedTeams = matchedTeams.Take(3).ToArray();
-
-            if (!appended)
-            {
-              message += "First three results shown.";
-            }
-          }
+          title = $"Found {matchedPlayers.Length} player{((matchedPlayers.Length == 1) ? "" : "s")} and {matchedTeams.Length} team{((matchedTeams.Length == 1) ? "" : "s")}! ";
         }
 
-        IEnumerable<string> playerStrings =
-          matchedPlayers.Length == 0 ?
-          new string[1] { "(None)" } :
-          matchedPlayers.Select(p =>
-          {
-            var teams = p.Teams.Select(id => splatTagController.GetTeamById(id));
-            string oldTeams = teams.GetOldTeamsStrings();
-            var currentTeam = teams.FirstOrDefault();
-            return $"{p.Name} (Plays for {currentTeam} {oldTeams}";
-          })
-        ;
+        bool hasMatchedPlayers = matchedPlayers.Length != 0;
+        bool hasMatchedTeams = matchedTeams.Length != 0;
+        bool showLimitedMessage = matchedPlayers.Length > 9 || matchedTeams.Length > 9;
 
-        IEnumerable<string> teamStrings =
-          matchedTeams.Length == 0 ?
-          new string[1] { "(None)" } :
-          matchedTeams.Select(t =>
-          {
-            string[] players = t.GetTeamPlayersStrings(splatTagController);
-            string divPhrase = t.GetBestTeamPlayerDivString(splatTagController);
-            return $"{t.Tag} {t.Name} ({t.Div}). {divPhrase} Players: {string.Join(", ", players)}";
-          })
-        ;
-
-        var playersField = matchedPlayers.Length > 0 ?
-          new EmbedFieldBuilder()
-            .WithIsInline(true)
-            .WithName("Players")
-            .WithValue(string.Join("\n\n", playerStrings))
-          : null;
-
-        var teamsField =
-          new EmbedFieldBuilder()
-            .WithIsInline(true)
-            .WithName("Teams")
-            .WithValue(string.Join("\n\n", teamStrings))
-          ;
+        Color color =
+          (hasMatchedPlayers && hasMatchedTeams) ? Color.Green :
+          (hasMatchedPlayers && !hasMatchedTeams) ? Color.Blue :
+          (!hasMatchedPlayers && hasMatchedTeams) ? Color.Gold :
+          (!hasMatchedPlayers && !hasMatchedTeams) ? Color.Red :
+          Color.DarkRed;
 
         var builder = new EmbedBuilder()
           .WithColor(color)
-          .WithAuthor(author => author.WithName(message));
+          .WithAuthor(author => author.WithName(title));
 
-        if (playersField != null)
+        if (hasMatchedPlayers)
         {
-          builder.AddField(playersField);
-          message += $"\nPlayers:\n{string.Join('\n', playerStrings)}\n";
+          for (int i = 0; i < matchedPlayers.Length && i < 9; i++)
+          {
+            var p = matchedPlayers[i];
+            var teams = p.Teams.Select(id => splatTagController.GetTeamById(id));
+            string oldTeams = teams.GetOldTeamsStrings();
+            var currentTeam = teams.FirstOrDefault();
+            string info = $"Plays for {currentTeam} {oldTeams}\n _{string.Join(", ", p.Sources)}_";
+
+            var playerField = new EmbedFieldBuilder()
+              .WithIsInline(false)
+              .WithName(p.Name.Truncate(1000, ""))
+              .WithValue(info.Truncate(1000, "…_"));
+            builder.AddField(playerField);
+          }
         }
 
-        // If there are teams or there are no players (or both) -- we always want at least one field.
-        if (matchedTeams.Length > 0 || playersField == null)
+        if (hasMatchedTeams)
         {
-          builder.AddField(teamsField);
-          message += $"\nTeams:\n{string.Join('\n', teamStrings)}";
+          for (int i = 0; i < matchedTeams.Length && i < 9; i++)
+          {
+            var t = matchedTeams[i];
+            string[] players = t.GetTeamPlayersStrings(splatTagController);
+            string divPhrase = t.GetBestTeamPlayerDivString(splatTagController);
+            string info = $"{t.Div}. {divPhrase} Players: {string.Join(matchedTeams.Length == 1 ? ",\n" : ", ", players)}\n _{string.Join(", ", t.Sources)}_";
+
+            var teamField = new EmbedFieldBuilder()
+              .WithIsInline(false)
+              .WithName($"{t.Tag} {t.Name}".Truncate(1000, ""))
+              .WithValue(info.Truncate(1000, "…_"));
+            builder.AddField(teamField);
+          }
         }
+        builder.WithFooter($"Fetched in {Math.Floor((DateTime.UtcNow - now).TotalMilliseconds)} milliseconds. {(showLimitedMessage ? "Only the first 9 results are shown for players and teams." : "")}",
+          "https://media.discordapp.net/attachments/471361750986522647/758104388824072253/icon.png");
 
         Response asyncResponse = new Response
         {
           Embed = builder,
           ResponseType = ResponseType.Default,
-          Message = message
+          Message = ""
         };
 
         await asyncResponder.SendResponseAsync(args, asyncResponse).ConfigureAwait(false);
