@@ -211,7 +211,7 @@ namespace SlateBot
         }
         if (response.Embed.Footer != null)
         {
-          sb.Append(response.Embed.Footer.Text ?? "(footer)").AppendLine(response.Embed.Footer.IconUrl);
+          sb.Append(response.Embed.Footer.Text ?? "(footer)").Append(" ").AppendLine(response.Embed.Footer.IconUrl);
         }
         if (response.Embed.Timestamp != null)
         {

@@ -489,7 +489,7 @@ namespace CsHelper
     /// </summary>
     /// <param name="value">The string to truncate</param>
     /// <param name="maximumLength">The maximum length of the string (inclusive)</param>
-    /// <param name="truncationIndicator">String to append if truncation has occurred, e.g. ...</param>
+    /// <param name="truncationIndicator">String to append if truncation has occurred, e.g. ... or …</param>
     /// <returns></returns>
     public static string Truncate(this string value, int maximumLength, string truncationIndicator = "")
     {
