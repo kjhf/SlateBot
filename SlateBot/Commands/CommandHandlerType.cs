@@ -49,5 +49,7 @@
     SplatBuilds,
     ReceiveFile,
     Reload,
+
+    Sendou
   }
 }

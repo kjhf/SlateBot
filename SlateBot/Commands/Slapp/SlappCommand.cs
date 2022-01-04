@@ -150,7 +150,7 @@ namespace SlateBot.Commands.Slapp
       if (!initialiseTask.IsCompleted)
       {
         // Also react with a Sloth if the database hasn't loaded yet.
-        return new[] { Response.WaitForAsync, Response.CreateFromReact(Emojis.SlothUnicode) };
+        return new[] { Response.WaitForAsync, Response.CreateFromReact(Emojis.TurtleUnicode) };
       }
       else
       {
